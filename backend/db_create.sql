@@ -34,11 +34,12 @@ CREATE TABLE STORE_ITEM(
 );
 
 CREATE TABLE CART_ITEM(
-  userID int NOT NULL AUTO_INCREMENT,
-  cartItemID int NOT NULL,
+  userID int NOT NULL,
+  storeItemID int NOT NULL,
   quantity int,
   FOREIGN KEY (userID) REFERENCES USER (userID),
-  PRIMARY KEY(cartItemID)
+  FOREIGN KEY (storeItemID) REFERENCES STORE_ITEM(storeItemID),
+  PRIMARY KEY(storeItemID)
 );
 
 CREATE TABLE TAG_LOOKUP(
