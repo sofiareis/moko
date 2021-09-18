@@ -46,7 +46,7 @@ function LoginScreen({ navigation }) {
         placeholder="password"
         placeholderTextColor="black"
         secureTextEntry={true}
-        onChangeText={(password) => setPassword(password)}asd
+        onChangeText={(password) => setPassword(password)}
       />
     </View>
 
