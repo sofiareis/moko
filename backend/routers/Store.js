@@ -19,6 +19,7 @@ function createStore(req, res, next) {
   const newStore = new Store({
     storeID: req.body.storeID,
     userID: req.body.userID,
+    name: req.body.name,
     description: req.body.description,
     address: req.body.address
   });
