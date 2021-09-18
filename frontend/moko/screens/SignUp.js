@@ -9,6 +9,7 @@ import {
   Dimensions,
   Image,
   TextInput,
+  KeyboardAvoidingView
 
 } from 'react-native';
 
@@ -32,11 +33,14 @@ function SignUpScreen({ navigation }) {
   
   
   return (
+    <KeyboardAvoidingView behavior="padding">
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
    
     <Text style={styles.name}>MOKO</Text>
     <Text style={styles.info}>Please, write down your information:</Text>
-
+    
+    <ScrollView > 
+       
     <View style={styles.inputView}>
     <Ionicons name="person-outline" color='#000' size={25} style={{marginLeft: 10, marginTop: 10}}/>
     <TextInput
@@ -120,12 +124,16 @@ function SignUpScreen({ navigation }) {
             onChangeText={(isSeller) => setSeller(isSeller)}asd
         />
     </View>
-
+    
+    </ScrollView>
+    
 
     <TouchableOpacity style={styles.signinBtn} onPress={() => navigation.navigate('UserStack')}>
       <Text style={styles.signinText}>SIGN IN</Text>
     </TouchableOpacity>
   </View>
+  <View style={{height: 60}} />
+  </KeyboardAvoidingView>
   );
 }
 

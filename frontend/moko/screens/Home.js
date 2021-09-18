@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { throwStatement } from '@babel/types';
+import { useIsFocused } from '@react-navigation/native';
+import React, { useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,36 +10,91 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  TextInput
+  TextInput,
+  FlatList,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 //import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
+let DATA = [
+    {
+      desc: 'eggs',
+      name: 'egg shop'
+    },
+    {
+      desc: 'meat',
+      name: 'meat shop'
+    },
+    {
+      desc: 'veggie',
+      name: 'veg shop'
+    },
+    {
+        desc: 'dairy',
+        name: 'milk shop'
+    },
+    {
+        desc: 'tofu',
+        name: 'tofu shop'
+    },
+
+  ];
+
 function HomeScreen({ navigation }) {
+
   const { height } = Dimensions.get('window');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
+  const [search, setSearch] = useState('');
+  const [stores, setStores] = useState([]);
+  const [listItems, setListItems] = useState([]);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    fetchStores();
+  }, [isFocused]);
+
+  function fetchStores() {
+      fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores', {
+          method: 'GET',
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+          setStores(responseJson)
+          console.log(responseJson)
+      })
+      .catch((error) => {
+          console.log(error)
+      })
+  }
+
+  function updateListItems(search) {
+    setSearch(search);
+    setListItems(() => {
+       return stores.filter(item => 
+        item.description.toLowerCase().includes(search.toLowerCase()) ||
+        item.name.toLowerCase().includes(search.toLowerCase())
+        );
+    });
+  }
+
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
-     
+
     <View style = {{flexDirection: 'row'}}> 
         <Text style={styles.name}>Moko</Text>
         <MaterialCommunityIcons name="map-marker" color= '#575757' size= {32} style={styles.locationIcon}/>
         <Text style ={styles.locationText}>Radius</Text>
     </View>
-
     <View style = {{flexDirection: 'row'}}>
         <TextInput
             style={styles.searchBar}
+            onChangeText={(search) => updateListItems(search)}
             placeholder = 'Search'
           >
         </TextInput>
         <MaterialCommunityIcons name="close-circle" color='#575757' size={30} style={styles.searchIcon}/>
     </View>
-    
     <View style = {styles.scrowl}>
         <ScrollView horizontal = {true} > 
                 <TouchableOpacity style = {styles.tagRectangle}>
@@ -57,15 +114,26 @@ function HomeScreen({ navigation }) {
                 </TouchableOpacity>
             </ScrollView>
         </View>
-    <TouchableOpacity> 
+
+    <ScrollView>
+        <FlatList
+        data = {listItems}
+        keyExtractor={item => item.desc}
+        renderItem={({item}) => (
+            <TouchableOpacity> 
         <View style = {styles.vendorRectangle}>
-            <Text style = {styles.vendorName}>The Vendor Name</Text>
+            <Text style = {styles.vendorName}>{item.name}</Text>
+            <Text style = {styles.vendorName}>{item.description}</Text>
         </View>
     </TouchableOpacity>
+        )}
+        />
+    </ScrollView>
 
   </View>
   );
 }
+
 
 const styles = StyleSheet.create({
     name: {
@@ -136,9 +204,20 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
         paddingTop: 8
     
+    },
+    container: {
+        flex: 1,
+        paddingTop: 22
+       },
+    item: {
+         padding: 10,
+         fontSize: 18,
+         height: 44,
+       },
+    vendorName: {
+        fontSize: 18
     }
     
-
 });
 
 export default HomeScreen;

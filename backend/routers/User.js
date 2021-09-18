@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('./../modules/userModule.js');
+const Store = require('./../modules/storeModule.js');
+const GeoCoder = require('./../modules/geoCoder.js');
 
 // User Routes - base route /users
 router.post('/', createUser);
@@ -45,7 +47,7 @@ function getUserById(req, res, next) {
 }
 
 function getUsers(req, res, next) {
-	User.getAll((res, data) => {
+	User.getAll((err, data) => {
     if (err)
       res.status(500).send({
         message: err.message
