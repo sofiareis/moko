@@ -7,6 +7,8 @@ router.post('/', createUser);
 router.put('/', updateUser);
 router.get('/:userID', getUserById)
 router.get('/', getUsers);
+router.get('/cart', getCart);
+router.delete('/cart/:userID', deleteCart);
 
 function createUser(req, res, next) {
   if (!req.body.userID) {
@@ -65,10 +67,30 @@ function updateUser(req, res, next) {
 
 	User.updateSellerStatus(newUser, (err, data) => {
     if (err) {
-        res.status(404).send({
+        res.status(400).send({
           message: `Unable to update user with userID ${userID}.`
         });
       } else { res.send(data); }
+  });
+}
+
+function getCart(req, res, next) {
+  User.getCartItems(req.params.userID, (err, data) => {
+    if (err) {
+      res.status(400).send({
+        message: `Unable to get cart items for user with userID ${userID}.`
+      });
+    } else { res.send(data); }
+  });
+}
+
+function deleteCart(req, res, next) {
+  User.deleteAllCartItems(req.params.userID, (err, data) => {
+    if (err) {
+      res.status(400).send({
+        message: `Unable to delete cart items for user with userID ${userID}.`
+      });
+    } else { res.send(data); }
   });
 }
 

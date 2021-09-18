@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const StoreItem = require('./../modules/storeItemModule.js');
 
-// User Routes - base route /users
+// StoreItem Routes - base route /store_items
 router.post('/', createStoreItem);
 router.put('/', updateStoreItem);
 

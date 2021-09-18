@@ -23,14 +23,10 @@ User.create = (user, result) => {
       console.log("created user: ", { ...user });
       result(null, { ...user });
   });
-
-  if (user.isSeller) {
-    Store.create()
-  }
 };
 
 User.findById = (userID, result) => {
-  sql.query('SELECT * FROM USER WHERE userID=\"'+ userID + '\"', (err, res) => {
+  sql.query('SELECT * FROM USER WHERE userID=\"' + userID + '\"', (err, res) => {
       if (err) {
           console.log("error ", err);
           result(err, null);
@@ -49,7 +45,7 @@ User.findById = (userID, result) => {
 
 User.updateSellerStatus = (user, result) => {
   sql.query(
-      "UPDATE USER SET isSeller = \"" + user.isSeller + "\" WHERE userID = \"" + user.userID + "\"",
+      "UPDATE USER SET isSeller=\"" + user.isSeller + "\" WHERE userID=\"" + user.userID + "\"",
       (err, res) => {
           if (err) {
               console.log("error: ", err);
@@ -78,5 +74,39 @@ User.getAll = (result) => {
         result(null, res);
     });
 };
+
+User.getCartItems = (userID, result) => {
+  sql.query('SELECT * FROM CART_ITEMS WHERE userID=\"' + userID + '\"', (err, res) => {
+    if (err) {
+        console.log("error ", err);
+        result(err, null);
+        return;
+    }
+
+    if (res.length) {
+        console.log("found cart items: ", res);
+        result(null, res);
+        return;
+    }
+
+    result({ kind: "Cart items for user with userID: " + userID + " not found" }, null);
+  });
+}
+
+User.deleteAllCartItems = (userID, result) => {
+  sql.query('DELETE FROM CART_ITEMS WHERE userID=\"' + userID + '\"', (err, res) => {
+    if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+    } else if (res.affectedRows == 0) {
+        result({ kind: "cartItem cannot be deleted" }, null);
+        return;
+    }
+
+    console.log("deleted all cartItems with userID: ", userID);
+    result(null, res);
+  });
+}
 
 module.exports = User;
