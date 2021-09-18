@@ -29,7 +29,7 @@ StoreItem.create = (storeItem, result) => {
 
 StoreItem.updateQuantity = (storeItem, result) => {
   sql.query(
-      "UPDATE STORE_ITEM SET stockQty = \"" + storeItem.stockQty + "\" WHERE storeItemID = \"" + storeItem.storeItemID+ "\"",
+      "UPDATE STORE_ITEM SET stockQty = \"" + storeItem.stockQty + "\" WHERE storeItemID = \"" + storeItem.storeItemID + "\"",
       (err, res) => {
           if (err) {
               console.log("error: ", err);

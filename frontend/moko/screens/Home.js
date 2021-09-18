@@ -13,6 +13,7 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 function HomeScreen({ navigation }) {
   const { height } = Dimensions.get('window');
@@ -23,9 +24,9 @@ function HomeScreen({ navigation }) {
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
      
     <View style = {{flexDirection: 'row'}}> 
-        <Text style={styles.name}>APP NAME</Text>
+        <Text style={styles.name}>Moko</Text>
         <MaterialCommunityIcons name="map-marker" color= '#575757' size= {32} style={styles.locationIcon}/>
-        <Text style ={styles.locationText}>location</Text>
+        <Text style ={styles.locationText}>Radius</Text>
     </View>
 
     <View style = {{flexDirection: 'row'}}>
@@ -65,6 +66,7 @@ function HomeScreen({ navigation }) {
             <Text style = {styles.vendorName}>The Vendor Name</Text>
         </View>
     </TouchableOpacity>
+
   </View>
   );
 }

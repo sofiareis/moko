@@ -13,22 +13,24 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+const height = Dimensions.get('window').height;
+
 function LoginScreen({ navigation }) {
-  const { height } = Dimensions.get('window');
+  //const { height } = Dimensions.get('window');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
      
-    <View style = {{flexDirection: 'row', alignSelf: 'center'}}>
+    <View style = {{flexDirection: 'row', alignSelf: 'center', }}>
           <Image style = {styles.icons} source={require('../images/Logo.png')} />
     </View>
    
-    <Text style={styles.name}>APP NAME</Text>
+    <Text style={styles.name}>MOKO</Text>
 
     <View style={styles.inputView}>
-    <Ionicons name="person-outline" color='#000' size={30} style={{marginLeft: 10, marginTop: 10}}/>
+    <Ionicons name="person-outline" color='#000' size={20} style={{marginLeft: 10, marginTop: 10}}/>
     <TextInput
       style={styles.TextInput}
       placeholder="email"
@@ -38,7 +40,7 @@ function LoginScreen({ navigation }) {
     </View>
 
     <View style={styles.inputView}>
-    <Ionicons name="lock-closed-outline" color='#000' size={30} style={{marginLeft: 10, marginTop: 10}}/>
+    <Ionicons name="lock-closed-outline" color='#000' size={20} style={{marginLeft: 10, marginTop: 10}}/>
       <TextInput
         style={styles.TextInput}
         placeholder="password"
@@ -51,17 +53,21 @@ function LoginScreen({ navigation }) {
     <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('UserStack')}>
       <Text style={styles.loginText}>LOG IN</Text>
     </TouchableOpacity>
+
+    <TouchableOpacity style={styles.signUpBtn} onPress={() => navigation.navigate('SignUpStack')}>
+      <Text style={styles.loginText}>SIGN UP</Text>
+    </TouchableOpacity>
   </View>
   );
 }
 
 const styles = StyleSheet.create({
   icons: {
-    marginTop: 150,
+    marginTop: 100,
     marginHorizontal: 10,
   },
   name: {
-    marginTop: 50,
+    marginTop: 20,
     marginHorizontal: 10,
     alignSelf: 'center',
     fontFamily: 'Inter-Light',
@@ -74,41 +80,52 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 15,
     width: "80%",
-    height: 55,
-    marginTop: 30,
+    height: 45,
+    marginBottom: 10,
     alignSelf: 'center',
     flexDirection: 'row'
   },
   TextInput: {
-    height: 50,
+    height: 48,
     flex: 1,
     color: 'black',
-    fontSize: 25,
+    fontSize: 20,
     fontFamily: "Inter-Light",
     marginLeft: 10,
-    marginTop: 5
   },
   loginBtn:{
-    height:55,
+    height: 45,
     alignItems:"center",
     justifyContent:"center",
-    marginTop:50,
+    marginTop:15,
     backgroundColor:"#87B676",
     width: "70%",
     borderRadius:15,
     alignSelf: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   loginText: {
     height: 50,
     flex: 1,
-    padding: 10,
+    padding: 5,
     alignSelf: 'center',
     alignItems: "center",
-    alignContent: 'center',
+    justifyContent: 'center',
     color: 'white',
-    fontSize: 25,
-    fontFamily: 'Inter-Light'
+    fontSize: 24,
+    fontFamily: 'Inter-Light',
+    
+  },
+  signUpBtn:{
+    height: 45,
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:15,
+    backgroundColor:"#87B676",
+    width: "70%",
+    borderRadius:15,
+    alignSelf: 'center',
+    marginBottom: 10,
   }
 });
 

@@ -1,0 +1,61 @@
+const sql = require("./db.js");
+
+const CartItem = function(cartItem) {
+  this.userID = cartItem.userID;
+  this.storeItemID = cartItem.storeItemID
+  this.quantity = cartItem.quantity;
+};
+
+CartItem.create = (cartItem, result) => {
+  let fields = "userID, storeItemID, quantity";
+  let values = "\"" + cartItem.userID + "\",\"" + cartItem.storeID + "\",\"" + cartItem.quantity + "\"";
+
+  sql.query("INSERT INTO CART_ITEM(" + fields + ") VALUES(" + values + ")", (err,res) => {
+      if (err) {
+          console.log("error: ", err);
+          result(err, null);
+          return;
+      }
+      console.log("created cart item: ", { ...cartItem });
+      result(null, { ...cartItem });
+  });
+};
+
+CartItem.updateQuantity = (cartItem, result) => {
+  sql.query(
+      "UPDATE CART_ITEM SET quantity = \"" + cartItem.quantity + "\" WHERE storeItemID = \"" + cartItem.storeItemID + "\"",
+      (err, res) => {
+          if (err) {
+              console.log("error: ", err);
+              result(null, err);
+              return;
+          } else if (res.affectedRows == 0) {
+              result({ kind: "cart item not found" }, null);
+              return;
+          }
+
+          console.log("updated user: ", { ...cartItem });
+          result(null, { ...cartItem });
+      }
+  );
+};
+
+CartItem.remove = (storeItemID, result) => {
+  sql.query(
+      "DELETE FROM CART_ITEM WHERE storeItemID = \"" + storeItemID + "\"", (err, res) => {
+          if (err) {
+              console.log("error: ", err);
+              result(null, err);
+              return;
+          } else if (res.affectedRows == 0) {
+              result({ kind: "cartItem not found" }, null);
+              return;
+          }
+
+          console.log("deleted cartItem with storeItemID: ", storeItemID);
+          result(null, res);
+      }
+  );
+};
+
+module.exports = CartItem;
