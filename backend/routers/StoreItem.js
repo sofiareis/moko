@@ -1,12 +1,16 @@
 const express = require('express');
+const fs = require('react-native-fs');
+require('base64-arraybuffer');
 const router = express.Router();
 const StoreItem = require('./../modules/storeItemModule.js');
+const S3 = require('./S3.js');
 
 // StoreItem Routes - base route /store_items
 router.post('/', createStoreItem);
-router.put('/', updateStoreItem);
+router.put('/', updateStoreItemQuantity);
+router.put('/image', updateStoreImage);
 
-function createStoreItem(req, res, next) {
+async function createStoreItem(req, res, next) {
   if (!req.body.storeItemID) {
       res.status(400).send({
         message: "storeItemID cannot be empty!"
@@ -20,7 +24,8 @@ function createStoreItem(req, res, next) {
     description: req.body.description,
     stockQty: req.body.stockQty,
     price: req.body.price,
-    imageUrl: req.body.imageUrl
+    imageUrl: req.body.imageUrl,
+    imageName: req.body.imageName
   });
 
 	StoreItem.create(newStoreItem, (err, data) => {
@@ -28,11 +33,28 @@ function createStoreItem(req, res, next) {
       res.status(500).send({
         message: err.message
       });
-    } else { res.send(data); }
+    } else {
+      if (newStoreItem.imageUrl != "") {
+        const base64 = await fs.readFile(newStoreItem.imageUrl, 'base64');
+        const arrayBuffer = decode(base64);
+        const s3Params = {
+          fileName: newStoreItem.imageName,
+          fileBody: arrayBuffer
+        };
+
+        S3.createImage(s3Params, (error, result) => {
+          if (err) {
+            res.status(500).send({
+              message: err.message
+            });
+          } else { res.send(data); }
+        });
+      }
+    }
   });
 }
 
-function updateStoreItem(req, res, next) {
+function updateStoreItemQuantity(req, res, next) {
   const newStoreItem = new StoreItem({
     storeItemID: req.body.storeItemID,
     storeID: req.body.storeID,
@@ -40,7 +62,8 @@ function updateStoreItem(req, res, next) {
     description: req.body.description,
     stockQty: req.body.stockQty,
     price: req.body.price,
-    imageUrl: req.body.imageUrl
+    imageUrl: req.body.imageUrl,
+    imageName: req.body.imageName
   });
 
 	StoreItem.updateQuantity(newStoreItem, (err, data) => {
@@ -48,8 +71,44 @@ function updateStoreItem(req, res, next) {
         res.status(404).send({
           message: `Unable to update storeItem with ID ${newStoreItem.storeItemID}.`
         });
-      } else { res.send(data); }
+    } else { res.send(data); }
   });
+}
+
+function updateStoreImage(req, res, next) {
+  const newStoreItem = new StoreItem({
+    storeItemID: req.body.storeItemID,
+    storeID: req.body.storeID,
+    name: req.body.name,
+    description: req.body.description,
+    stockQty: req.body.stockQty,
+    price: req.body.price,
+    imageUrl: req.body.imageUrl,
+    imageName: req.body.imageName
+  });
+
+  StoreItem.updateImage(newStoreItem, (err, data) => {
+    if (err) {
+        res.status(404).send({
+          message: `Unable to update storeItem with ID ${newStoreItem.storeItemID}.`
+        });
+    } else {
+      const base64 = await fs.readFile(newStoreItem.imageUrl, 'base64');
+      const arrayBuffer = decode(base64);
+      const s3Params = {
+        fileName: newStoreItem.imageName,
+        fileBody: arrayBuffer
+      };
+
+      S3.updateImage(s3Params, (error, result) => {
+        if (err) {
+          res.status(500).send({
+            message: err.message
+          });
+        } else { res.send(data); }
+      });
+    }
+  })
 }
 
 module.exports = router;
