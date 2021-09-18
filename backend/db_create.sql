@@ -9,7 +9,7 @@ CREATE TABLE USER(
   name varchar(40) NOT NULL,
   email varchar(100) NOT NULL,
   phoneNumber varchar(10) NOT NULL,
-  PRIMARY KEY(userID, cartID)
+  PRIMARY KEY(userID)
 );
 
 CREATE TABLE STORE(
@@ -27,10 +27,10 @@ CREATE TABLE STORE_ITEM(
   name varchar(60) NOT NULL,
   description varchar(60),
   stockQty int unsigned NOT NULL CHECK (stockQty >= 0),
-  price money NOT NULL CHECK (price >= 0),
+  price float NOT NULL CHECK (price >= 0),
   imageUrl varchar(800),
   FOREIGN KEY (storeID) REFERENCES STORE (storeID),
-  PRIMARY KEY(itemID)
+  PRIMARY KEY(storeItemID)
 );
 
 CREATE TABLE CART_ITEM(
@@ -45,13 +45,15 @@ CREATE TABLE TAG_LOOKUP(
   tagLookupID int NOT NULL AUTO_INCREMENT,
   userID int,
   storeID int,
-  FOREIGN KEY (cartID) REFERENCES USER (userID),
-  FOREIGN KEY (storeID) REFERENCES USER (storeID)
+  FOREIGN KEY (userID) REFERENCES USER (userID),
+  FOREIGN KEY (storeID) REFERENCES STORE (storeID),
+  PRIMARY KEY(tagLookupID)
 );
 
 CREATE TABLE TAG(
   tagID int NOT NULL AUTO_INCREMENT,
-  name varchar(400) NOT NULL
+  name varchar(400) NOT NULL,
+  PRIMARY KEY(tagID)
 );
 
 INSERT INTO TAG(name) VALUES('Vegetables');
@@ -65,9 +67,9 @@ INSERT INTO TAG(name) VALUES('Home Cooked');
 INSERT INTO TAG(name) VALUES('Desserts');
 INSERT INTO TAG(name) VALUES('Ready-made');
 
-INSERT INTO USER(isSeller, address, name, email, phoneNumber) VALUES
+INSERT INTO USER(isSeller, address, name, email, phoneNumber)
   VALUES(true, '1580 Point W Blvd, Coppell, TX 75019', 'John Doe', 'john@doe.com', '1234561234');
-INSERT INTO USER(isSeller, address, name, email, phoneNumber) VALUES
+INSERT INTO USER(isSeller, address, name, email, phoneNumber)
   VALUES(true, '1575 S Belt Line Rd, Coppell, TX 75019', 'Jane Doe', 'jane@doe.com', '9876543210');
 
 INSERT INTO STORE(userID, description, address) VALUES(1, 'A friendly vegetable stand', '1580 Point W Blvd, Coppell, TX 75019');
