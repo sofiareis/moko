@@ -11,6 +11,7 @@
  } from 'react-native';
  import LoginScreen from './screens/UserLogin.js';
  import UserStack from './navigation/UserStack.js'
+ import SignUpStack from './navigation/SignUpStack.js';
  
  
  const Stack = createStackNavigator();
@@ -24,6 +25,7 @@
                        }}>
          <Stack.Screen name="Login" component={LoginScreen} />
          <Stack.Screen name="UserStack" component={UserStack} />
+         <Stack.Screen name="SignUpStack" component={SignUpStack} />
        </Stack.Navigator>
      </NavigationContainer>
    );
