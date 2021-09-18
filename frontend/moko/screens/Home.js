@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { throwStatement } from '@babel/types';
+import React, { useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,36 +9,71 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  TextInput
+  TextInput,
+  FlatList
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 //import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
+let DATA = [
+    {
+      desc: 'eggs',
+      name: 'egg shop'
+    },
+    {
+      desc: 'meat',
+      name: 'meat shop'
+    },
+    {
+      desc: 'veggie',
+      name: 'veg shop'
+    },
+    {
+        desc: 'dairy',
+        name: 'milk shop'
+    },
+    {
+        desc: 'tofu',
+        name: 'tofu shop'
+    },
+
+  ];
+
 function HomeScreen({ navigation }) {
+
   const { height } = Dimensions.get('window');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
+  const [search, setSearch] = useState('');
+  const [listItems, setListItems] = useState([]);
+
+  function updateListItems(search) {
+    setSearch(search);
+    setListItems(() => {
+       return DATA.filter(item => 
+        item.desc.toLowerCase().includes(search.toLowerCase()) ||
+        item.name.toLowerCase().includes(search.toLowerCase())
+        );
+    });
+  }
+
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
-     
+
     <View style = {{flexDirection: 'row'}}> 
         <Text style={styles.name}>Moko</Text>
         <MaterialCommunityIcons name="map-marker" color= '#575757' size= {32} style={styles.locationIcon}/>
         <Text style ={styles.locationText}>Radius</Text>
     </View>
-
     <View style = {{flexDirection: 'row'}}>
         <TextInput
             style={styles.searchBar}
+            onChangeText={(search) => updateListItems(search)}
             placeholder = 'Search'
           >
         </TextInput>
         <MaterialCommunityIcons name="close-circle" color='#575757' size={30} style={styles.searchIcon}/>
     </View>
-    
     <View style = {styles.scrowl}>
         <ScrollView horizontal = {true} > 
                 <TouchableOpacity style = {styles.tagRectangle}>
@@ -57,15 +93,25 @@ function HomeScreen({ navigation }) {
                 </TouchableOpacity>
             </ScrollView>
         </View>
-    <TouchableOpacity> 
+
+    <ScrollView>
+        <FlatList
+        data = {listItems}
+        keyExtractor={item => item.desc}
+        renderItem={({item}) => (
+            <TouchableOpacity> 
         <View style = {styles.vendorRectangle}>
-            <Text style = {styles.vendorName}>The Vendor Name</Text>
+            <Text style = {styles.vendorName}>{item.desc}</Text>
         </View>
     </TouchableOpacity>
+        )}
+        />
+    </ScrollView>
 
   </View>
   );
 }
+
 
 const styles = StyleSheet.create({
     name: {
@@ -136,9 +182,20 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
         paddingTop: 8
     
+    },
+    container: {
+        flex: 1,
+        paddingTop: 22
+       },
+    item: {
+         padding: 10,
+         fontSize: 18,
+         height: 44,
+       },
+    vendorName: {
+        fontSize: 18
     }
     
-
 });
 
 export default HomeScreen;
