@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,32 +15,49 @@ import {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //itemName, description, price, imageURL, qty 
-function CartItem (cartItem) {
+export default function CartItem(cartItem) {
+  // const [qty, setQty] = React.useState(cartItem.qty);
+
+    //const incrementVal = () => {
+    //    setQty(prevQty => prevQty + 1);
+    //};
+
     return (
-    
-        <View style = {{flexDirection: 'row', marginLeft: 20, marginTop: 30, width: "90%"}}>
+        <View style = {styles.item}>
             <Image style =  {styles.itemImage} source={require('../images/Logo.png')} />
            
-            <View style = {{flexDirection: 'column', marginLeft: 20}}>
-                <Text style = {styles.itemName}>{cartItem[0]}</Text>
-                <Text style = {styles.itemDescript}>{cartItem[1]}</Text>
-                <Text style = {styles.itemPrice}>{cartItem[2]}</Text>
+            <View style = {{flexDirection: 'column', marginLeft: 20, width: 250}}>
+                <Text style = {styles.itemName}>{cartItem.name}</Text>
+                <Text style = {styles.itemDescript}>{cartItem.description}</Text>
+                <Text style = {styles.itemPrice}>{cartItem.price}</Text>
             </View>
 
-            <View style = {{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Button with adjusted color pressed')}  >
+            <View style = {{flexDirection: 'row', marginLeft: -20}}>
+                <TouchableOpacity style={styles.button1} onPress={() => Alert.alert('Button pressed')}  >
                    <MaterialCommunityIcons name="plus" color={'#4C6D41'} size={35} style={{marginLeft: 2}}/>
                 </TouchableOpacity>
+               
+                <TouchableOpacity style={styles.button2} onPress={() => Alert.alert('Button pressed')}  >
+                   <MaterialCommunityIcons name="minus" color={'#4C6D41'} size={35} style={{marginLeft: 2}}/>
+                </TouchableOpacity>
+                
+                <View style = {{width: 30, height: 40, backgroundColor: '#87B676', marginLeft: -65}}>  
+                    <Text style = {{fontSize: 25, color: 'white', marginLeft: 7, marginTop: 2}}>qty</Text>
+                </View>
                   
             </View>
-
         </View>
-  
-   
     );
-}
+};
 
 const styles = StyleSheet.create({
+    item: { 
+        marginLeft: 20, 
+        marginTop: 30,  
+        borderWeight: 1, 
+        borderColor:'#E0E0E0',
+        flexDirection: 'row'
+    },
     itemName: {
         fontSize: 30,
       },      
@@ -55,13 +72,20 @@ const styles = StyleSheet.create({
         height: 80,
         width: 80
     }, 
-    button: {
+    button1: {
         height: 40, 
         width: 40,
         borderWidth: 1,
         borderColor: '#87B676',
         borderRadius: 10
+    },
+    button2: {
+        height: 40, 
+        width: 40,
+        borderWidth: 1,
+        borderColor: '#87B676',
+        borderRadius: 10,
+        marginLeft: 20
     }
 });
 
-export default CartItem;
