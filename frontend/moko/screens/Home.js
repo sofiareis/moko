@@ -37,30 +37,26 @@ function HomeScreen({ navigation }) {
         </TextInput>
         <MaterialCommunityIcons name="close-circle" color='#575757' size={30} style={styles.searchIcon}/>
     </View>
- 
-  
     
-  
-        <View style = {{flexDirection: 'row', alignSelf: 'center'}}> 
-            <TouchableOpacity style = {styles.tagRectangle}>
-                <Text style = {styles.tagName}>Tag1</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.tagRectangle}>
-                <Text style = {styles.tagName}>Tag2</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.tagRectangle}>
-                <Text style = {styles.tagName}>Tag3</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.tagRectangle}>
-                <Text style = {styles.tagName}>Tag2</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.tagRectangle}>
-                <Text style = {styles.tagName}>Tag3</Text>
-            </TouchableOpacity>
-            </View>
-      
-     
-
+    <View style = {styles.scrowl}>
+        <ScrollView horizontal = {true} > 
+                <TouchableOpacity style = {styles.tagRectangle}>
+                    <Text style = {styles.tagName}>Tag1</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.tagRectangle}>
+                    <Text style = {styles.tagName}>Tag2</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.tagRectangle}>
+                    <Text style = {styles.tagName}>Tag3</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.tagRectangle}>
+                    <Text style = {styles.tagName}>Tag2</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.tagRectangle}>
+                    <Text style = {styles.tagName}>Tag3</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </View>
     <TouchableOpacity> 
         <View style = {styles.vendorRectangle}>
             <Text style = {styles.vendorName}>The Vendor Name</Text>
@@ -130,6 +126,17 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 10
     },
+    scrowl: {
+        //flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        alignContent: 'center',
+        paddingBottom: 8,
+        paddingTop: 8
+    
+    }
     
 
 });

@@ -2,7 +2,6 @@ const sql = require("./db.js");
 
 const User = function(user) {
   this.userID = user.userID;
-  this.name = user.name;
   this.isSeller = user.isSeller;
   this.address = user.address;
   this.email = user.email;
@@ -10,8 +9,8 @@ const User = function(user) {
 };
 
 User.create = (user, result) => {
-  let fields = "userID, name, isSeller, address, email, phoneNUmber";
-  let values = "\"" + user.userID + "\",\"" + user.name + "\",\"" + user.isSeller
+  let fields = "userID, isSeller, address, email, phoneNUmber";
+  let values = "\"" + user.userID + "\",\"" + user.isSeller
     + "\",\"" + user.address + "\",\"" + user.email + "\",\"" + user.phoneNumber + "\"";
 
   sql.query("INSERT INTO USER(" + fields + ") VALUES(" + values + ")", (err,res) => {

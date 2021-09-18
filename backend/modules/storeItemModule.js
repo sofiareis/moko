@@ -7,11 +7,12 @@ const StoreItem = function(storeItem) {
   this.description = storeItem.description,
   this.stockQty = storeItem.stockQty,
   this.price = storeItem.price,
-  this.imageUrl = storeItem.imageUrl
+  this.imageUrl = storeItem.imageUrl,
+  this.imageName = storeItem.imageName
 };
 
 StoreItem.create = (storeItem, result) => {
-  let fields = "storeItemID , storeID, name, description, stockQty, price, imageUrl";
+  let fields = "storeItemID, storeID, name, description, stockQty, price, imageUrl";
   let values = "\"" + store.storeItemID + "\",\"" + store.storeID + "\",\"" + store.name
     + "\",\"" + store.description + "\",\"" + store.stockQty + "\",\"" + store.price +
     "\",\"" + store.imageUrl + "\"" ;
@@ -29,7 +30,28 @@ StoreItem.create = (storeItem, result) => {
 
 StoreItem.updateQuantity = (storeItem, result) => {
   sql.query(
-      "UPDATE STORE_ITEM SET stockQty = \"" + storeItem.stockQty + "\" WHERE storeItemID = \"" + storeItem.storeItemID + "\"",
+      "UPDATE STORE_ITEM SET stockQty=\"" + storeItem.stockQty + "\" WHERE storeItemID=\"" + storeItem.storeItemID + "\"",
+      (err, res) => {
+          if (err) {
+              console.log("error: ", err);
+              result(null, err);
+              return;
+          } else if (res.affectedRows == 0) {
+              result({ kind: "store item not found" }, null);
+              return;
+          }
+
+          console.log("updated store item: ", { ...storeItem });
+          result(null, { ...storeItem });
+      }
+  );
+}
+
+StoreItem.updateImage = (storeItem, result) => {
+ var query = "UPDATE STORE_ITEM SET ? WHERE storeItemID = ?";
+ var updates = { imageUrl: storeItem.imageUrl, imageName: storeItem.imageName };
+ sql.query(
+      query, [updates, storeItem.storeItemID],
       (err, res) => {
           if (err) {
               console.log("error: ", err);
