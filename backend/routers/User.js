@@ -2,16 +2,16 @@ const express = require('express');
 const router = express.Router();
 const User = require('./../modules/userModule.js');
 
-// User Routes
-router.post('/users', createUser);
-router.put('/users', updateUser);
-router.get('/users/:userID', getUserById)
-router.get('/users', getUsers);
+// User Routes - base route /users
+router.post('/', createUser);
+router.put('/', updateUser);
+router.get('/:userID', getUserById)
+router.get('/', getUsers);
 
 function createUser(req, res, next) {
   if (!req.body.userID) {
       res.status(400).send({
-        message: "UserID can not be empty!"
+        message: "UserID cannot be empty!"
       });
   }
 
@@ -27,8 +27,7 @@ function createUser(req, res, next) {
 	User.create(newUser, (err, data) => {
     if (err) {
       res.status(500).send({
-        message:
-          err.message || "An error occurred with creating a user."
+        message: err.message
       });
     } else { res.send(data); }
   });
@@ -48,8 +47,7 @@ function getUsers(req, res, next) {
 	User.getAll((res, data) => {
     if (err)
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving users."
+        message: err.message
       });
     else { res.send(data); }
   });

@@ -18,7 +18,9 @@ Store.create = (store, result) => {
           result(err, null);
           return;
       }
-      console.log("created store: ", {...store });
-      result(null, {...store});
+      console.log("created store: ", { ...store });
+      result(null, { ...store });
   });
 };
+
+module.exports = Store;

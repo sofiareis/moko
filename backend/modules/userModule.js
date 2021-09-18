@@ -20,8 +20,8 @@ User.create = (user, result) => {
           result(err, null);
           return;
       }
-      console.log("created user: ", {...user });
-      result(null, {...user});
+      console.log("created user: ", { ...user });
+      result(null, { ...user });
   });
 
   if (user.isSeller) {
@@ -49,7 +49,7 @@ User.findById = (userID, result) => {
 
 User.updateSellerStatus = (user, result) => {
   sql.query(
-      "UPDATE USER SET name = \"" + user.name + "\" WHERE userID = \"" + user.userID + "\"",
+      "UPDATE USER SET isSeller = \"" + user.isSeller + "\" WHERE userID = \"" + user.userID + "\"",
       (err, res) => {
           if (err) {
               console.log("error: ", err);
@@ -60,7 +60,7 @@ User.updateSellerStatus = (user, result) => {
               return;
           }
 
-          console.log("updated user: ", {...user });
+          console.log("updated user: ", { ...user });
           result(null, { ...user });
       }
   );
