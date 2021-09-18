@@ -1,5 +1,6 @@
 import { throwStatement } from '@babel/types';
-import React, { useState} from 'react';
+import { useIsFocused } from '@react-navigation/native';
+import React, { useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -45,12 +46,32 @@ function HomeScreen({ navigation }) {
 
   const { height } = Dimensions.get('window');
   const [search, setSearch] = useState('');
+  const [stores, setStores] = useState([]);
   const [listItems, setListItems] = useState([]);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    fetchStores();
+  }, [isFocused]);
+
+  function fetchStores() {
+      fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores', {
+          method: 'GET',
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+          setStores(responseJson)
+          console.log(responseJson)
+      })
+      .catch((error) => {
+          console.log(error)
+      })
+  }
 
   function updateListItems(search) {
     setSearch(search);
     setListItems(() => {
-       return DATA.filter(item => 
+       return stores.filter(item => 
         item.desc.toLowerCase().includes(search.toLowerCase()) ||
         item.name.toLowerCase().includes(search.toLowerCase())
         );
