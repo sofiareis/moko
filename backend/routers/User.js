@@ -19,7 +19,6 @@ function createUser(req, res, next) {
 
   const newUser = new User({
     userID: req.body.userID,
-    name: req.body.name,
     isSeller: req.body.isSeller,
     address: req.body.address,
     email: req.body.email,
@@ -58,7 +57,6 @@ function getUsers(req, res, next) {
 function updateUser(req, res, next) {
   const newUser = new User({
     userID: req.body.userID,
-    name: req.body.name,
     isSeller: req.body.isSeller,
     address: req.body.address,
     email: req.body.email,
