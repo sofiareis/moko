@@ -11,7 +11,7 @@ import {
   Dimensions,
   Image,
   TextInput,
-  FlatList
+  FlatList,
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -72,7 +72,7 @@ function HomeScreen({ navigation }) {
     setSearch(search);
     setListItems(() => {
        return stores.filter(item => 
-        item.desc.toLowerCase().includes(search.toLowerCase()) ||
+        item.description.toLowerCase().includes(search.toLowerCase()) ||
         item.name.toLowerCase().includes(search.toLowerCase())
         );
     });
@@ -122,7 +122,8 @@ function HomeScreen({ navigation }) {
         renderItem={({item}) => (
             <TouchableOpacity> 
         <View style = {styles.vendorRectangle}>
-            <Text style = {styles.vendorName}>{item.desc}</Text>
+            <Text style = {styles.vendorName}>{item.name}</Text>
+            <Text style = {styles.vendorName}>{item.description}</Text>
         </View>
     </TouchableOpacity>
         )}
