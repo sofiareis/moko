@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const TagLookup = require('./../modules/tagLookupModule.js');
+const TagLookup = require('./../modules/tagLookUpModule.js');
 
 // Tag Lookup Routes - base route /tag_lookup
 router.post('/', createTagLookup);
