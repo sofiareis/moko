@@ -12,24 +12,24 @@ import {
 } from 'react-native';
 
 
-function CartEmpty({ navigation }) {
+function StoreEmpty({ navigation }) {
   const { height } = Dimensions.get('window');
   
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
      
     <View style = {{flexDirection: 'row'}}> 
-        <Text style={styles.name}>Cart</Text>
+        <Text style={styles.name}>Store</Text>
         
     </View>
     
     <View style = {{flexDirection: 'column'}}>
-        <Image style = {styles.image} source={require('../images/cartEmpty.png')}/> 
-        <Text style = {styles.text1}>Your cart is empty</Text>
-        <Text style = {styles.text2}>Looks like you haven't made</Text>
-        <Text style = {styles.text3}> your choice yet...</Text>
+        <Image style = {styles.image} source={require('../images/storeEmpty.png')}/> 
+        <Text style = {styles.text1}>Become a vendor</Text>
+        <Text style = {styles.text2}>Wnat to join your local market</Text>
+        <Text style = {styles.text3}>community?</Text>
         <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('UserStack')}>
-            <Text style={styles.btnText}>Start Shopping</Text>
+            <Text style={styles.btnText}>Create your store</Text>
         </TouchableOpacity>
     </View>
 
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     image: {
         alignSelf: 'center',
         marginTop: 120,
-        width: 250,
+        width: 300,
         height: 250
     },
     text1: {
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default CartEmpty;
+export default StoreEmpty;
