@@ -13,7 +13,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../screens/Home.js'; 
-import CartEmpty from '../screens/Cart.js'; 
+import Cart from '../screens/Cart.js'; 
 import StoreEmpty from '../screens/Store'; 
 import Footprint from '../screens/CarbonFootprint.js';
 import Profile from '../screens/Profile.js';
@@ -37,8 +37,6 @@ function UserStack({ navigation }) {
                           height: 100,
                         }
                     }}
-                 
-                    
                     
                     >
       <Tab.Screen name='Home'
@@ -50,7 +48,7 @@ function UserStack({ navigation }) {
                    }}
                   />
       <Tab.Screen name='Cart'
-                  component={CartEmpty}
+                  component={Cart}
                   options = {{
                     tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons name="cart-outline" color={color} size={40} />
