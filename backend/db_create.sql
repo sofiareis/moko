@@ -4,7 +4,6 @@ USE MokoDB;
 
 CREATE TABLE USER(
   userID int NOT NULL AUTO_INCREMENT,
-  cartID int NOT NULL AUTO_INCREMENT,
   isSeller boolean NOT NULL,
   address varchar(200) NOT NULL,
   name varchar(40) NOT NULL,
@@ -35,10 +34,10 @@ CREATE TABLE STORE_ITEM(
 );
 
 CREATE TABLE CART_ITEM(
-  cartID int NOT NULL AUTO_INCREMENT,
+  userID int NOT NULL AUTO_INCREMENT,
   cartItemID int NOT NULL,
   quantity int,
-  FOREIGN KEY (cartID) REFERENCES USER (cartID),
+  FOREIGN KEY (userID) REFERENCES USER (userID),
   PRIMARY KEY(cartItemID)
 );
 
