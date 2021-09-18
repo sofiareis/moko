@@ -48,8 +48,10 @@ StoreItem.updateQuantity = (storeItem, result) => {
 }
 
 StoreItem.updateImage = (storeItem, result) => {
-  sql.query(
-      "UPDATE STORE_ITEM SET imageUrl=\"" + storeItem.imageUrl + "\",\"" + " SET imageName=\"" + storeItem.imageName + "\"" + WHERE storeItemID = \"" + storeItem.storeItemID + "\"",
+ var query = "UPDATE STORE_ITEM SET ? WHERE storeItemID = ?";
+ var updates = { imageUrl: storeItem.imageUrl, imageName: storeItem.imageName };
+ sql.query(
+      query, [updates, storeItem.storeItemID],
       (err, res) => {
           if (err) {
               console.log("error: ", err);

@@ -37,10 +37,10 @@ async function createStoreItem(req, res, next) {
       if (newStoreItem.imageUrl != "") {
         const base64 = await fs.readFile(newStoreItem.imageUrl, 'base64');
         const arrayBuffer = decode(base64);
-        const s3Params = {
+        const s3Params = new S3({
           fileName: newStoreItem.imageName,
           fileBody: arrayBuffer
-        };
+        });
 
         S3.createImage(s3Params, (error, result) => {
           if (err) {
@@ -95,10 +95,10 @@ function updateStoreImage(req, res, next) {
     } else {
       const base64 = await fs.readFile(newStoreItem.imageUrl, 'base64');
       const arrayBuffer = decode(base64);
-      const s3Params = {
+      const s3Params = new S3({
         fileName: newStoreItem.imageName,
         fileBody: arrayBuffer
-      };
+      });
 
       S3.updateImage(s3Params, (error, result) => {
         if (err) {
