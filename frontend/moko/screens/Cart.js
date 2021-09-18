@@ -9,7 +9,8 @@ import {
   Dimensions,
   Image,
   TextInput,
-  FlatList
+  FlatList,
+  Alert
 } from 'react-native';
 
 import CartItem from "../components/CartItem.js"; 
@@ -34,6 +35,18 @@ cartItems.push({
     name: "Juice", 
     description: "squeezed lemon", 
     price: 2.99, 
+    qty: 0
+});
+cartItems.push({
+    name: "Vegetable", 
+    description: "A very fresh cucumber", 
+    price: 3.99, 
+    qty: 0
+});
+cartItems.push({
+    name: "Vegetable", 
+    description: "A very fresh cucumber", 
+    price: 3.99, 
     qty: 0
 });
 
@@ -66,20 +79,22 @@ function Cart({ navigation }) {
       //iterate through data, display the data name 
     return (
         <View style = {{backgroundColor: '#FFFFFF', height: height}}>
+            <View style = {{flexDirection: 'row'}}> 
+                <Text style={styles.name}>Cart</Text>
+            </View>
         
-        <View style = {{flexDirection: 'row'}}> 
-            <Text style={styles.name}>Cart</Text>
-        </View>
-    
-        <View style = {{flexDirection: 'column'}}>
-            <FlatList
-                data={cartItems}
-                renderItem={({ item }) => (
-                    CartItem(item)
-                    // <CartItem item=item/>
-                )} 
-            />
-        </View>  
+            <View style = {{flexDirection: 'column'}}>
+                <FlatList
+                    data={cartItems}
+                    renderItem={({ item }) => ( CartItem(item) )} 
+                />
+                <TouchableOpacity style={{width: 400, height: 80, justifyContent: 'center', paddingLeft: 150}} onPress={() => Alert.alert('Remove all the items')}  >
+                    <Text style={{fontSize: 20, color:'#DC8433'}}>Remove All Items</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btn2} onPress={() => navigation.navigate('Home')}>
+                <Text style={styles.btnText}>Start Shopping</Text>
+            </TouchableOpacity>
+            </View>  
         </View>
     );
     }
@@ -137,7 +152,18 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontFamily: 'Inter-Regular'
-      }
+      },
+      btn2:{
+        height:55,
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop:50,
+        backgroundColor:"#4C6D41",
+        width: "70%",
+        borderRadius:15,
+        alignSelf: 'center',
+        marginBottom: 20,
+      },
 });
 
 export default Cart;
