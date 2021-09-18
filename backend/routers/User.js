@@ -47,7 +47,7 @@ function getUserById(req, res, next) {
 }
 
 function getUsers(req, res, next) {
-	User.getAll((res, data) => {
+	User.getAll((err, data) => {
     if (err)
       res.status(500).send({
         message: err.message

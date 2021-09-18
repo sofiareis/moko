@@ -41,7 +41,7 @@ S3.updateImage = (params, result) => {
   };
 
   s3.putObject(updateParams).promise()
-  .then(data => data.Location)
+  .then(data => result(null, data.Location))
   .catch(error => result(error, null));
 }
 
