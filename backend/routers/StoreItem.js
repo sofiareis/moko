@@ -1,5 +1,5 @@
 const express = require('express');
-const fs = require('react-native-fs');
+const fs = require('fs');
 require('base64-arraybuffer');
 const router = express.Router();
 const StoreItem = require('./../modules/storeItemModule.js');
@@ -28,7 +28,7 @@ async function createStoreItem(req, res, next) {
     imageName: req.body.imageName
   });
 
-	StoreItem.create(newStoreItem, (err, data) => {
+	StoreItem.create(newStoreItem, async (err, data) => {
     if (err) {
       res.status(500).send({
         message: err.message
@@ -37,10 +37,10 @@ async function createStoreItem(req, res, next) {
       if (newStoreItem.imageUrl != "") {
         const base64 = await fs.readFile(newStoreItem.imageUrl, 'base64');
         const arrayBuffer = decode(base64);
-        const s3Params = {
+        const s3Params = new S3({
           fileName: newStoreItem.imageName,
           fileBody: arrayBuffer
-        };
+        });
 
         S3.createImage(s3Params, (error, result) => {
           if (err) {
@@ -87,7 +87,7 @@ function updateStoreImage(req, res, next) {
     imageName: req.body.imageName
   });
 
-  StoreItem.updateImage(newStoreItem, (err, data) => {
+  StoreItem.updateImage(newStoreItem, async (err, data) => {
     if (err) {
         res.status(404).send({
           message: `Unable to update storeItem with ID ${newStoreItem.storeItemID}.`
@@ -95,10 +95,10 @@ function updateStoreImage(req, res, next) {
     } else {
       const base64 = await fs.readFile(newStoreItem.imageUrl, 'base64');
       const arrayBuffer = decode(base64);
-      const s3Params = {
+      const s3Params = new S3({
         fileName: newStoreItem.imageName,
         fileBody: arrayBuffer
-      };
+      });
 
       S3.updateImage(s3Params, (error, result) => {
         if (err) {

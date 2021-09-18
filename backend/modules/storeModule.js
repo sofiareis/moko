@@ -23,4 +23,17 @@ Store.create = (store, result) => {
   });
 };
 
+Store.getAll = (result) => {
+  sql.query("SELECT * FROM STORE", (err, res) => {
+      if (err) {
+          console.log("error: ", err);
+          result(null, err);
+          return;
+      }
+
+      console.log("stores: ", res);
+      result(null, res);
+  });
+}
+
 module.exports = Store;

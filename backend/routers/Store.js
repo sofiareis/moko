@@ -4,6 +4,10 @@ const Store = require('./../modules/storeModule.js');
 
 // Store Routes - base route /stores
 router.post('/', createStore);
+router.get('/', getAllStores);
+router.get('/radius', getStoresInRadius);
+
+let cache = {};
 
 function createStore(req, res, next) {
   if (!req.body.storeID) {
@@ -25,6 +29,41 @@ function createStore(req, res, next) {
         message: err.message
       });
     } else { res.send(data); }
+  });
+}
+
+function getAllStores(req, res, next) {
+  Store.getAll((err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message
+      });
+    else { res.send(data); }
+  });
+}
+
+function getStoresInRadius(req, res, next) {
+  const baseAddress = req.body.address;
+  const radius = req.body.radius;
+
+  Store.getAll((err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message
+      });
+    else {
+      if (cache[radius]) {
+        res.send(cache[radius]);
+      } else {
+        let storesInRadius = data.filter(store => {
+          let dist = GeoCoder.getDistanceBetweenAddresses(baseAddress, store.address);
+          return dist >= 0 && dist <= radius;
+        });
+
+        cache[radius] = storesInRadius;
+        res.send(storesInRadius);
+      }
+    }
   });
 }
 

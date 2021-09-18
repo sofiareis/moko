@@ -4,7 +4,7 @@ const S3 = require('./../modules/s3.js');
 
 // S3 Routes - base route /s3
 router.post('/', createImage);
-router.delete('/', removeImage);
+router.delete('/', deleteImage);
 
 async function createImage(req, res, next) {
 	S3.createImage(req.body, (err, data) => {

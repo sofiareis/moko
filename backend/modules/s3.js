@@ -6,13 +6,18 @@ var s3 = new AWS.S3({
   region:'us-east-2'
 });
 
+const S3 = function(params) {
+  this.fileName = params.fileName,
+  this.fileBody = params.fileBody
+};
+
 /* Params:
 Bucket: 'mokopinnacle',
 ACL: 'public-read',
 Key: imgPath,
 ContentType: 'image/jpeg
 */
-S3.createImage = (params, result) = {
+S3.createImage = (params, result) => {
   const createParams = {
     Bucket: 'mokopinnacle',
     ACL: 'public-read',
@@ -26,7 +31,7 @@ S3.createImage = (params, result) = {
     .catch(error => result(error, null));
 };
 
-S3.updateImage = (params, result) = {
+S3.updateImage = (params, result) => {
   const updateParams = {
     Bucket: 'mokopinnacle',
     ACL: 'public-read',
@@ -44,7 +49,7 @@ S3.updateImage = (params, result) = {
   Bucket: 'mokopinnacle',
   Key: imgPath
 */
-S3.deleteImage = (params, result) = {
+S3.deleteImage = (params, result) => {
   const deleteParams = {
     Bucket: 'mokopinnacle',
     Key: params.fileName

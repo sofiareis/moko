@@ -108,4 +108,8 @@ User.deleteAllCartItems = (userID, result) => {
   });
 }
 
+User.getStoresInRadius = (user, radius, result) => {
+  
+}
+
 module.exports = User;
