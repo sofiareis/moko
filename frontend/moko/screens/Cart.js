@@ -10,11 +10,13 @@ import {
   Image,
   TextInput,
   FlatList,
-  Alert
+  Alert, 
+  Modal, 
+  Button
 } from 'react-native';
 
 import CartItem from "../components/CartItem.js"; 
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; 
 const CartFull = true; 
 
 //variable CartItems: itemName, description, price, IMAGE?
@@ -50,9 +52,9 @@ cartItems.push({
     qty: 0
 });
 
-function Cart({ navigation }) {
-  const { height } = Dimensions.get('window');
-  
+const { height } = Dimensions.get('window');
+
+function Cart({ navigation }) {  
   if (!CartFull) {
       return (
         <View style = {{backgroundColor: '#FFFFFF', height: height}}>
@@ -63,13 +65,13 @@ function Cart({ navigation }) {
         </View>
         
         <View style = {{flexDirection: 'column'}}>
-            <Image style = {styles.image} source={require('../images/cartEmpty.png')}/> 
-            <Text style = {styles.text1}>Your cart is empty</Text>
-            <Text style = {styles.text2}>Looks like you haven't made</Text>
-            <Text style = {styles.text3}> your choice yet...</Text>
-            <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Home')}>
-                <Text style={styles.btnText}>Start Shopping</Text>
-            </TouchableOpacity>
+                <Image style = {styles.image} source={require('../images/cartEmpty.png')}/> 
+                <Text style = {styles.text1}>Your cart is empty</Text>
+                <Text style = {styles.text2}>Looks like you haven't made</Text>
+                <Text style = {styles.text3}> your choice yet...</Text>
+                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Home')}>
+                    <Text style={styles.btnText}>Start Shopping</Text>
+                </TouchableOpacity>
         </View>
     
       </View>
@@ -77,24 +79,58 @@ function Cart({ navigation }) {
   }
   else {  
       //iterate through data, display the data name 
+    const [modalOpen, setModalOpen] = useState(false);
+    
+    function goBack() { 
+        setModalOpen(false);
+        navigation.navigate('Cart');
+        //empty the cart
+    }
+    
     return (
         <View style = {{backgroundColor: '#FFFFFF', height: height}}>
             <View style = {{flexDirection: 'row'}}> 
                 <Text style={styles.name}>Cart</Text>
             </View>
         
-            <View style = {{flexDirection: 'column'}}>
+            <View style = {styles.listview}>
                 <FlatList
                     data={cartItems}
                     renderItem={({ item }) => ( CartItem(item) )} 
                 />
                 <TouchableOpacity style={{width: 400, height: 80, justifyContent: 'center', paddingLeft: 150}} onPress={() => Alert.alert('Remove all the items')}  >
-                    <Text style={{fontSize: 20, color:'#DC8433'}}>Remove All Items</Text>
+                    <Text style={{fontSize: 25, color:'#DC8433'}}>Remove All Items</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btn2} onPress={() => navigation.navigate('Home')}>
-                <Text style={styles.btnText}>Start Shopping</Text>
-            </TouchableOpacity>
-            </View>  
+
+                <View style = {{flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}> 
+                    <View style={styles.total} >
+                        <Text style={styles.totalText}>$X.XX</Text>
+                    </View>
+                    <TouchableOpacity style={styles.btn2} onPress={() => setModalOpen(true)}>
+                        <Text style={styles.btnText}>Checkout</Text>
+                    </TouchableOpacity>
+                </View>
+            </View> 
+            <Modal visible = {modalOpen} animationType ='slide' >
+                <View style = {{flexDirection: 'column'}}> 
+                    <View style = {{flexDirection: 'row', justifyContent: 'center'}}> 
+                        <Text style={styles.title}>Checkout</Text> 
+                        <MaterialCommunityIcons name="close-circle" color='#575757' size={30} style={styles.closeIcon}  onPress={() => setModalOpen(false)}/> 
+                    </View>
+                    <Text style={styles.subheader}>Order Summary</Text>
+                    <View style = {{height: 500}}>
+                        <FlatList
+                            data={cartItems}
+                            renderItem={({ item }) => ( CartItem(item) )} 
+                        />
+                    </View>
+                    <Text style = {styles.orderText}>A text message will be sent to the vender notifying them of your order. 
+                        Please confirm your pickup time and method of paymend directly with the seller.</Text>
+                    <TouchableOpacity style={styles.btn3} onPress={() => goBack()}>
+                        <Text style={styles.btnText}>Place Order</Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
         </View>
     );
     }
@@ -152,18 +188,78 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontFamily: 'Inter-Regular'
-      },
-      btn2:{
+    },
+    listview: { 
+        flexDirection: 'column', 
+        height: 0.7 * height
+    },
+    total: {
+        height:55,
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop:50,
+        backgroundColor:"#FFFFFF",
+        width: "20%",
+        borderRadius:15,
+        alignSelf: 'center',
+        marginBottom: 20,
+    },
+    totalText: {
+        height: 50,
+        flex: 1,
+        padding: 10,
+        alignSelf: 'center',
+        alignItems: "center",
+        alignContent: 'center',
+        color: 'black',
+        fontSize: 20,
+        fontFamily: 'Inter-Regular' 
+    },
+    btn2:{
         height:55,
         alignItems:"center",
         justifyContent:"center",
         marginTop:50,
         backgroundColor:"#4C6D41",
-        width: "70%",
+        width: "50%",
         borderRadius:15,
         alignSelf: 'center',
         marginBottom: 20,
-      },
+    }, 
+    title: {
+        marginTop: 20,
+        textAlign: 'center',
+        fontSize: 40, 
+        alignSelf: 'center'
+    }, 
+    subheader: {
+        marginTop: 20,
+        fontSize: 30,
+        marginLeft: 20
+    }, 
+    btn3: {
+        height:55,
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop:20,
+        backgroundColor:"#4C6D41",
+        width: "70%",
+        borderRadius:15,
+        alignSelf: 'center',
+        marginBottom: 20,  
+    }, 
+    orderText: {
+        textAlign: 'center', 
+        width: '80%',
+        fontSize: 18, 
+        alignSelf: 'center', 
+        marginTop: 20
+    }, 
+    closeIcon: {
+        position: 'absolute',
+        right: 55, 
+        marginTop: 35
+    }
 });
 
 export default Cart;

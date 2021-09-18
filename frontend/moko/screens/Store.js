@@ -12,13 +12,13 @@ import {
 } from 'react-native';
 
 function fetchD() {
-  fetch('ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000', {
+  fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/tags', {
   method: 'GET' //Request Type 
   })
   .then((response) => response.json()) //If response is in json then in success
-  .then((responseJson) => { //Success 
-    console.log(responseJson);
-  })
+  .then((responseJson) =>  //Success 
+    console.log(responseJson)
+  )
   //If response is not in json then in error
   .catch((error) => { //Error 
     console.error(error);
