@@ -13,17 +13,33 @@ import {
 } from 'react-native';
 
 import CartItem from "../components/CartItem.js"; 
+
 const CartFull = true; 
 
 //variable CartItems: itemName, description, price, IMAGE?
-var cartItems = new Array ();
-cartItems[0] = new Array ( "Fruit", "A very fresh apple", 1.99);
-cartItems[1] = new Array ( "Vegetable", "A very fresh cucumber", 3.99);
-cartItems[2] = new Array ( "Juice", "A freshly squeezed lemon", 4.00);
+var cartItems = [];
+cartItems.push({
+    name: "Fruit", 
+    description: "A very fresh apple", 
+    price: 1.99, 
+    qty: 0
+});
+cartItems.push({
+    name: "Vegetable", 
+    description: "A very fresh cucumber", 
+    price: 3.99, 
+    qty: 0
+});
+cartItems.push({
+    name: "Juice", 
+    description: "squeezed lemon", 
+    price: 2.99, 
+    qty: 0
+});
 
 function Cart({ navigation }) {
   const { height } = Dimensions.get('window');
-
+  
   if (!CartFull) {
       return (
         <View style = {{backgroundColor: '#FFFFFF', height: height}}>
@@ -60,6 +76,7 @@ function Cart({ navigation }) {
                 data={cartItems}
                 renderItem={({ item }) => (
                     CartItem(item)
+                    // <CartItem item=item/>
                 )} 
             />
         </View>  
