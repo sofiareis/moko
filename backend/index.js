@@ -10,7 +10,6 @@ var cartItemRouter = require('./routers/CartItem');
 var tagLookupRouter = require('./routers/TagLookup');
 var tagRouter = require('./routers/Tag');
 var s3Router = require('./routers/S3');
-var geoCoderRouter = require('./routers/GeoCoder');
 
 const app = express();
 
@@ -34,7 +33,6 @@ app.use('/cart_items', cartItemRouter);
 app.use('/tag_lookup', tagLookupRouter);
 app.use('/tags', tagRouter);
 app.use('/s3', s3Router);
-app.use('/geocode', geoCoderRouter);
 
 // simple route
 app.get("/", (req, res) => {
