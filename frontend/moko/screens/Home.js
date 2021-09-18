@@ -13,7 +13,6 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 //import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 function HomeScreen({ navigation }) {

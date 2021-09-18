@@ -23,30 +23,30 @@ export default function CartItem(cartItem) {
     //};
 
     return (
-        <View style = {styles.item}>
-            <Image style =  {styles.itemImage} source={require('../images/Logo.png')} />
-           
-            <View style = {{flexDirection: 'column', marginLeft: 20, width: 250}}>
-                <Text style = {styles.itemName}>{cartItem.name}</Text>
-                <Text style = {styles.itemDescript}>{cartItem.description}</Text>
-                <Text style = {styles.itemPrice}>{cartItem.price}</Text>
-            </View>
-
-            <View style = {{flexDirection: 'row', marginLeft: -20}}>
-                <TouchableOpacity style={styles.button1} onPress={() => Alert.alert('Button pressed')}  >
-                   <MaterialCommunityIcons name="plus" color={'#4C6D41'} size={35} style={{marginLeft: 2}}/>
-                </TouchableOpacity>
-               
-                <TouchableOpacity style={styles.button2} onPress={() => Alert.alert('Button pressed')}  >
-                   <MaterialCommunityIcons name="minus" color={'#4C6D41'} size={35} style={{marginLeft: 2}}/>
-                </TouchableOpacity>
-                
-                <View style = {{width: 30, height: 40, backgroundColor: '#87B676', marginLeft: -65}}>  
-                    <Text style = {{fontSize: 25, color: 'white', marginLeft: 7, marginTop: 2}}>qty</Text>
+            <View style = {styles.item}>
+                <Image style =  {styles.itemImage} source={require('../images/Logo.png')} />
+            
+                <View style = {{flexDirection: 'column', marginLeft: 20, width: 200}}>
+                    <Text style = {styles.itemName}>{cartItem.name}</Text>
+                    <Text style = {styles.itemDescript}>{cartItem.description}</Text>
+                    <Text style = {styles.itemPrice}>{cartItem.price}</Text>
                 </View>
-                  
+
+                <View style = {{flexDirection: 'row', marginLeft: -20}}>
+                    <TouchableOpacity style={styles.button1} onPress={() => Alert.alert('Button pressed')}  >
+                        <MaterialCommunityIcons name="plus" color={'#4C6D41'} size={35} style={{marginLeft: 2}}/>
+                    </TouchableOpacity>
+                
+                    <TouchableOpacity style={styles.button2} onPress={() => Alert.alert('Button pressed')}  >
+                        <MaterialCommunityIcons name="minus" color={'#4C6D41'} size={35} style={{marginLeft: 2}}/>
+                    </TouchableOpacity>
+                    
+                    <View style = {{width: 30, height: 40, backgroundColor: '#87B676', marginLeft: -65}}>  
+                        <Text style = {{fontSize: 25, color: 'white', marginLeft: 7, marginTop: 2}}>qty</Text>
+                    </View>
+                    
+                </View>
             </View>
-        </View>
     );
 };
 
@@ -54,8 +54,13 @@ const styles = StyleSheet.create({
     item: { 
         marginLeft: 20, 
         marginTop: 30,  
-        borderColor:'#E0E0E0',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        borderWidth: 2,
+        height: 100,
+        borderLeftColor: '#FFFFFF',
+        borderRightColor: '#FFFFFF',
+        borderTopColor: '#FFFFFF',
+        borderBottomColor: '#E0E0E0'
     },
     itemName: {
         fontSize: 30,
