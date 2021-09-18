@@ -9,11 +9,11 @@ import {
   Dimensions,
   Image,
   TextInput,
-  KeyboardAvoidingView
 
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const height = Dimensions.get('window').height;
 
@@ -33,7 +33,10 @@ function SignUpScreen({ navigation }) {
   
   
   return (
-    <KeyboardAvoidingView behavior="padding">
+    <KeyboardAwareScrollView
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={false}
+    >
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
    
     <Text style={styles.name}>MOKO</Text>
@@ -124,16 +127,13 @@ function SignUpScreen({ navigation }) {
             onChangeText={(isSeller) => setSeller(isSeller)}asd
         />
     </View>
-    
     </ScrollView>
-    
-
     <TouchableOpacity style={styles.signinBtn} onPress={() => navigation.navigate('UserStack')}>
       <Text style={styles.signinText}>SIGN IN</Text>
     </TouchableOpacity>
   </View>
-  <View style={{height: 60}} />
-  </KeyboardAvoidingView>
+ 
+  </KeyboardAwareScrollView>
   );
 }
 
@@ -189,12 +189,12 @@ const styles = StyleSheet.create({
     height: 45,
     alignItems:"center",
     justifyContent:"center",
-    marginTop:15,
+    marginTop:10,
     backgroundColor:"#87B676",
     width: "70%",
     borderRadius:15,
     alignSelf: 'center',
-    marginBottom: 10,
+    marginBottom: 80,
   },
   signinText: {
     height: 50,
