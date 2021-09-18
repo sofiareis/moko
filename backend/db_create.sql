@@ -42,21 +42,21 @@ CREATE TABLE CART_ITEM(
   PRIMARY KEY(storeItemID)
 );
 
+CREATE TABLE TAG(
+  tagID int NOT NULL AUTO_INCREMENT,
+  name varchar(400) NOT NULL,
+  PRIMARY KEY(tagID)
+);
+
 CREATE TABLE TAG_LOOKUP(
   userID int,
   storeID int,
   tagID int,
   FOREIGN KEY (userID) REFERENCES USER (userID),
   FOREIGN KEY (storeID) REFERENCES STORE (storeID),
-  FOREIGN KEY (tagID) REFERENCES TAG(tagID),
+  FOREIGN KEY (tagID) REFERENCES TAG (tagID),
   PRIMARY KEY(userID, storeID, tagID),
   UNIQUE(userID, storeID, tagID)
-);
-
-CREATE TABLE TAG(
-  tagID int NOT NULL AUTO_INCREMENT,
-  name varchar(400) NOT NULL,
-  PRIMARY KEY(tagID)
 );
 
 INSERT INTO TAG(name) VALUES('Vegetables');
