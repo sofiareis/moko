@@ -13,7 +13,7 @@ function createStoreItem(req, res, next) {
       });
   }
 
-  const newStoreItem = function(storeItem) {
+  const newStoreItem = new StoreItem({
     storeItemID: req.body.storeItemID,
     storeID: req.body.storeID,
     name: req.body.name,
@@ -21,7 +21,7 @@ function createStoreItem(req, res, next) {
     stockQty: req.body.stockQty,
     price: req.body.price,
     imageUrl: req.body.imageUrl
-  };
+  });
 
 	StoreItem.create(newStoreItem, (err, data) => {
     if (err) {
@@ -33,7 +33,7 @@ function createStoreItem(req, res, next) {
 }
 
 function updateStoreItem(req, res, next) {
-  const newStoreItem = function(storeItem) {
+  const newStoreItem = new StoreItem({
     storeItemID: req.body.storeItemID,
     storeID: req.body.storeID,
     name: req.body.name,
@@ -41,7 +41,7 @@ function updateStoreItem(req, res, next) {
     stockQty: req.body.stockQty,
     price: req.body.price,
     imageUrl: req.body.imageUrl
-  };
+  });
 
 	StoreItem.updateQuantity(newStoreItem, (err, data) => {
     if (err) {
