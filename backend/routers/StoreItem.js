@@ -1,5 +1,5 @@
 const express = require('express');
-const fs = require('react-native-fs');
+const fs = require('fs');
 require('base64-arraybuffer');
 const router = express.Router();
 const StoreItem = require('./../modules/storeItemModule.js');
@@ -28,7 +28,7 @@ async function createStoreItem(req, res, next) {
     imageName: req.body.imageName
   });
 
-	StoreItem.create(newStoreItem, (err, data) => {
+	StoreItem.create(newStoreItem, async (err, data) => {
     if (err) {
       res.status(500).send({
         message: err.message
@@ -87,7 +87,7 @@ function updateStoreImage(req, res, next) {
     imageName: req.body.imageName
   });
 
-  StoreItem.updateImage(newStoreItem, (err, data) => {
+  StoreItem.updateImage(newStoreItem, async (err, data) => {
     if (err) {
         res.status(404).send({
           message: `Unable to update storeItem with ID ${newStoreItem.storeItemID}.`
