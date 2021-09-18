@@ -24,17 +24,21 @@ const Tab = createBottomTabNavigator();
 function UserStack({ navigation }) {
   return (
     <Tab.Navigator 
-                    intialRouteName = 'Home' 
+        intialRouteName = 'Home' 
                     screenOptions={{
-                        headerShown: false,       
+                        headerShown: false,
+                    }}
+                    tabBarOptions={{ 
                         showLabel: false,
                         activeTintColor:"#F58024",
                         inactiveTintColor: "#979696",
                         style: {
-                            backgroundColor: '#FFFFFF',
-                            height: 200 
-                          }   
+                          backgroundColor: '#FFFFFF',
+                          height: 100,
+                        }
                     }}
+                 
+                    
                     
                     >
       <Tab.Screen name='Home'
