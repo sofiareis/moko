@@ -40,7 +40,7 @@ Tag.getAll = (result) => {
   sql.query('SELECT * FROM TAG', (err, res) => {
     if (err) {
         console.log("error getting tags: ", err);
-        result(null, err);
+        result(err, null);
         return;
     }
 

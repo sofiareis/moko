@@ -27,7 +27,7 @@ CartItem.updateQuantity = (cartItem, result) => {
       (err, res) => {
           if (err) {
               console.log("error: ", err);
-              result(null, err);
+              result(err, null);
               return;
           } else if (res.affectedRows == 0) {
               result({ kind: "cart item not found" }, null);
@@ -45,7 +45,7 @@ CartItem.remove = (storeItemID, result) => {
       "DELETE FROM CART_ITEM WHERE storeItemID = \"" + storeItemID + "\"", (err, res) => {
           if (err) {
               console.log("error: ", err);
-              result(null, err);
+              result(err, null);
               return;
           } else if (res.affectedRows == 0) {
               result({ kind: "cartItem not found" }, null);

@@ -48,7 +48,7 @@ User.updateSellerStatus = (user, result) => {
       (err, res) => {
           if (err) {
               console.log("error: ", err);
-              result(null, err);
+              result(err, null;
               return;
           } else if (res.affectedRows == 0) {
               result({ kind: "user not found" }, null);
@@ -65,7 +65,7 @@ User.getAll = (result) => {
     sql.query("SELECT * FROM USER", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
 
@@ -96,7 +96,7 @@ User.deleteAllCartItems = (userID, result) => {
   sql.query('DELETE FROM CART_ITEMS WHERE userID=\"' + userID + '\"', (err, res) => {
     if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
         return;
     } else if (res.affectedRows == 0) {
         result({ kind: "cartItem cannot be deleted" }, null);
@@ -109,7 +109,7 @@ User.deleteAllCartItems = (userID, result) => {
 }
 
 User.getStoresInRadius = (user, radius, result) => {
-  
+
 }
 
 module.exports = User;
