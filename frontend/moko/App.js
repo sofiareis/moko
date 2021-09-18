@@ -13,7 +13,6 @@
  import UserStack from './navigation/UserStack.js'
  import SignUpStack from './navigation/SignUpStack.js';
  
- 
  const Stack = createStackNavigator();
  
  function App({ navigation }) {

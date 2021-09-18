@@ -12,65 +12,23 @@ import {
   FlatList
 } from 'react-native';
 
-/*function fetchD() {
-  fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/tags', {
-  method: 'GET' //Request Type 
-  })
-  .then((response) => response.json()) //If response is in json then in success
-  .then((responseJson) =>  //Success 
-    console.log(responseJson)
-  )
-  //If response is not in json then in error
-  .catch((error) => { //Error 
-    console.error(error);
-  })
-   
-  <TouchableOpacity style={styles.btn} onPress={() => fetchD()}>
-            <Text style={styles.btnText}>fetch</Text>
-  </TouchableOpacity>
-} */
-
-const storeEmpty = false;  
-
-function Store({ navigation }) {
+function StoreItem({ navigation }) {
   const { height } = Dimensions.get('window');
-  if (storeEmpty) {
+
     return (
       <View style = {{backgroundColor: '#FFFFFF', height: height}}>
         <View style = {{flexDirection: 'row'}}> 
-            <Text style={styles.name}>Store</Text>     
+            <Text style={styles.name}>StoreItem Name</Text>     
         </View> 
         <View style = {{flexDirection: 'column'}}>
             <Image style = {styles.image} source={require('../images/storeEmpty.png')}/> 
-            <Text style = {styles.text1}>Become a vendor</Text>
-            <Text style = {styles.text2}>Want to join your local market</Text>
-            <Text style = {styles.text3}>community?</Text>
-            <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('UserStack')}>
-                <Text style={styles.btnText}>Create your store</Text>
-            </TouchableOpacity>
+            <Text style = {styles.text1}>Qty</Text>
+            <Text style = {styles.text2}>Price</Text>
+            <Text style = {styles.text3}>Tags</Text>
+           
         </View>
       </View>
     );
-  }
-  else {
-    return (
-      <View style = {{flexDirection:'column', backgroundColor: '#FFFFFF', height: height}}>
-        <View style = {{flexDirection: 'row', justifyContent: 'center'}}> 
-            <Text style={styles.storeName}>Your Store Name</Text>
-        </View>
-        <TouchableOpacity style={styles.dotBtn} onPress={() => navigation.navigate('UserStack')}>
-            <Text style={styles.dotBtnText}>+ Add Product</Text>
-        </TouchableOpacity>
-        <View style = {{flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 30}}> 
-            <Text style={styles.tag}>Tag</Text>
-        </View>
- 
-        <TouchableOpacity style = {{width: 50, height: 50, backgroundColor: 'green'}} onPress={() => navigation.navigate('StoreItem')}/>  
-              
-
-      </View>
-    );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -165,4 +123,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Store;
+export default StoreItem;

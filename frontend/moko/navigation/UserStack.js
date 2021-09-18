@@ -18,11 +18,13 @@ import StoreEmpty from '../screens/Store';
 import Footprint from '../screens/CarbonFootprint.js';
 import Profile from '../screens/Profile.js';
 
+import StoreStack from './StoreStack.js' ;
 
 const Tab = createBottomTabNavigator();
 
 function UserStack({ navigation }) {
   return (
+    
     <Tab.Navigator 
         intialRouteName = 'Home' 
                     screenOptions={{
@@ -56,7 +58,7 @@ function UserStack({ navigation }) {
                    }}
                   />
       <Tab.Screen name='Sell'
-                  component={StoreEmpty}
+                  component={StoreStack}
                   options = {{
                     tabBarIcon: ({ color }) => (
                       <MaterialCommunityIcons name="storefront" color={color} size={40} />
