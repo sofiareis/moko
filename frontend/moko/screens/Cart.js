@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -23,50 +23,49 @@ function Cart({ navigation }) {
   var cartFull = true;
   const [modalOpen, setModalOpen] = useState(false);
   const [total, setTotal] = useState(0);
-  const [cartQuantities, setCartQuantities] = useState({
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0
-  });
-  const [cartItems, setCartItems] = useState([
-    {
-        id: 1,
-        name: "Fruit",
-        description: "A very fresh apple",
-        price: 1.99,
-        qty: 0
-    },
-    {
-        id: 2,
-        name: "Cucumber",
-        description: "A very fresh cucumber",
-        price: 3.99,
-        qty: 0
-    },
-    {
-        id: 3,
-        name: "Broccoli",
-        description: "A very fresh broccoli",
-        price: 3.99,
-        qty: 0
-    },
-    {
-        id: 4,
-        name: "Celery",
-        description: "A very fresh celery",
-        price: 3.99,
-        qty: 0
-    },
-    {
-        id: 5,
-        name: "Juice",
-        description: "squeezed lemon",
-        price: 2.99,
-        qty: 0
+  //const isFocused = useIsFocused();
+
+  const [cartQuantities, setCartQuantities] = useState({});
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  function getCart() {
+    if (cartItems.length == 0) {
+      fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/cart?userID=1`, {
+        method: 'GET'
+      })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson);
+        setCartItems(responseJson);
+        setCartQuantities(() => {
+          let map = {};
+          cartItems.forEach(item => { map[item.storeItemID] = 0; });
+          return map;
+        });
+      })
+      .then(() => {
+        setCartItems([...responseJson, {
+            id: 1234556,
+            name: "Fruit",
+            description: "A very fresh apple",
+            price: 1.99,
+            qty: 0
+        },
+        {
+            id: 23456778,
+            name: "Cucumber",
+            description: "A very fresh cucumber",
+            price: 3.99,
+            qty: 0
+        }]);
+      })
+      .catch(error => console.error(error));
     }
-  ]);
+  }
 
   const incrementVal = (cartItem) => {
     let temp = {...cartQuantities};
@@ -128,6 +127,7 @@ function Cart({ navigation }) {
           <View style = {styles.listview}>
               <FlatList
                   data={cartItems}
+                  extraData={cartItems}
                   renderItem={({ item }) => (<CartItem cartItem={item} inc={incrementVal} dec={decrementVal} />)}
               />
             <TouchableOpacity style={{width: 400, height: 80, justifyContent: 'center', paddingLeft: 150}} onPress={() => removeAllItems()}  >

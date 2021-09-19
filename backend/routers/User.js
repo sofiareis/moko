@@ -9,7 +9,7 @@ router.post('/', createUser);
 router.put('/', updateUser);
 router.get('/:userID', getUserById)
 router.get('/', getUsers);
-router.get('/cart', getCart);
+router.get('/cart/:userID', getCart);
 router.delete('/cart/:userID', deleteCart);
 
 function createUser(req, res, next) {
