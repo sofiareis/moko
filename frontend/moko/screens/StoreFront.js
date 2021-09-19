@@ -45,6 +45,35 @@ function StoreFront({ navigation, route }) {
     })
 }
 
+function chooseImage(name){
+  if (name=='Celery'){
+    return require('../images/celetry.jpg');
+  } 
+
+  if (name=='Lettuce'){
+    return require('../images/lettuce.jpg');
+  }
+
+  if (name=='Tomatoes'){
+    return require('../images/tomato.jpg');
+  }
+  if (name=='Cucumbers'){
+    return require('../images/cucumber.jpg');
+  }
+  if (name == 'Apples'){
+    return require('../images/apples.jpg');
+  }
+  if (name == 'Chocolate Chip Cookie'){
+    return require('../images/cookie.jpg');
+  }
+  if (name == 'Banana Bread'){
+    return require('../images/banana.jpg');
+  }
+  if (name == 'Vanilla Cupcake'){
+    return require('../images/cupcake.jpg');
+  }
+}
+
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height, alignItems: 'center'}}>
         <MaterialCommunityIcons name="chevron-left" color='#575757' size={40} style={styles.backBut} onPress={() => navigation.navigate('HomeScreen') }/>
@@ -58,7 +87,8 @@ function StoreFront({ navigation, route }) {
           style={{marginBottom: 40}}
           keyExtractor={item => item.storeItemID}
           renderItem={({ item }) => (
-            <StoreItemComponent storeItem={item} edit={false}/>
+            <StoreItemComponent storeItem={item} itemImage={chooseImage(item.name)} edit={false}/>
+            
           )}
         >
         </FlatList>

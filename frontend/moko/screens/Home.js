@@ -188,7 +188,7 @@ function HomeScreen({ navigation }) {
           renderItem={({item}) => (
               <TouchableOpacity onPress={() => navigation.navigate('StoreFront', { storeName: item.name, desc: item.description, storeID: item.storeID })}>
                 <View style = {styles.vendorRectangle}>
-                    <Image style = {styles.image} source={require('../images/peppers.png')} />
+                    <Image style = {styles.image} source={pickImage(item.name)} />
                     <View style = {{flexDirection: 'column', marginTop: 10, marginLeft: 8, alignItems: 'flex-start', width: 200}}>
                         <Text style = {styles.vendorName}>{item.name}</Text>
                         <Text style = {styles.vendorDescription}>{item.description}</Text>
