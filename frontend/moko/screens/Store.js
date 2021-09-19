@@ -112,7 +112,7 @@ function Store({ navigation }) {
         <TouchableOpacity style={styles.dotBtn} onPress={() => navigation.navigate('UserStack')}>
             <Text style={styles.dotBtnText}>+ Add Product</Text>
         </TouchableOpacity>
-        <FlatList
+        <FlatList style={{marginBottom: 100}}
           data={storeItems}
           extraData={storeItems}
           numColumns={2}
