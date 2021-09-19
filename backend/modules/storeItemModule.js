@@ -28,6 +28,24 @@ StoreItem.create = (storeItem, result) => {
   });
 }
 
+StoreItem.findById = (storeItemID, result) => {
+  sql.query('SELECT * FROM STORE_ITEM WHERE storeItemID=\"' + storeItemID + '\"', (err, res) => {
+      if (err) {
+          console.log("error ", err);
+          result(err, null);
+          return;
+      }
+
+      if (res.length) {
+          console.log("found storeItem: ", res[0]);
+          result(null, res);
+          return;
+      }
+
+      result({ kind: "User not found" }, null);
+  });
+}
+
 StoreItem.updateQuantity = (storeItem, result) => {
   sql.query(
       "UPDATE STORE_ITEM SET stockQty=\"" + storeItem.stockQty + "\" WHERE storeItemID=\"" + storeItem.storeItemID + "\"",

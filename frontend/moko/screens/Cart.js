@@ -34,7 +34,7 @@ function Cart({ navigation }) {
 
   function getCart() {
     if (cartItems.length == 0) {
-      fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/cart?userID=1`, {
+      fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/users/cart/1`, {
         method: 'GET'
       })
       .then(response => response.json())
@@ -48,7 +48,7 @@ function Cart({ navigation }) {
         });
       })
       .then(() => {
-        setCartItems([...responseJson, {
+        setCartItems([...cartItems, {
             id: 1234556,
             name: "Fruit",
             description: "A very fresh apple",
