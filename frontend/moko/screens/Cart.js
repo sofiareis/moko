@@ -43,27 +43,33 @@ function Cart({ navigation }) {
         setCartItems(responseJson);
         setCartQuantities(() => {
           let map = {};
-          cartItems.forEach(item => { map[item.storeItemID] = 0; });
+          responseJson.forEach(item => { map[item.storeItemID] = 0; });
           return map;
         });
       })
       .then(() => {
-        setCartItems([...cartItems, {
-            id: 1234556,
-            name: "Fruit",
-            description: "A very fresh apple",
-            price: 1.99,
-            qty: 0
-        },
-        {
-            id: 23456778,
-            name: "Cucumber",
-            description: "A very fresh cucumber",
-            price: 3.99,
-            qty: 0
-        }]);
+        console.log(cartItems);
+        setCartItems(() => {
+          let items = [];
+          [...cartItems].map(async item => {
+            await fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000//store_items/${item.storeItemID}`, {
+              method: 'GET'
+            }).then(response => response.json())
+            .then((res) => {
+              items.push({
+                storeItemID: item.storeItemID,
+                quantity: item.quantity,
+                description: res.description,
+                price: res.price
+              });
+            });
+          });
+
+          return items;
+        });
       })
-      .catch(error => console.error(error));
+      .catch(error => console.error(error))
+      .finally(() => console.log(cartItems));
     }
   }
 

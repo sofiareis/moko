@@ -38,6 +38,13 @@ CREATE TABLE CART_ITEM(
   userID int NOT NULL,
   storeItemID int NOT NULL,
   quantity int,
+  price float NOT NULL CHECK (price >= 0),
+  imageUrl varchar(800),
+  imageName varchar(800),
+  storeID int NOT NULL,
+  name varchar(60) NOT NULL,
+  description varchar(60),
+  FOREIGN KEY (storeID) REFERENCES STORE (storeID),
   FOREIGN KEY (userID) REFERENCES USER (userID),
   FOREIGN KEY (storeItemID) REFERENCES STORE_ITEM(storeItemID),
   PRIMARY KEY(storeItemID)
