@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 const height = Dimensions.get('window').height;
 
@@ -21,6 +23,10 @@ function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
 
   return (
+    <KeyboardAwareScrollView
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={false}
+    >
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
      
     <View style = {{flexDirection: 'row', alignSelf: 'center', }}>
@@ -58,6 +64,7 @@ function LoginScreen({ navigation }) {
       <Text style={styles.loginText}>SIGN UP</Text>
     </TouchableOpacity>
   </View>
+  </KeyboardAwareScrollView>
   );
 }
 
