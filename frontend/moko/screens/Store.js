@@ -101,8 +101,7 @@ function Store({ navigation }) {
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
             <Text style={styles.storeName}>Your Store Name</Text>
         </View>
-        <TouchableOpacity style={styles.dotBtn}>
-
+        <TouchableOpacity style={styles.dotBtn} onPress={() => navigation.navigate('AddStoreItem')}>
             <Text style={styles.dotBtnText}>+ Add Product</Text>
         </TouchableOpacity>
         <FlatList
