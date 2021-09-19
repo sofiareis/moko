@@ -15,6 +15,7 @@ import {
   Button
 } from 'react-native';
 import CartItem from "../components/CartItem.js";
+import { useIsFocused } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //variable CartItems: itemName, description, price, IMAGE?
@@ -23,14 +24,14 @@ function Cart({ navigation }) {
   var cartFull = true;
   const [modalOpen, setModalOpen] = useState(false);
   const [total, setTotal] = useState(0);
-  //const isFocused = useIsFocused();
+  const isFocused = useIsFocused();
 
   const [cartQuantities, setCartQuantities] = useState({});
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     getCart();
-  }, []);
+  }, [isFocused]);
 
   function getCart() {
     if (cartItems.length == 0) {

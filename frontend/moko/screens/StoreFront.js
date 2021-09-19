@@ -26,6 +26,7 @@ function StoreFront({ navigation, route }) {
   const isFocused = useIsFocused();
 
   const [storeItems, setStoreItems] =  useState([]);
+  const [userOrder, setUserOrder] = useState([]);
 
   useEffect(() => {
     fetchItems();
@@ -38,12 +39,53 @@ function StoreFront({ navigation, route }) {
     .then((response) => response.json())
     .then((responseJson) => {
         setStoreItems(responseJson);
+        let order = {};
+        responseJson.forEach(item => {
+          order[item.storeItemID] = 0;
+        })
+        setUserOrder(order);
         console.log(responseJson);
     })
     .catch((error) => {
         console.log(error)
     })
-}
+  }
+
+  const incrementVal = (item) => {
+    let temp = {...userOrder};
+    temp[item.storeItemID]++;
+    setUserOrder(temp);
+    updateCart(item, temp[item.storeItemID]);
+  };
+
+  const decrementVal = (item) => {
+    let temp = {...userOrder};
+    if (temp[item.storeItemID] > 0) {
+      temp[item.storeItemID]--;
+    }
+    setUserOrder(temp);
+    updateCart(item, temp[item.storeItemID]);
+  };
+
+  function updateCart(item, quantity) {
+    fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/cart_items`, {
+        method: 'PUT',
+        body: {
+          userID: item.userID,
+          storeItemID: item.storeItemID,
+          storeID: item.storeID,
+          quantity: quantity,
+          price: item.price,
+          imageUrl: item.imageUrl,
+          imageName: item.imageName,
+          name: item.name,
+          description: item.description
+        }
+    })
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch(error => console.error(error));
+  }
 
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height, alignItems: 'center'}}>
@@ -58,7 +100,7 @@ function StoreFront({ navigation, route }) {
           style={{marginBottom: 40}}
           keyExtractor={item => item.storeItemID}
           renderItem={({ item }) => (
-            <StoreItemComponent storeItem={item} edit={false}/>
+            <StoreItemComponent inc={incrementVal} dec={decrementVal} storeItem={item} edit={false}/>
           )}
         >
         </FlatList>
