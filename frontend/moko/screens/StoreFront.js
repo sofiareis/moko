@@ -15,8 +15,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import StoreItemComponent from '../components/StoreItemComponent.js'; 
 
-function StoreFront({ navigation }) {
+function StoreFront({ navigation, route }) {
   const { height } = Dimensions.get('window');
+ 
+  const {storeName} = route.params;
+  const {desc} = route.params;
 
   const [storeItems, setStoreItems] = useState([
     {
@@ -74,10 +77,9 @@ function StoreFront({ navigation }) {
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height, alignItems: 'center'}}>
         <MaterialCommunityIcons name="chevron-left" color='#575757' size={40} style={styles.backBut} onPress={() => navigation.navigate('HomeScreen') }/>
-        <Text style={styles.name}>StoreName</Text>
-      
-        <Text style={styles.description}>A description of the store</Text>
-       
+        <Text style={styles.name}>{storeName}</Text>
+        <Text style={styles.description}>{desc}</Text>
+        
         <FlatList
           data={storeItems}
           extraData={storeItems}
@@ -98,7 +100,8 @@ const styles = StyleSheet.create({
       marginHorizontal: 10,
       fontFamily: 'Inter-Regular',
       fontSize: 30,
-      fontWeight: 'bold'
+      fontWeight: 'bold', 
+      color: 'black'
     }, 
     backBut: {
       marginTop: 40,
@@ -107,6 +110,7 @@ const styles = StyleSheet.create({
     description:{
       fontSize: 20, 
       marginTop: 20, 
+      marginBottom: 40,
      
     }
 });

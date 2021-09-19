@@ -34,6 +34,10 @@ function StoreItemComponent(props) {
 
   return(
     <View style={styles.component}>
+       <View style={styles.mainContentBox}>
+        <Image style={styles.itemImage} source={require('../images/Logo.png')} />
+      </View>
+
       {edit ?
           <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate(location)}>
             <Feather name="edit-2" color={'#FFFFFF'} size={25} />
@@ -53,10 +57,6 @@ function StoreItemComponent(props) {
             </View>
           </View>
       }
-
-      <View style={styles.mainContentBox}>
-        <Image style={styles.itemImage} source={require('../images/Logo.png')} />
-      </View>
 
       <View style={styles.textInfo}>
         <Text style={styles.priceInfo}>{storeItem.price}</Text>
@@ -82,14 +82,14 @@ const styles = StyleSheet.create({
     borderWidth: 0.75,
     borderRadius: 10,
     borderColor: '#87B676',
-    marginTop: -20,
     alignItems: 'center',
     justifyContent: 'center'
   },
   quantityBox: {
     position: 'relative',
     flexDirection: 'row',
-    marginLeft: 40
+    marginLeft: 45,
+    marginTop: -125
   },
   editBox: {
     position: 'relative',
@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
   },
   textInfo: {
     alignItems: 'flex-start',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    marginTop: 90
   },
   priceInfo: {
     fontSize: 20,
