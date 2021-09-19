@@ -24,8 +24,9 @@ function HomeScreen({ navigation }) {
   const [search, setSearch] = useState('');
   const [stores, setStores] = useState([]);
   const [listItems, setListItems] = useState([]);
+  const [radius, setRadius] = useState(5);
   const isFocused = useIsFocused();
- 
+
   const [tags, setTags] = useState([]);
   const [tagItems, setTagItems] = useState([]);
 
@@ -82,7 +83,7 @@ function HomeScreen({ navigation }) {
     <View style = {{flexDirection: 'row'}}>
         <Image style = {styles.name} source={require('../images/Logo_Final.png')} />
         <MaterialCommunityIcons name="map-marker" color= '#575757' size= {32} style={styles.locationIcon}/>
-        <Text style ={styles.locationText}>Radius</Text>
+        <Text style ={styles.locationText}>Radius: {radius}km</Text>
     </View>
     <View style = {{flexDirection: 'row'}}>
         <TextInput
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
     },
     locationIcon: {
         marginTop: 40,
-        marginLeft: 80
+        marginLeft: 30
     },
     locationText: {
         marginTop: 45,
@@ -214,10 +215,10 @@ const styles = StyleSheet.create({
     vendorDescription: {
         fontSize: 18,
         padding: 10
-    }, 
+    },
     image: {
         width: 100,
-        height: 70, 
+        height: 70,
     }
 
 });
