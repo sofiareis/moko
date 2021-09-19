@@ -48,10 +48,15 @@ function HomeScreen({ navigation }) {
   const [stores, setStores] = useState([]);
   const [listItems, setListItems] = useState([]);
   const isFocused = useIsFocused();
+ 
+  const [tags, setTags] = useState([]);
+  const [tagItems, setTagItems] = useState([]);
 
   useEffect(() => {
     fetchStores();
+    fetTags();
   }, [isFocused]);
+
 
   function fetchStores() {
       fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores', {
@@ -60,12 +65,28 @@ function HomeScreen({ navigation }) {
       .then((response) => response.json())
       .then((responseJson) => {
           setStores(responseJson);
+          setListItems(responseJson);
           console.log(responseJson);
       })
       .catch((error) => {
           console.log(error)
       })
   }
+
+  function fetTags() {
+    fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/tags', {
+        method: 'GET',
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        setTags(responseJson);
+        setTagItems(responseJson);
+        console.log(responseJson);
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
 
   function updateListItems(search) {
     setSearch(search);
@@ -95,24 +116,20 @@ function HomeScreen({ navigation }) {
         <MaterialCommunityIcons name="close-circle" color='#575757' size={30} style={styles.searchIcon}/>
     </View>
     <View style = {styles.scrowl}>
-        <ScrollView horizontal = {true} >
-                <TouchableOpacity style = {styles.tagRectangle}>
-                    <Text style = {styles.tagName}>Tag1</Text>
+        <FlatList
+            horizontal
+            data={tagItems}
+            extraData={tagItems}
+            keyExtractor={item => item.tagID}
+            renderItem={({item}) => (
+                <TouchableOpacity>
+                    <View style = {styles.tagRectangle}>
+                        <Text style = {styles.tagName}>{item.name}</Text>
+                    </View>
                 </TouchableOpacity>
-                <TouchableOpacity style = {styles.tagRectangle}>
-                    <Text style = {styles.tagName}>Tag2</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style = {styles.tagRectangle}>
-                    <Text style = {styles.tagName}>Tag3</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style = {styles.tagRectangle}>
-                    <Text style = {styles.tagName}>Tag2</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style = {styles.tagRectangle}>
-                    <Text style = {styles.tagName}>Tag3</Text>
-                </TouchableOpacity>
-            </ScrollView>
-        </View>
+            )}
+            />
+    </View>
 
         <FlatList
           data={listItems}
@@ -167,7 +184,7 @@ const styles = StyleSheet.create({
     },
     tagRectangle: {
         height: 45,
-        width: 100,
+        paddingHorizontal: 12,
         borderRadius: 10,
         borderColor: '#4C6D41',
         borderWidth: 1.5,
