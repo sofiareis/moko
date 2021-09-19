@@ -22,10 +22,12 @@ export default function CartItem(props) {
    const [qty, setQty] = useState(cartItem.qty);
 
     const incrementVal = () => {
+      props.inc(cartItem);
       setQty(prevQty => prevQty + 1);
     };
 
     const decrementVal = () => {
+      props.dec(cartItem);
       if (qty > 0) {
         setQty(prevQty => prevQty - 1);
       }
