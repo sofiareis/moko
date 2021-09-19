@@ -26,7 +26,7 @@ function StoreItem({ navigation }) {
             <Text style={styles.name}>StoreItem Name</Text>     
         </View> 
         <View style = {{flexDirection: 'column'}}>
-            <Image style = {styles.image} source={require('../images/storeEmpty.png')}/> 
+            <Image style = {styles.image} source={require('../images/peppers.png')}/> 
            
             <View style = {{flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 50}}> 
                 <Text style = {styles.text1}>Qty:</Text>

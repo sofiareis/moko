@@ -98,6 +98,7 @@ function HomeScreen({ navigation }) {
     });
   }
 
+
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
 
@@ -135,7 +136,7 @@ function HomeScreen({ navigation }) {
           extraData={listItems}
           keyExtractor={item => item.description}
           renderItem={({item}) => (
-              <TouchableOpacity onPress={() => navigation.navigate('StoreFront')}>
+              <TouchableOpacity onPress={() => navigation.navigate('StoreFront', { paramKey: item.iD })}>
                 <View style = {styles.vendorRectangle}>
                     <Text style = {styles.vendorName}>{item.name}</Text>
                     <View style = {{flexDirection: 'row', marginTop: 10}}>
