@@ -20,9 +20,10 @@ function StoreFront({ navigation, route }) {
  
   const {storeName} = route.params;
   const {desc} = route.params;
+  const {storeID} = route.params;
 
-  const [storeItems, setStoreItems] = useState([
-    {
+  const [storeItems, setStoreItems] =  useState([]); 
+  /*
       storeItemID: 1,
       storeID: 1,
       name: "Cucumber",
@@ -72,7 +73,25 @@ function StoreFront({ navigation, route }) {
       imageUrl: "",
       imageName: ""
     },
-  ]);
+  ]); */
+
+  function fetchItems() {
+    fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/storeItem', {
+        method: 'GET',
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        setStoreItems(() => {
+            return storeItems.filter(item =>
+             item.storeID.includes(storeID) 
+            );
+         });
+        console.log(responseJson);
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
 
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height, alignItems: 'center'}}>
