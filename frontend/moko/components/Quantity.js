@@ -9,26 +9,24 @@ import {
   Dimensions,
   Image,
   TextInput,
-  Button, 
-  Alert 
+  Button,
+  Alert
 } from 'react-native';
 
 function Quantity (qty) {
     return (
         <View style = {{flexDirection: 'row'}}>
-            <Button 
+            <Button
              title=" + "
              color="#f194ff"
-             onPress={() => Alert.alert('Button with adjusted color pressed')}  />    
-               
+             onPress={() => Alert.alert('Button with adjusted color pressed')}
+            />
         </View>
-
-   
     );
 }
 
 const styles = StyleSheet.create({
-  
+
 });
 
 export default Quantity;

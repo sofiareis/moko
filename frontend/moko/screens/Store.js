@@ -11,37 +11,88 @@ import {
   TextInput,
   FlatList
 } from 'react-native';
+import StoreItemComponent from '../components/StoreItemComponent.js';
 
 /*function fetchD() {
   fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/tags', {
-  method: 'GET' //Request Type 
+  method: 'GET' //Request Type
   })
   .then((response) => response.json()) //If response is in json then in success
-  .then((responseJson) =>  //Success 
+  .then((responseJson) =>  //Success
     console.log(responseJson)
   )
   //If response is not in json then in error
-  .catch((error) => { //Error 
+  .catch((error) => { //Error
     console.error(error);
   })
-   
+
   <TouchableOpacity style={styles.btn} onPress={() => fetchD()}>
             <Text style={styles.btnText}>fetch</Text>
   </TouchableOpacity>
 } */
-
-const storeEmpty = false;  
-
+const { height } = Dimensions.get('window');
 function Store({ navigation }) {
-  const { height } = Dimensions.get('window');
-  if (storeEmpty) {
+  const [storeItems, setStoreItems] = useState([
+    {
+      storeItemID: 1,
+      storeID: 1,
+      name: "Cucumber",
+      description: "A very fresh cucumber",
+      stockQty: 10,
+      price: 1.99,
+      imageUrl: "",
+      imageName: ""
+    },
+    {
+      storeItemID: 2,
+      storeID: 1,
+      name: "Tomato",
+      description: "A very fresh tomato",
+      stockQty: 10,
+      price: 1.99,
+      imageUrl: "",
+      imageName: ""
+    },
+    {
+      storeItemID: 3,
+      storeID: 1,
+      name: "Tomato",
+      description: "A very fresh tomato",
+      stockQty: 10,
+      price: 1.99,
+      imageUrl: "",
+      imageName: ""
+    },
+    {
+      storeItemID: 4,
+      storeID: 1,
+      name: "Tomato",
+      description: "A very fresh tomato",
+      stockQty: 10,
+      price: 1.99,
+      imageUrl: "",
+      imageName: ""
+    },
+    {
+      storeItemID: 5,
+      storeID: 1,
+      name: "Tomato",
+      description: "A very fresh tomato",
+      stockQty: 10,
+      price: 1.99,
+      imageUrl: "",
+      imageName: ""
+    },
+  ]);
+
+  if ([...storeItems].length == 0) {
     return (
       <View style = {{backgroundColor: '#FFFFFF', height: height}}>
-        <View style = {{flexDirection: 'row'}}> 
-            <Text style={styles.name}>Store</Text>     
-        </View> 
+        <View style = {{flexDirection: 'row'}}>
+            <Text style={styles.name}>Store</Text>
+        </View>
         <View style = {{flexDirection: 'column'}}>
-            <Image style = {styles.image} source={require('../images/storeEmpty.png')}/> 
+            <Image style = {styles.image} source={require('../images/storeEmpty.png')}/>
             <Text style = {styles.text1}>Become a vendor</Text>
             <Text style = {styles.text2}>Want to join your local market</Text>
             <Text style = {styles.text3}>community?</Text>
@@ -54,20 +105,20 @@ function Store({ navigation }) {
   }
   else {
     return (
-      <View style = {{flexDirection:'column', backgroundColor: '#FFFFFF', height: height}}>
-        <View style = {{flexDirection: 'row', justifyContent: 'center'}}> 
+      <View style = {{flexDirection:'column', backgroundColor: '#FFFFFF', alignItems: 'center', height: height}}>
+        <View style = {{flexDirection: 'row', justifyContent: 'center', marginBottom: 20}}>
             <Text style={styles.storeName}>Your Store Name</Text>
         </View>
-        <TouchableOpacity style={styles.dotBtn} onPress={() => navigation.navigate('UserStack')}>
-            <Text style={styles.dotBtnText}>+ Add Product</Text>
-        </TouchableOpacity>
-        <View style = {{flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 30}}> 
-            <Text style={styles.tag}>Tag</Text>
-        </View>
- 
-        <TouchableOpacity style = {{width: 50, height: 50, backgroundColor: 'green'}} onPress={() => navigation.navigate('StoreItem')}/>  
-              
-
+        <FlatList
+          data={storeItems}
+          extraData={storeItems}
+          numColumns={2}
+          keyExtractor={item => item.storeItemID}
+          renderItem={({ item }) => (
+            <StoreItemComponent storeItem={item} edit={true} location='StoreItem' navigation={navigation} />
+          )}
+        >
+        </FlatList>
       </View>
     );
   }
@@ -125,12 +176,13 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontFamily: 'Inter-Regular'
-      }, 
+      },
       storeName:{
         textAlign: 'center',
-        fontSize: 40, 
+        fontSize: 25,
+        fontWeight: 'bold',
         marginTop: 20
-      }, 
+      },
       dotBtn: {
         height:55,
         alignItems:"center",
@@ -138,12 +190,12 @@ const styles = StyleSheet.create({
         marginTop: 50,
         width: "80%",
         borderRadius:15,
-        borderWidth: 2, 
+        borderWidth: 2,
         borderColor: '#DC8433',
         borderStyle: 'dashed',
         alignSelf: 'center',
         marginBottom: 20,
-      }, 
+      },
       dotBtnText:{
         height: 50,
         flex: 1,
@@ -154,15 +206,17 @@ const styles = StyleSheet.create({
         color: '#DC8433',
         fontSize: 20,
         fontFamily: 'Inter-Regular'
-      }, 
+      },
       tag: {
         marginTop: 20,
         fontSize: 25,
-        
-        color: '#4C6D41', 
-        fontWeight: 'bold'
-      }
 
+        color: '#4C6D41',
+        fontWeight: 'bold'
+      },
+      flatList: {
+        alignItems: 'center'
+      }
 });
 
 export default Store;

@@ -38,12 +38,12 @@ export default function CartItem(props) {
                 <View style = {{flexDirection: 'column', marginLeft: 20, width: 200}}>
                     <Text style = {styles.itemName}>{cartItem.name}</Text>
                     <Text style = {styles.itemDescript}>{cartItem.description}</Text>
-                    <Text style = {styles.itemPrice}>{cartItem.price}</Text>
+                    <Text style = {styles.itemPrice}>${cartItem.price}</Text>
                 </View>
 
                 {checkout ?
                   <View style = {{width: 38, height: 40, backgroundColor: '#87B676', borderRadius: 8, alignItems: 'center', justifyContent: 'center'}}>
-                      <Text style ={{fontSize: 25, color: 'white'}}>{qty}</Text>
+                      <Text style ={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>{qty}</Text>
                   </View>
                   :
                   <View style = {{flexDirection: 'row', marginLeft: -20}}>
@@ -55,8 +55,8 @@ export default function CartItem(props) {
                         <MaterialCommunityIcons name="minus" color={'#4C6D41'} size={25} style={{marginLeft: 7}}/>
                     </TouchableOpacity>
 
-                    <View style = {{width: 37, height: 35, backgroundColor: '#87B676', marginLeft: -66}}>
-                        <Text style = {{fontSize: 25, color: 'white', alignSelf: 'center'}}>{qty}</Text>
+                    <View style = {{width: 37, height: 35, backgroundColor: '#87B676', marginLeft: -66, alignItems: 'center', justifyContent: 'center'}}>
+                        <Text style = {{fontSize: 20, fontWeight: 'bold', color: 'white'}}>{qty}</Text>
                     </View>
                   </View>
                  }
@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     itemPrice: {
-        fontSize: 15,
+        fontSize: 20,
+        color: '#4C6D41',
         fontWeight: 'bold'
     },
     itemImage: {
