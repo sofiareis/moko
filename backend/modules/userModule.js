@@ -48,7 +48,7 @@ User.updateSellerStatus = (user, result) => {
       (err, res) => {
           if (err) {
               console.log("error: ", err);
-              result(err, null;
+              result(err, null);
               return;
           } else if (res.affectedRows == 0) {
               result({ kind: "user not found" }, null);
