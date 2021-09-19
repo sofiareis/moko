@@ -105,10 +105,13 @@ function Store({ navigation }) {
   }
   else {
     return (
-      <View style = {{flexDirection:'column', backgroundColor: '#FFFFFF', alignItems: 'center', height: height}}>
-        <View style = {{flexDirection: 'row', justifyContent: 'center', marginBottom: 20}}>
+      <View style={{flexDirection:'column', backgroundColor: '#FFFFFF', alignItems: 'center', height: height}}>
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
             <Text style={styles.storeName}>Your Store Name</Text>
         </View>
+        <TouchableOpacity style={styles.dotBtn} onPress={() => navigation.navigate('UserStack')}>
+            <Text style={styles.dotBtnText}>+ Add Product</Text>
+        </TouchableOpacity>
         <FlatList
           data={storeItems}
           extraData={storeItems}
@@ -187,7 +190,7 @@ const styles = StyleSheet.create({
         height:55,
         alignItems:"center",
         justifyContent:"center",
-        marginTop: 50,
+        marginTop: 30,
         width: "80%",
         borderRadius:15,
         borderWidth: 2,
