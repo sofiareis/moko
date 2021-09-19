@@ -41,7 +41,7 @@ function Cart({ navigation }) {
       .then(responseJson => {
         console.log(responseJson);
         setCartItems(() => {
-          let map = {};
+          let map = [];
           responseJson.forEach(item => map.push(item));
           return map;
         });
