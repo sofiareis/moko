@@ -753,6 +753,16 @@
     "deepmerge" "^3.2.0"
     "hoist-non-react-statics" "^3.3.0"
 
+"@chartiful/react-native-chart-builder@^0.1.6", "@chartiful/react-native-chart-builder@^0.1.8":
+  "integrity" "sha512-rYVHyOA01kTMTyTqsF6+SOpBkAgOF6G6mh4kdFkEJqFnHGpwVrycDM6SI7cuTyN7awDhhHBrztguV+7TZokgZw=="
+  "resolved" "https://registry.npmjs.org/@chartiful/react-native-chart-builder/-/react-native-chart-builder-0.1.8.tgz"
+  "version" "0.1.8"
+
+"@chartiful/react-native-horizontal-bar-graph@^0.1.2":
+  "integrity" "sha512-mm5ZYqyFpasNHmmpkPf9Cii6UYvqFjIDn30I/ijt24oF+ofeSiktS9fD4+mQeH2S4NxtFW51KmABqGcWjC8UdQ=="
+  "resolved" "https://registry.npmjs.org/@chartiful/react-native-horizontal-bar-graph/-/react-native-horizontal-bar-graph-0.1.2.tgz"
+  "version" "0.1.2"
+
 "@cnakazawa/watch@^1.0.3":
   "integrity" "sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ=="
   "resolved" "https://registry.npmjs.org/@cnakazawa/watch/-/watch-1.0.4.tgz"
@@ -782,6 +792,11 @@
     "js-yaml" "^3.13.1"
     "minimatch" "^3.0.4"
     "strip-json-comments" "^3.1.1"
+
+"@fortawesome/fontawesome-free@^5.15.4":
+  "integrity" "sha512-eYm8vijH/hpzr/6/1CJ/V/Eb1xQFW2nnUKArb3z+yUWv7HTwj6M7SP957oMjfZjAHU6qpoNc2wQvIxBLWYa/Jg=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.4.tgz"
+  "version" "5.15.4"
 
 "@hapi/hoek@^9.0.0":
   "integrity" "sha512-sqKVVVOe5ivCaXDWivIJYVSaEgdQK9ul7a4Kity5Iw7u9+wBAPbX1RMSnLLmp7O4Vzj0WOWwMAJsTL00xwaNug=="
