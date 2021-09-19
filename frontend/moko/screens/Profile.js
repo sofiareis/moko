@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
       marginLeft: 40,
       marginHorizontal: 10,
       fontFamily: 'Inter-Regular',
-      fontSize: 35
+      fontSize: 30,
+      fontWeight: 'bold'
       }, 
     headerText:{
       fontSize: 20, 
