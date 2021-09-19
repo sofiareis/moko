@@ -95,16 +95,16 @@ const styles = StyleSheet.create({
       fontSize: 20, 
       fontWeight: 'bold',
       color: '#4C6D41', 
-      marginTop: 30, 
+      marginTop: 25, 
     },
     profileOption: {
       flexDirection: 'row', 
       marginLeft: 30, 
       height: 40, 
-      marginTop: 20
+      marginTop: 10
     }, 
     optionsText: {
-      fontSize: 20, 
+      fontSize: 18, 
       width: 250, 
       marginTop: 5
     },
@@ -112,11 +112,11 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center', 
       marginTop: 50,
-      justifyContent: 'space-around'
+      justifyContent: 'space-around',
     }, 
     logoutText:{
       fontSize: 20,
-      marginLeft: -350, 
+      marginLeft: -270, 
       marginTop: -5
     }
 });

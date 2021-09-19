@@ -82,7 +82,6 @@ function SignUpScreen({ navigation }) {
         style={styles.TextInput}
         placeholder="City"
         placeholderTextColor="black"
-        secureTextEntry={true}
         onChangeText={(city) => setCity(city)}
       />
     </View>
@@ -93,7 +92,6 @@ function SignUpScreen({ navigation }) {
         style={styles.TextInput}
         placeholder="Province/State"
         placeholderTextColor="black"
-        secureTextEntry={true}
         onChangeText={(province) => setProvince(province)}
       />
     </View>
@@ -104,7 +102,6 @@ function SignUpScreen({ navigation }) {
         style={styles.TextInput}
         placeholder="Postal Code"
         placeholderTextColor="black"
-        secureTextEntry={true}
         onChangeText={(postal) => setPostal(postal)}
       />
     </View>
@@ -125,7 +122,6 @@ function SignUpScreen({ navigation }) {
             style={styles.TextInput}
             placeholder="Are you a seller?"
             placeholderTextColor="black"
-            secureTextEntry={true}
             onChangeText={(isSeller) => setSeller(isSeller)}asd
         />
     </View>
