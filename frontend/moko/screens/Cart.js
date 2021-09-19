@@ -91,14 +91,14 @@ function Cart({ navigation }) {
             <View style = {{flexDirection: 'row'}}>
                 <Text style={styles.name}>Cart</Text>
             </View>
-
+            <ScrollView>
             <View style = {styles.listview}>
                 <FlatList
                     data={cartItems}
                     renderItem={({ item }) => (<CartItem cartItem={item} />)}
                 />
-                <TouchableOpacity style={{width: 400, height: 80, justifyContent: 'center', paddingLeft: 150}} onPress={() => Alert.alert('Remove all the items')}  >
-                    <Text style={{fontSize: 20, color:'#DC8433'}}>Remove All Items</Text>
+                <TouchableOpacity style={{width: 400, height: 80, justifyContent: 'center'}} onPress={() => Alert.alert('Remove all the items')}  >
+                    <Text style={{fontSize: 20, color:'#DC8433', alignSelf: 'center'}}>Remove All Items</Text>
                 </TouchableOpacity>
 
                 <View style = {{flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
@@ -110,6 +110,7 @@ function Cart({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </View>
+            </ScrollView>
             <Modal visible = {modalOpen} animationType ='slide' >
                 <View style = {{flexDirection: 'column'}}>
                     <View style = {{flexDirection: 'row', justifyContent: 'center'}}>
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         alignSelf: 'center',
-        alignItems: "center",
+        alignItems: 'center',
         alignContent: 'center',
         color: 'white',
         fontSize: 20,
@@ -197,12 +198,12 @@ const styles = StyleSheet.create({
         height:55,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:50,
+        //marginTop:50,
         backgroundColor:"#FFFFFF",
         width: "20%",
         borderRadius:15,
         alignSelf: 'center',
-        marginBottom: 20,
+        marginBottom: 90,
     },
     totalText: {
         height: 50,
@@ -217,13 +218,14 @@ const styles = StyleSheet.create({
     },
     btn2:{
         height:55,
-        alignItems:"center",
-        justifyContent:"center",
+        //alignItems:"center",
+        alignContent: 'center',
         backgroundColor:"#4C6D41",
         width: "50%",
         borderRadius:15,
-        alignSelf: 'center',
-        marginBottom: 20,
+        //alignSelf: 'center',
+        marginBottom: 90,
+        
     },
     title: {
         marginTop: 20,
