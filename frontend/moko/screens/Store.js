@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import StoreItemComponent from '../components/StoreItemComponent.js';
 
+
 /*function fetchD() {
   fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/tags', {
   method: 'GET' //Request Type
@@ -40,7 +41,7 @@ function Store({ navigation }) {
       description: "A very fresh cucumber",
       stockQty: 10,
       price: 1.99,
-      imageUrl: "",
+      imageUrl: require('../images/cucumber.jpg'),
       imageName: ""
     },
     {
@@ -49,8 +50,8 @@ function Store({ navigation }) {
       name: "Tomato",
       description: "A very fresh tomato",
       stockQty: 10,
-      price: 1.99,
-      imageUrl: "",
+      price: .99,
+      imageUrl: require('../images/tomato.jpg'),
       imageName: ""
     },
     {
@@ -59,8 +60,8 @@ function Store({ navigation }) {
       name: "Eggs",
       description: "Organic Eggs",
       stockQty: 10,
-      price: 1.99,
-      imageUrl: "",
+      price: 12.80,
+      imageUrl: require('../images/eggs.jpg'),
       imageName: ""
     },
     {
@@ -69,20 +70,11 @@ function Store({ navigation }) {
       name: "Coffee",
       description: "Freshly roasted coffee",
       stockQty: 10,
-      price: 1.99,
-      imageUrl: "",
+      price: 9.70,
+      imageUrl: require('../images/coffee.jpg'),
       imageName: ""
     },
-    {
-      storeItemID: 5,
-      storeID: 1,
-      name: "Cake",
-      description: "Sweet chocolate cake",
-      stockQty: 10,
-      price: 1.99,
-      imageUrl: "",
-      imageName: ""
-    },
+    
   ]);
 
   if ([...storeItems].length == 0) {
@@ -118,7 +110,7 @@ function Store({ navigation }) {
           numColumns={2}
           keyExtractor={item => item.storeItemID}
           renderItem={({ item }) => (
-            <StoreItemComponent storeItem={item} storeItemName={item.name} edit={true} location='StoreItem' navigation={navigation} />
+            <StoreItemComponent storeItem={item} storeItemName={item.name} itemImage={item.imageUrl} edit={true} location='StoreItem' navigation={navigation} />
           )}
         >
         </FlatList>
