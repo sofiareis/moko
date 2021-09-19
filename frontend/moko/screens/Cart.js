@@ -14,125 +14,124 @@ import {
   Modal,
   Button
 } from 'react-native';
-
 import CartItem from "../components/CartItem.js";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-const CartFull = true;
 
 //variable CartItems: itemName, description, price, IMAGE?
-var cartItems = [];
-cartItems.push({
-    name: "Fruit",
-    description: "A very fresh apple",
-    price: 1.99,
-    qty: 0
-});
-cartItems.push({
-    name: "Vegetable",
-    description: "A very fresh cucumber",
-    price: 3.99,
-    qty: 0
-});
-cartItems.push({
-    name: "Juice",
-    description: "squeezed lemon",
-    price: 2.99,
-    qty: 0
-});
-cartItems.push({
-    name: "Vegetable",
-    description: "A very fresh cucumber",
-    price: 3.99,
-    qty: 0
-});
-cartItems.push({
-    name: "Vegetable",
-    description: "A very fresh cucumber",
-    price: 3.99,
-    qty: 0
-});
-
 const { height } = Dimensions.get('window');
-
 function Cart({ navigation }) {
-  if (!CartFull) {
-      return (
-        <View style = {{backgroundColor: '#FFFFFF', height: height}}>
+  var cartFull = true;
+  const [modalOpen, setModalOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([
+    {
+        name: "Fruit",
+        description: "A very fresh apple",
+        price: 1.99,
+        qty: 0
+    },
+    {
+        name: "Cucumber",
+        description: "A very fresh cucumber",
+        price: 3.99,
+        qty: 0
+    },
+    {
+        name: "Broccoli",
+        description: "A very fresh broccoli",
+        price: 3.99,
+        qty: 0
+    },
+    {
+        name: "Celery",
+        description: "A very fresh celery",
+        price: 3.99,
+        qty: 0
+    },
+    {
+        name: "Juice",
+        description: "squeezed lemon",
+        price: 2.99,
+        qty: 0
+    }
+  ]);
 
-          <View style = {{flexDirection: 'row'}}>
-            <Text style={styles.name}>Cart</Text>
-          </View>
-
-          <View style = {{flexDirection: 'column'}}>
-            <Image style = {styles.image} source={require('../images/cartEmpty.png')}/>
-            <Text style = {styles.text1}>Your cart is empty</Text>
-            <Text style = {styles.text2}>Looks like you haven't made</Text>
-            <Text style = {styles.text3}> your choice yet...</Text>
-            <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Home')}>
-              <Text style={styles.btnText}>Start Shopping</Text>
-            </TouchableOpacity>
-          </View>
-
-        </View>
-      );
+  function removeAllItems() {
+    setCartItems([]);
   }
-  else {
-      //iterate through data, display the data name
-    const [modalOpen, setModalOpen] = useState(false);
 
-    function goBack() {
-        setModalOpen(false);
-        navigation.navigate('Cart');
-        //empty the cart
-    }
+  function goBack() {
+      setModalOpen(false);
+      navigation.navigate('Cart');
+  }
 
+  if ([...cartItems].length == 0) {
     return (
-        <View style = {{backgroundColor: '#FFFFFF', height: height}}>
-            <View style = {{flexDirection: 'row'}}>
-                <Text style={styles.name}>Cart</Text>
-            </View>
+      <View style = {{backgroundColor: '#FFFFFF', height: height}}>
 
-            <View style = {styles.listview}>
-                <FlatList
-                    data={cartItems}
-                    renderItem={({ item }) => (<CartItem cartItem={item} />)}
-                />
-                <TouchableOpacity style={{width: 400, height: 80, justifyContent: 'center', paddingLeft: 150}} onPress={() => Alert.alert('Remove all the items')}  >
-                    <Text style={{fontSize: 20, color:'#DC8433'}}>Remove All Items</Text>
-                </TouchableOpacity>
-
-                <View style = {{flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
-                    <View style={styles.total} >
-                        <Text style={styles.totalText}>$X.XX</Text>
-                    </View>
-                    <TouchableOpacity style={styles.btn2} onPress={() => setModalOpen(true)}>
-                        <Text style={styles.btnText}>Checkout</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <Modal visible = {modalOpen} animationType ='slide' >
-                <View style = {{flexDirection: 'column'}}>
-                    <View style = {{flexDirection: 'row', justifyContent: 'center'}}>
-                        <Text style={styles.title}>Checkout</Text>
-                        <MaterialCommunityIcons name="close-circle" color='#575757' size={30} style={styles.closeIcon}  onPress={() => setModalOpen(false)}/>
-                    </View>
-                    <Text style={styles.subheader}>Order Summary</Text>
-                    <View style = {{height: 400}}>
-                        <FlatList
-                            data={cartItems}
-                            renderItem={({ item }) => (<CartItem cartItem={item} />)}
-                        />
-                    </View>
-                    <Text style = {styles.orderText}>A text message will be sent to the vender notifying them of your order.
-                        Please confirm your pickup time and method of payment directly with the seller.</Text>
-                    <TouchableOpacity style={styles.btn3} onPress={() => goBack()}>
-                        <Text style={styles.btnText}>Place Order</Text>
-                    </TouchableOpacity>
-                </View>
-            </Modal>
+        <View style = {{flexDirection: 'row'}}>
+          <Text style={styles.name}>Cart</Text>
         </View>
+
+        <View style = {{flexDirection: 'column'}}>
+          <Image style = {styles.image} source={require('../images/cartEmpty.png')}/>
+          <Text style = {styles.text1}>Your cart is empty</Text>
+          <Text style = {styles.text2}>Looks like you haven't made</Text>
+          <Text style = {styles.text3}> your choice yet...</Text>
+          <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.btnText}>Start Shopping</Text>
+          </TouchableOpacity>
+        </View>
+
+      </View>
     );
-    }
+  } else {
+    return (
+      <View style = {{backgroundColor: '#FFFFFF', height: height}}>
+          <View style = {{flexDirection: 'row'}}>
+              <Text style={styles.name}>Cart</Text>
+          </View>
+
+          <View style = {styles.listview}>
+              <FlatList
+                  data={cartItems}
+                  renderItem={({ item }) => (<CartItem cartItem={item} />)}
+              />
+            <TouchableOpacity style={{width: 400, height: 80, justifyContent: 'center', paddingLeft: 150}} onPress={() => removeAllItems()}  >
+                  <Text style={{fontSize: 20, color:'#DC8433'}}>Remove All Items</Text>
+              </TouchableOpacity>
+
+              <View style = {{flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
+                  <View style={styles.total} >
+                      <Text style={styles.totalText}>$X.XX</Text>
+                  </View>
+                  <TouchableOpacity style={styles.btn2} onPress={() => setModalOpen(true)}>
+                      <Text style={styles.btnText}>Checkout</Text>
+                  </TouchableOpacity>
+              </View>
+          </View>
+          <Modal visible = {modalOpen} animationType ='slide' >
+              <View style = {{flexDirection: 'column'}}>
+                  <View style = {{flexDirection: 'row', justifyContent: 'center'}}>
+                      <Text style={styles.title}>Checkout</Text>
+                      <MaterialCommunityIcons name="close-circle" color='#575757' size={30} style={styles.closeIcon}  onPress={() => setModalOpen(false)}/>
+                  </View>
+                  <Text style={styles.subheader}>Order Summary</Text>
+                  <View style = {{height: 400}}>
+                      <FlatList
+                          data={cartItems}
+                          renderItem={({ item }) => (<CartItem cartItem={item} checkout={true}/>)}
+                      />
+                  </View>
+                  <Text style = {styles.orderText}>A text message will be sent to the vender notifying them of your order.
+                      Please confirm your pickup time and method of payment directly with the seller.</Text>
+                  <TouchableOpacity style={styles.btn3} onPress={() => goBack()}>
+                      <Text style={styles.btnText}>Place Order</Text>
+                  </TouchableOpacity>
+              </View>
+          </Modal>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -183,7 +182,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         alignSelf: 'center',
-        alignItems: "center",
+        alignItems: 'center',
         alignContent: 'center',
         color: 'white',
         fontSize: 20,
@@ -197,12 +196,12 @@ const styles = StyleSheet.create({
         height:55,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:50,
+        //marginTop:50,
         backgroundColor:"#FFFFFF",
         width: "20%",
         borderRadius:15,
         alignSelf: 'center',
-        marginBottom: 20,
+        marginBottom: 90,
     },
     totalText: {
         height: 50,
@@ -217,13 +216,14 @@ const styles = StyleSheet.create({
     },
     btn2:{
         height:55,
-        alignItems:"center",
-        justifyContent:"center",
+        //alignItems:"center",
+        alignContent: 'center',
         backgroundColor:"#4C6D41",
         width: "50%",
         borderRadius:15,
-        alignSelf: 'center',
-        marginBottom: 20,
+        //alignSelf: 'center',
+        marginBottom: 90,
+
     },
     title: {
         marginTop: 20,
