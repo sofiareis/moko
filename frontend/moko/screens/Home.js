@@ -80,7 +80,7 @@ function HomeScreen({ navigation }) {
         setUser(responseJson);
         console.log(responseJson);
     })
-    .then(() => updateRadiusSearch(5)) // default radius is 5km
+    .then(() => updateRadiusSearch('5')) // default radius is 5km
     .catch((error) => {
         console.log(error)
     })
@@ -88,35 +88,41 @@ function HomeScreen({ navigation }) {
 
   function updateListItems(search) {
     setSearch(search);
+    // update the list of stores
     setListItems(() => {
-       return stores.filter(item =>
-        withinRadius.contains(item) &&
+      let storeList = stores.filter(item =>
+        withinRadius.filter(inRad => inRad.storeID == item.storeID).length > 0 &&
         (item.description.toLowerCase().includes(search.toLowerCase()) ||
         item.name.toLowerCase().includes(search.toLowerCase()))
-        );
+      );
+      return storeList;
     });
   }
 
   function updateRadiusSearch(radius) {
-    let radiusUrl = encodeURIComponent(user.address);
-    fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores/${radius}/${radiusUrl}`, {
-        method: 'GET'
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      setWithinRadius(responseJson);
-    })
-    .then(() => {
-      // update the list of stores
-      setListItems(() => {
-         return stores.filter(item =>
-          withinRadius.contains(item) &&
-          (item.description.toLowerCase().includes(search.toLowerCase()) ||
-          item.name.toLowerCase().includes(search.toLowerCase()))
+    if (radius !== "") {
+      let radiusUrl = encodeURIComponent(user.address);
+      fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores/${radius}/${radiusUrl}`, {
+          method: 'GET'
+      })
+      .then(response => response.json())
+      .then(responseJson => {
+        setWithinRadius(responseJson);
+      })
+      .then(() => {
+        // update the list of stores
+        console.log("updating radius search");
+        setListItems(() => {
+          let storeList = stores.filter(item =>
+            withinRadius.filter(inRad => inRad.storeID == item.storeID).length > 0 &&
+            (item.description.toLowerCase().includes(search.toLowerCase()) ||
+            item.name.toLowerCase().includes(search.toLowerCase()))
           );
-      });
-    })
-    .catch(error => console.error(error));
+          return storeList;
+        });
+      })
+      .catch(error => console.error(error));
+    }
   }
 
   function changeColor(index) {
@@ -148,7 +154,8 @@ function HomeScreen({ navigation }) {
             placeholder = 'Search'
           >
         </TextInput>
-        <MaterialCommunityIcons name="close-circle" color='#575757' size={30} style={styles.searchIcon}/>
+        <MaterialCommunityIcons name="close-circle" color='#575757' size={30} style={styles.searchIcon}
+                                onPress={() => setSearch("")}/>
     </View>
     <View style = {styles.scrowl}>
         <FlatList

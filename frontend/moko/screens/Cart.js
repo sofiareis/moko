@@ -50,10 +50,8 @@ function Cart({ navigation }) {
           responseJson.forEach(item => { map[item.storeItemID] = 0; });
           return map;
         });
-      })
-      .then(() => {
         let sum = 0;
-        cartItems.forEach(item => {
+        responseJson.forEach(item => {
           sum += item.price * item.quantity;
         });
         setTotal(sum);
@@ -122,7 +120,7 @@ function Cart({ navigation }) {
           </View>
 
           <View style = {styles.listview}>
-              <FlatList 
+              <FlatList
                   data={cartItems}
                   extraData={cartItems}
                   renderItem={({ item }) => (<CartItem cartItem={item} inc={incrementVal} dec={decrementVal} />)}
