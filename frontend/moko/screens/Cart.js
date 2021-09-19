@@ -122,12 +122,12 @@ function Cart({ navigation }) {
           </View>
 
           <View style = {styles.listview}>
-              <FlatList
+              <FlatList 
                   data={cartItems}
                   extraData={cartItems}
                   renderItem={({ item }) => (<CartItem cartItem={item} inc={incrementVal} dec={decrementVal} />)}
               />
-            <TouchableOpacity style={{width: 400, height: 80, justifyContent: 'center', paddingLeft: 150}} onPress={() => removeAllItems()}  >
+            <TouchableOpacity style={{width: 400, height: 80, justifyContent: 'center', alignSelf: 'center', alignContent: 'center', alignItems: 'center'}} onPress={() => removeAllItems()}  >
                   <Text style={{fontSize: 20, color:'#DC8433'}}>Remove All Items</Text>
               </TouchableOpacity>
 
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
         height:55,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:50,
+        marginTop:40,
         backgroundColor:"#87B676",
         width: "70%",
         borderRadius:15,
@@ -219,6 +219,11 @@ const styles = StyleSheet.create({
     listview: {
         flexDirection: 'column',
         height: 0.9 * height,
+        alignSelf: 'center',
+        //alignItems: 'center',
+        alignContent: 'center',
+        //alignContent: 'center',
+        //marginRight: 50,
     },
     total: {
         height:55,

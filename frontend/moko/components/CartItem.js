@@ -37,7 +37,7 @@ export default function CartItem(props) {
             <View style = {styles.item}>
                 <Image style =  {styles.itemImage} source={require('../images/Logo.png')} />
 
-                <View style = {{flexDirection: 'column', marginLeft: 20, width: 200}}>
+                <View style = {{flexDirection: 'column', marginLeft: 10, width: 200}}>
                     <Text style = {styles.itemName}>{cartItem.name}</Text>
                     <Text style = {styles.itemDescript}>{cartItem.description}</Text>
                     <Text style = {styles.itemPrice}>${cartItem.price}</Text>
@@ -48,7 +48,7 @@ export default function CartItem(props) {
                       <Text style ={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>{qty}</Text>
                   </View>
                   :
-                  <View style = {{flexDirection: 'row', marginLeft: -20}}>
+                  <View style = {{flexDirection: 'row', marginRight: 50}}>
                     <TouchableOpacity style={styles.button1} onPress={() => incrementVal()}  >
                         <MaterialCommunityIcons name="plus" color={'#4C6D41'} size={25} style={{marginLeft: -7}}/>
                     </TouchableOpacity>
