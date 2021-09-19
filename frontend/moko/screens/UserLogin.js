@@ -1,3 +1,4 @@
+  
 import React, { useState } from 'react';
 import {
   SafeAreaView,
@@ -30,10 +31,10 @@ function LoginScreen({ navigation }) {
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
      
     <View style = {{flexDirection: 'row', alignSelf: 'center', }}>
-          <Image style = {styles.icons} source={require('../images/Logo.png')} />
+          <Image style = {styles.icons} source={require('../images/Logo_Final.png')} />
     </View>
    
-    <Text style={styles.name}>MOKO</Text>
+    <Text style={styles.name}>A sustainable and delicious option</Text>
 
     <View style={styles.inputView}>
     <Ionicons name="person-outline" color='#000' size={20} style={{marginLeft: 10, marginTop: 10}}/>
@@ -70,16 +71,19 @@ function LoginScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   icons: {
-    marginTop: 100,
+    marginTop: 120,
     marginHorizontal: 10,
+    height: 100,
+    width: 330,
+    marginBottom: 30
   },
   name: {
     marginTop: 20,
     marginHorizontal: 10,
     alignSelf: 'center',
     fontFamily: 'Inter-Light',
-    fontSize: 40,
-    marginBottom: 40,
+    fontSize: 20,
+    marginBottom: 70,
   },
   inputView: {
     backgroundColor: "#fff",
