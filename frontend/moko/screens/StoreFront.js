@@ -29,10 +29,10 @@ function StoreFront({ navigation, route }) {
 
   useEffect(() => {
     fetchItems();
-  }, [isFocused]);
+  }, []);
 
   function fetchItems() {
-    fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores/items/${storeID}`, {
+    fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/store_items/by_store/${storeID}`, {
         method: 'GET',
     })
     .then((response) => response.json())
