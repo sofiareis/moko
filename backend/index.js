@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/users', userRouter);
-app.use('/stores', userRouter);
+app.use('/stores', storeRouter);
 app.use('/store_items', storeItemRouter);
 app.use('/cart_items', cartItemRouter);
 app.use('/tag_lookup', tagLookupRouter);

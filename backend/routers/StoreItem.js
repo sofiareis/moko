@@ -7,6 +7,7 @@ const S3 = require('./S3.js');
 
 // StoreItem Routes - base route /store_items
 router.post('/', createStoreItem);
+router.get('/:storeItemID', findStoreItemByID);
 router.put('/', updateStoreItemQuantity);
 router.put('/image', updateStoreImage);
 
@@ -51,6 +52,16 @@ async function createStoreItem(req, res, next) {
         });
       }
     }
+  });
+}
+
+function findStoreItemByID(req, res, next) {
+  StoreItem.findById(req.params.storeItemID, (err, data) => {
+    if (err) {
+      res.status(404).send({
+        message: `Unable to find user with userID ${userID}.`
+      });
+    } else { res.send(data); }
   });
 }
 
