@@ -6,7 +6,7 @@ const Store = require('./../modules/storeModule.js');
 router.post('/', createStore);
 router.get('/', getAllStores);
 router.get('/:userID', getStoreByUserId);
-router.get('/radius', getStoresInRadius);
+router.get('/:radius/:address', getStoresInRadius);
 
 let cache = {};
 
@@ -55,8 +55,8 @@ function getStoreByUserId(req, res, next) {
 }
 
 function getStoresInRadius(req, res, next) {
-  const baseAddress = req.body.address;
-  const radius = req.body.radius;
+  const baseAddress = req.params.address;
+  const radius = req.params.radius;
 
   Store.getAll((err, data) => {
     if (err)

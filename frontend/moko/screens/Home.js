@@ -21,9 +21,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 function HomeScreen({ navigation }) {
   const { height } = Dimensions.get('window');
   const [search, setSearch] = useState('');
+  const [user, setUser] = useState('');
   const [stores, setStores] = useState([]);
   const [listItems, setListItems] = useState([]);
   const [radius, setRadius] = useState(5);
+  const [withinRadius, setWithinRadius] = useState([]);
   const isFocused = useIsFocused();
   const [colorChange, setColorChange] = useState([
       false, false, false, false, false, false, false, false, false, false
@@ -35,9 +37,10 @@ function HomeScreen({ navigation }) {
   useEffect(() => {
     fetchStores();
     fetTags();
+    fetchUser();
   }, [isFocused]);
 
-  
+
   function fetchStores() {
       fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores', {
           method: 'GET',
@@ -66,16 +69,54 @@ function HomeScreen({ navigation }) {
     .catch((error) => {
         console.log(error)
     })
-}
+  }
+
+  function fetchUser() {
+    fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/users', {
+        method: 'GET',
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        setUser(responseJson);
+        console.log(responseJson);
+    })
+    .then(() => updateRadiusSearch(5)) // default radius is 5km
+    .catch((error) => {
+        console.log(error)
+    })
+  }
 
   function updateListItems(search) {
     setSearch(search);
     setListItems(() => {
        return stores.filter(item =>
-        item.description.toLowerCase().includes(search.toLowerCase()) ||
-        item.name.toLowerCase().includes(search.toLowerCase())
+        withinRadius.contains(item) &&
+        (item.description.toLowerCase().includes(search.toLowerCase()) ||
+        item.name.toLowerCase().includes(search.toLowerCase()))
         );
     });
+  }
+
+  function updateRadiusSearch(radius) {
+    let radiusUrl = encodeURIComponent(user.address);
+    fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores/${radius}/${radiusUrl}`, {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+      setWithinRadius(responseJson);
+    })
+    .then(() => {
+      // update the list of stores
+      setListItems(() => {
+         return stores.filter(item =>
+          withinRadius.contains(item) &&
+          (item.description.toLowerCase().includes(search.toLowerCase()) ||
+          item.name.toLowerCase().includes(search.toLowerCase()))
+          );
+      });
+    })
+    .catch(error => console.error(error));
   }
 
   function changeColor(index) {
@@ -83,14 +124,22 @@ function HomeScreen({ navigation }) {
     temp[index] = !temp[index];
     setColorChange(temp);
   }
-  
+
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
 
     <View style = {{flexDirection: 'row'}}>
         <Image style = {styles.name} source={require('../images/Logo_Final.png')} />
         <MaterialCommunityIcons name="map-marker" color= '#575757' size= {32} style={styles.locationIcon}/>
-        <Text style ={styles.locationText}>Radius: {radius}km</Text>
+        <Text style ={styles.locationText}>Radius:</Text>
+        <TextInput
+          style={styles.radiusBox}
+          onChangeText={(radius) => updateRadiusSearch(radius)}
+          keyboardType="numeric"
+          placeholder = '5'
+        >
+        </TextInput>
+        <Text style={styles.locationText}>km</Text>
     </View>
     <View style = {{flexDirection: 'row'}}>
         <TextInput
@@ -108,7 +157,7 @@ function HomeScreen({ navigation }) {
             extraData={tagItems}
             keyExtractor={item => item.tagID}
             renderItem={({item}) => (
-                <TouchableOpacity style = {colorChange[item.tagID - 1] ? styles.selectedTagRectangle : styles.tagRectangle} 
+                <TouchableOpacity style = {colorChange[item.tagID - 1] ? styles.selectedTagRectangle : styles.tagRectangle}
                                     onPress={()=> changeColor(item.tagID - 1)}
                 >
                     <Text style = {colorChange[item.tagID - 1] ? styles.selectedTagName : styles.tagName }>{item.name}</Text>
@@ -155,18 +204,31 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter-Light',
         paddingLeft: 30,
     },
+    radiusBox: {
+      width: 40,
+      height: 35,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#F1EFEF',
+      borderRadius: 7,
+      marginTop: 35,
+      marginLeft: 5,
+      paddingBottom: 0,
+      fontSize: 15
+    },
     searchIcon: {
         marginTop:30,
         marginLeft: -50
     },
     locationIcon: {
         marginTop: 40,
-        marginLeft: 30
+        marginLeft: 15
     },
     locationText: {
-        marginTop: 45,
+        marginTop: 50,
         marginLeft: 5,
-        fontSize: 20
+        fontSize: 15,
+        fontWeight: 'bold'
     },
     tagRectangle: {
         height: 45,
