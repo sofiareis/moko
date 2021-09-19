@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
   editBox: {
     position: 'relative',
     flexDirection: 'row',
-    marginLeft: 70
   },
   button1: {
     height: 35,
@@ -127,7 +126,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#87B676',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 85
+    marginLeft: 85,
+    marginTop: -120
   },
   editText: {
     fontSize: 20,

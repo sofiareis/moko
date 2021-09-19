@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import {
   SafeAreaView,
   StyleSheet,
@@ -22,70 +23,21 @@ function StoreFront({ navigation, route }) {
   const {desc} = route.params;
   const {storeID} = route.params;
 
+  const isFocused = useIsFocused();
+
   const [storeItems, setStoreItems] =  useState([]); 
-  /*
-      storeItemID: 1,
-      storeID: 1,
-      name: "Cucumber",
-      description: "A very fresh cucumber",
-      stockQty: 10,
-      price: 1.99,
-      imageUrl: "",
-      imageName: ""
-    },
-    {
-      storeItemID: 2,
-      storeID: 1,
-      name: "Tomato",
-      description: "A very fresh tomato",
-      stockQty: 10,
-      price: 1.99,
-      imageUrl: "",
-      imageName: ""
-    },
-    {
-      storeItemID: 3,
-      storeID: 1,
-      name: "Tomato",
-      description: "A very fresh tomato",
-      stockQty: 10,
-      price: 1.99,
-      imageUrl: "",
-      imageName: ""
-    },
-    {
-      storeItemID: 4,
-      storeID: 1,
-      name: "Tomato",
-      description: "A very fresh tomato",
-      stockQty: 10,
-      price: 1.99,
-      imageUrl: "",
-      imageName: ""
-    },
-    {
-      storeItemID: 5,
-      storeID: 1,
-      name: "Tomato",
-      description: "A very fresh tomato",
-      stockQty: 10,
-      price: 1.99,
-      imageUrl: "",
-      imageName: ""
-    },
-  ]); */
+
+  useEffect(() => {
+    fetchItems();
+  }, [isFocused]);
 
   function fetchItems() {
-    fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/storeItem', {
+    fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores/items/${storeID}`, {
         method: 'GET',
     })
     .then((response) => response.json())
     .then((responseJson) => {
-        setStoreItems(() => {
-            return storeItems.filter(item =>
-             item.storeID.includes(storeID) 
-            );
-         });
+        setStoreItems(responseJson);
         console.log(responseJson);
     })
     .catch((error) => {
