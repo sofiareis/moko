@@ -13,6 +13,7 @@ import {
   Alert
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 
 function StoreItemComponent(props) {
   let navigation = props.navigation;
@@ -35,7 +36,7 @@ function StoreItemComponent(props) {
     <View style={styles.component}>
       {edit ?
           <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate(location)}>
-            <Text style={styles.editText}>Edit</Text>
+            <Feather name="edit-2" color={'#FFFFFF'} size={25} />
           </TouchableOpacity>
           :
           <View style={styles.quantityBox}>
@@ -117,15 +118,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   editButton: {
-    height: 35,
-    width: 55,
+    height: 40,
+    width: 40,
     borderWidth: 1,
     borderColor: '#87B676',
     borderRadius: 10,
     backgroundColor: '#87B676',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 70
+    marginLeft: 85
   },
   editText: {
     fontSize: 20,
