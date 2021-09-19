@@ -15,6 +15,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+
 const height = Dimensions.get('window').height;
 
 
@@ -109,6 +110,7 @@ function SignUpScreen({ navigation }) {
     </View>
 
     <View style={styles.inputView}>
+      
     <Ionicons name="call" color='#000' size={25} style={{marginLeft: 10, marginTop: 10}}/>
     <TextInput
       style={styles.TextInput}
