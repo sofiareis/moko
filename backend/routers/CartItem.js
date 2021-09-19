@@ -17,7 +17,13 @@ function createCartItem(req, res, next) {
   const newCartItem = new CartItem({
     userID: req.body.userID,
     storeItemID: req.body.storeItemID,
-    quantity: req.body.quantity
+    storeID: req.body.storeID,
+    quantity: req.body.quantity,
+    price: req.body.price,
+    imageUrl: req.body.imageUrl,
+    imageName: req.body.imageName,
+    name: req.body.name,
+    description: req.body.description
   });
 
 	CartItem.create(newCartItem, (err, data) => {
@@ -29,31 +35,17 @@ function createCartItem(req, res, next) {
   });
 }
 
-function getUserById(req, res, next) {
-	User.findById(req.params.userID, (err, data) => {
-    if (err) {
-      res.status(404).send({
-        message: `Unable to find user with userID ${userID}.`
-      });
-    } else { res.send(data); }
-  });
-}
-
-function getUsers(req, res, next) {
-	User.getAll((err, data) => {
-    if (err)
-      res.status(500).send({
-        message: err.message
-      });
-    else { res.send(data); }
-  });
-}
-
 function updateItemQuantity(req, res, next) {
   const newCartItem = new CartItem({
     userID: req.body.userID,
     storeItemID: req.body.storeItemID,
-    quantity: req.body.quantity
+    storeID: req.body.storeID,
+    quantity: req.body.quantity,
+    price: req.body.price,
+    imageUrl: req.body.imageUrl,
+    imageName: req.body.imageName,
+    name: req.body.name,
+    description: req.body.description
   });
 
 	CartItem.updateQuantity(newCartItem, (err, data) => {

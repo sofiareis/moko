@@ -9,7 +9,7 @@ router.post('/', createUser);
 router.put('/', updateUser);
 router.get('/:userID', getUserById)
 router.get('/', getUsers);
-router.get('/cart', getCart);
+router.get('/cart/:userID', getCart);
 router.delete('/cart/:userID', deleteCart);
 
 function createUser(req, res, next) {
@@ -40,7 +40,7 @@ function getUserById(req, res, next) {
 	User.findById(req.params.userID, (err, data) => {
     if (err) {
       res.status(404).send({
-        message: `Unable to find user with userID ${userID}.`
+        message: `Unable to find user with userID ${req.params.userID}.`
       });
     } else { res.send(data); }
   });
@@ -68,7 +68,7 @@ function updateUser(req, res, next) {
 	User.updateSellerStatus(newUser, (err, data) => {
     if (err) {
         res.status(400).send({
-          message: `Unable to update user with userID ${userID}.`
+          message: `Unable to update user with userID ${newUser.userID}.`
         });
       } else { res.send(data); }
   });
@@ -78,7 +78,7 @@ function getCart(req, res, next) {
   User.getCartItems(req.params.userID, (err, data) => {
     if (err) {
       res.status(400).send({
-        message: `Unable to get cart items for user with userID ${userID}.`
+        message: `Unable to get cart items for user with userID ${req.params.userID}.`
       });
     } else { res.send(data); }
   });
@@ -88,7 +88,7 @@ function deleteCart(req, res, next) {
   User.deleteAllCartItems(req.params.userID, (err, data) => {
     if (err) {
       res.status(400).send({
-        message: `Unable to delete cart items for user with userID ${userID}.`
+        message: `Unable to delete cart items for user with userID ${req.params.userID}.`
       });
     } else { res.send(data); }
   });

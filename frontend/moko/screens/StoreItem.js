@@ -28,9 +28,9 @@ function StoreItem({ navigation }) {
         <View style = {{flexDirection: 'column'}}>
             <Image style = {styles.image} source={require('../images/peppers.png')}/> 
            
-            <View style = {{flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 50}}> 
+            <View style = {{flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 30}}> 
                 <Text style = {styles.text1}>Qty:</Text>
-                <TextInput style={styles.input} 
+                <TextInput style={styles.qty} 
                         onChangeText={onChangeQty}
                         value={qty}
                         placeholder="X"
@@ -38,9 +38,9 @@ function StoreItem({ navigation }) {
                 />
             </View>
 
-            <View style = {{flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 50}}> 
+            <View style = {{flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 30}}> 
                 <Text style = {styles.text1}>Price: $</Text>
-                <TextInput style={styles.input} 
+                <TextInput style={styles.price} 
                         onChangeText={onChangePrice}
                         value={price}
                         placeholder="X.XX"
@@ -48,9 +48,9 @@ function StoreItem({ navigation }) {
                 />
             </View>
 
-            <View style = {{flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 50}}> 
+            <View style = {{flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 30}}> 
                 <Text style = {styles.text1}>Description:</Text>
-                <TextInput style={styles.inputText} 
+                <TextInput style={styles.desc} 
                         onChangeText={onChangeText}
                         value={text}
                         placeholder="add a description of your product"
@@ -87,30 +87,42 @@ const styles = StyleSheet.create({
         height: 250
     },
     text1: {
-        marginTop: 40,
-        fontSize: 25,
+        marginTop: 15,
+        fontSize: 20,
         fontFamily: 'Inter-Bold',
         alignSelf: 'center'
     },
-    input: {
-        height: 40,
+    qty: {
+        height: 35,
         width: 100,
         borderWidth: 2,
         padding: 5,
         textAlign:'center',
-        marginTop: 45, 
-        marginLeft: 15,
+        marginTop: 20, 
+        marginLeft: 95,
         fontSize: 20, 
         borderColor: '#E0E0E0', 
         borderRadius: 10
       },
-    inputText: {
-        height: 40,
-        width: 250,
+      price: {
+        height: 35,
+        width: 100,
         borderWidth: 2,
         padding: 5,
         textAlign:'center',
-        marginTop: 45, 
+        marginTop: 20, 
+        marginLeft: 60,
+        fontSize: 20, 
+        borderColor: '#E0E0E0', 
+        borderRadius: 10
+      },
+    desc: {
+        height: 35,
+        width: 220,
+        borderWidth: 2,
+        padding: 5,
+        textAlign:'center',
+        marginTop: 20, 
         marginLeft: 15,
         fontSize: 20,
         borderColor: '#E0E0E0',
@@ -120,25 +132,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         height: 50, 
-        width: 100, 
+        width: 90, 
         backgroundColor: '#87B676', 
         borderWidth: 3, 
         borderColor: '#87B676', 
         borderRadius: 20, 
         marginTop: 40, 
-        marginLeft: 20
+        //marginLeft: 10
     }, 
     delete: {
         alignItems: 'center',
         alignSelf: 'center',
         height: 50, 
-        width: 100, 
+        width: 90, 
         backgroundColor: '#FFFFFF', 
         borderWidth: 3, 
         borderColor: '#87B676', 
         borderRadius: 20, 
         marginTop: 40, 
-        marginRight: 20
+        //marginRight: 20
     }
 
 

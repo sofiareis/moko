@@ -14,6 +14,7 @@ CREATE TABLE USER(
 CREATE TABLE STORE(
   storeID int NOT NULL AUTO_INCREMENT,
   userID int NOT NULL,
+  name varchar(50) NOT NULL,
   description varchar(200) NOT NULL,
   address varchar(400) NOT NULL,
   FOREIGN KEY (userID) REFERENCES USER (userID),
@@ -37,6 +38,13 @@ CREATE TABLE CART_ITEM(
   userID int NOT NULL,
   storeItemID int NOT NULL,
   quantity int,
+  price float NOT NULL CHECK (price >= 0),
+  imageUrl varchar(800),
+  imageName varchar(800),
+  storeID int NOT NULL,
+  name varchar(60) NOT NULL,
+  description varchar(60),
+  FOREIGN KEY (storeID) REFERENCES STORE (storeID),
   FOREIGN KEY (userID) REFERENCES USER (userID),
   FOREIGN KEY (storeItemID) REFERENCES STORE_ITEM(storeItemID),
   PRIMARY KEY(storeItemID)
@@ -75,17 +83,19 @@ INSERT INTO USER(isSeller, address, email, phoneNumber)
 INSERT INTO USER(isSeller, address, email, phoneNumber)
   VALUES(true, '1575 S Belt Line Rd, Coppell, TX 75019', 'jane@doe.com', '9876543210');
 
-INSERT INTO STORE(userID, description, address) VALUES(1, 'A friendly vegetable stand', '1580 Point W Blvd, Coppell, TX 75019');
-INSERT INTO STORE(userID, description, address) VALUES(2, 'A local homemade dessert stand', '1575 S Belt Line Rd, Coppell, TX 75019');
+INSERT INTO STORE(userID, name, description, address) VALUES(1, 'Johnnys veggies', 'A friendly vegetable stand', '1580 Point W Blvd, Coppell, TX 75019');
+INSERT INTO STORE(userID, name, description, address) VALUES(2, 'Sweet Stand', 'A local homemade dessert stand', '1575 S Belt Line Rd, Coppell, TX 75019');
 
 INSERT INTO STORE_ITEM(storeID, name, description, stockQty, price, imageUrl, imageName)
-  VALUES(1, 'Lettuce', 'Crisp Iceberg lettuce, priced per head', 10, 1.99, "", "");
+  VALUES(1, 'Lettuce', 'Crisp head of iceberg', 10, 1.99, "", "");
 INSERT INTO STORE_ITEM(storeID, name, description, stockQty, price, imageUrl, imageName)
-  VALUES(1, 'Tomatoes', 'Sweet tomatoes, priced per bunch', 20, 2.99, "", "");
+  VALUES(1, 'Tomatoes', 'Sweet tomatoes, per bunch', 20, 2.99, "", "");
 INSERT INTO STORE_ITEM(storeID, name, description, stockQty, price, imageUrl, imageName)
-  VALUES(1, 'Cucumbers', 'Freshly picked cucumbers, priced per bunch of 3', 20, 1.99, "", "");
+  VALUES(1, 'Cucumbers', 'Fresh cucumbers, per bunch of 3', 20, 1.99, "", "");
 INSERT INTO STORE_ITEM(storeID, name, description, stockQty, price, imageUrl, imageName)
-  VALUES(1, 'Celery', 'Crunchy celery stalks, priced per bunch', 30, 2.99, "", "");
+  VALUES(1, 'Celery', 'Crunchy celery, per bunch', 30, 2.99, "", "");
+INSERT INTO STORE_ITEM(storeID, name, description, stockQty, price, imageUrl, imageName)
+  VALUES(1, 'Apples', 'Ripe apple, per apple', 20, 1.99, "", "");
 
 INSERT INTO STORE_ITEM(storeID, name, description, stockQty, price, imageUrl, imageName)
   VALUES(2, 'Chocolate Chip Cookie', 'Chewy cookies, priced per cookie', 30, 0.99, "", "");

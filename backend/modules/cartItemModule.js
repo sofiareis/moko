@@ -2,8 +2,14 @@ const sql = require("./db.js");
 
 const CartItem = function(cartItem) {
   this.userID = cartItem.userID;
-  this.storeItemID = cartItem.storeItemID
+  this.storeItemID = cartItem.storeItemID;
+  this.storeID = cartItem.storeID;
   this.quantity = cartItem.quantity;
+  this.price = cartItem.price;
+  this.imageUrl = cartItem.imageUrl;
+  this.imageName = cartItem.imageName;
+  this.name = cartItem.name;
+  this.description = cartItem.description;
 };
 
 CartItem.create = (cartItem, result) => {

@@ -46,7 +46,7 @@ function Footprint({ navigation }) {
           </View>
 
           <View style={{marginBottom: 40}}>
-          <Text style={styles.action}>The impact of imported foods</Text>
+          <Text style={styles.action}>THE IMPACT OF IMPORTED FOODS</Text>
           <Text style={styles.info}>Checkout how the Carbon Dioxide emissions diverge between local and imported foods</Text>
             <HorizontalBarGraph
             data={[14.9, 840, 23, 974, 43, 409]}
@@ -59,7 +59,13 @@ function Footprint({ navigation }) {
             barColor={"#4C6D41"}
               /> 
             </View> 
-        </ScrollView> 
+            <Text style={styles.referencesTitle}>References
+            </Text>
+            <Text style={styles.references}>Food Share, Fighting Global Warming at the Farmer’s Market ,2005, 4.
+            https://foodshare.net/custom/uploads/2015/11/Fighting_Global_Warming_at_the_Farmers_Market.pdf  
+            </Text>
+
+            </ScrollView> 
     </View>
 
     
@@ -86,8 +92,6 @@ const config = {
   }
 };
 
-
-
 const styles = StyleSheet.create({
     name: {
         marginTop: 20,
@@ -99,15 +103,16 @@ const styles = StyleSheet.create({
       },
       action: {
         marginTop: 40,
-        marginLeft: 40,
+        //marginLeft: 40,
         marginHorizontal: 10,
         fontFamily: 'Inter-Regular',
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 20
+        marginBottom: 20,
+        alignSelf: 'center'
       },
       chart: {
-        marginBottom: 30,
+        marginBottom: 10,
         padding: 10,
         paddingTop: 20,
         borderRadius: 20,
@@ -134,6 +139,20 @@ const styles = StyleSheet.create({
         //alignSelf: 'center',
         //alignContent: 'center',
       },
+      references: {
+        alignSelf: 'center',
+        marginBottom: 90,
+        fontFamily: 'Inter-Regular',
+        fontSize: 12,
+        alignItems: 'center'
+      },
+      referencesTitle: {
+        alignSelf: 'center',
+        marginBottom: 10,
+        fontFamily: 'Inter-Regular',
+        fontSize: 15,
+      }
+
 });
 
 export default Footprint;

@@ -17,29 +17,6 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-let DATA = [
-    {
-      desc: 'eggs',
-      name: 'egg shop'
-    },
-    {
-      desc: 'meat',
-      name: 'meat shop'
-    },
-    {
-      desc: 'veggie',
-      name: 'veg shop'
-    },
-    {
-        desc: 'dairy',
-        name: 'milk shop'
-    },
-    {
-        desc: 'tofu',
-        name: 'tofu shop'
-    },
-
-  ];
 
 function HomeScreen({ navigation }) {
 
@@ -103,7 +80,7 @@ function HomeScreen({ navigation }) {
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
 
     <View style = {{flexDirection: 'row'}}>
-        <Text style={styles.name}>Moko</Text>
+        <Image style = {styles.name} source={require('../images/Logo_Final.png')} />
         <MaterialCommunityIcons name="map-marker" color= '#575757' size= {32} style={styles.locationIcon}/>
         <Text style ={styles.locationText}>Radius</Text>
     </View>
@@ -153,7 +130,7 @@ function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     name: {
-        marginTop: 20,
+        marginTop: 35,
         marginLeft: 40,
         marginHorizontal: 10,
         fontFamily: 'Inter-Light',
