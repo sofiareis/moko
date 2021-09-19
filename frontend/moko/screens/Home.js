@@ -16,7 +16,6 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-//import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 let DATA = [
     {
@@ -60,8 +59,8 @@ function HomeScreen({ navigation }) {
       })
       .then((response) => response.json())
       .then((responseJson) => {
-          setStores(responseJson)
-          console.log(responseJson)
+          setStores(responseJson);
+          console.log(responseJson);
       })
       .catch((error) => {
           console.log(error)
@@ -71,7 +70,7 @@ function HomeScreen({ navigation }) {
   function updateListItems(search) {
     setSearch(search);
     setListItems(() => {
-       return stores.filter(item => 
+       return stores.filter(item =>
         item.description.toLowerCase().includes(search.toLowerCase()) ||
         item.name.toLowerCase().includes(search.toLowerCase())
         );
@@ -81,7 +80,7 @@ function HomeScreen({ navigation }) {
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
 
-    <View style = {{flexDirection: 'row'}}> 
+    <View style = {{flexDirection: 'row'}}>
         <Text style={styles.name}>Moko</Text>
         <MaterialCommunityIcons name="map-marker" color= '#575757' size= {32} style={styles.locationIcon}/>
         <Text style ={styles.locationText}>Radius</Text>
@@ -96,7 +95,7 @@ function HomeScreen({ navigation }) {
         <MaterialCommunityIcons name="close-circle" color='#575757' size={30} style={styles.searchIcon}/>
     </View>
     <View style = {styles.scrowl}>
-        <ScrollView horizontal = {true} > 
+        <ScrollView horizontal = {true} >
                 <TouchableOpacity style = {styles.tagRectangle}>
                     <Text style = {styles.tagName}>Tag1</Text>
                 </TouchableOpacity>
@@ -115,20 +114,19 @@ function HomeScreen({ navigation }) {
             </ScrollView>
         </View>
 
-    <ScrollView>
         <FlatList
-        data = {listItems}
-        keyExtractor={item => item.desc}
-        renderItem={({item}) => (
-            <TouchableOpacity> 
-        <View style = {styles.vendorRectangle}>
-            <Text style = {styles.vendorName}>{item.name}</Text>
-            <Text style = {styles.vendorName}>{item.description}</Text>
-        </View>
-    </TouchableOpacity>
-        )}
+          data={listItems}
+          extraData={listItems}
+          keyExtractor={item => item.description}
+          renderItem={({item}) => (
+              <TouchableOpacity>
+                <View style = {styles.vendorRectangle}>
+                    <Text style = {styles.vendorName}>{item.name}</Text>
+                    <Text style = {styles.vendorName}>{item.description}</Text>
+                </View>
+              </TouchableOpacity>
+          )}
         />
-    </ScrollView>
 
   </View>
   );
@@ -142,9 +140,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         fontFamily: 'Inter-Light',
         fontSize: 40
-    },    
+    },
     searchBar: {
-        borderRadius: 10, 
+        borderRadius: 10,
         backgroundColor: '#F1EFEF',
         width: "90%",
         height: 50,
@@ -152,7 +150,7 @@ const styles = StyleSheet.create({
         marginLeft: 25,
         fontSize: 20,
         fontFamily: 'Inter-Light',
-        paddingLeft: 30,   
+        paddingLeft: 30,
     },
     searchIcon: {
         marginTop:30,
@@ -165,7 +163,7 @@ const styles = StyleSheet.create({
     locationText: {
         marginTop: 45,
         marginLeft: 5,
-        fontSize: 20 
+        fontSize: 20
     },
     tagRectangle: {
         height: 45,
@@ -198,12 +196,12 @@ const styles = StyleSheet.create({
         //flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        flexDirection: 'row', 
-        alignItems: 'center', 
+        flexDirection: 'row',
+        alignItems: 'center',
         alignContent: 'center',
         paddingBottom: 8,
         paddingTop: 8
-    
+
     },
     container: {
         flex: 1,
@@ -217,7 +215,7 @@ const styles = StyleSheet.create({
     vendorName: {
         fontSize: 18
     }
-    
+
 });
 
 export default HomeScreen;
