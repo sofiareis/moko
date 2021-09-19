@@ -114,7 +114,7 @@ function HomeScreen({ navigation }) {
           extraData={listItems}
           keyExtractor={item => item.description}
           renderItem={({item}) => (
-              <TouchableOpacity onPress={() => navigation.navigate('StoreFront', { storeName: item.name, desc: item.description })}>
+              <TouchableOpacity onPress={() => navigation.navigate('StoreFront', { storeName: item.name, desc: item.description, storeID: item.ID })}>
                 <View style = {styles.vendorRectangle}>
                     <Text style = {styles.vendorName}>{item.name}</Text>
                     <View style = {{flexDirection: 'row', marginTop: 10}}>
