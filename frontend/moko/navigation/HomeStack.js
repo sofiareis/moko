@@ -4,21 +4,21 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Store from '../screens/Store.js';
-import StoreItem from '../screens/StoreItem.js';
+import HomeScreen from '../screens/Home.js';
+import StoreFront from '../screens/StoreFront.js';
 
 const Stack = createStackNavigator();
 
-function StoreStack({ navigation }) {
+function HomeStack({ navigation }) {
   return (
-    <Stack.Navigator initialRouteName="Store"
+    <Stack.Navigator initialRouteName="HomeScreen"
                       screenOptions={{
                           headerShown: false,
                       }}>
-    <Stack.Screen name="Store" component={Store} />
-    <Stack.Screen name="StoreItem" component={StoreItem} />
+    <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <Stack.Screen name="StoreFront" component={StoreFront} />
     </Stack.Navigator>
   );
 }
 
-export default StoreStack;
+export default HomeStack;

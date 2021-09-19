@@ -12,13 +12,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import HomeScreen from '../screens/Home.js';
 import Cart from '../screens/Cart.js';
 import StoreEmpty from '../screens/Store';
 import Footprint from '../screens/CarbonFootprint.js';
 import Profile from '../screens/Profile.js';
 
 import StoreStack from './StoreStack.js' ;
+import HomeStack from './HomeStack.js';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +43,7 @@ function UserStack({ navigation }) {
         }}
     >
       <Tab.Screen name='Home'
-                  component={HomeScreen}
+                  component={HomeStack}
                   options = {{
                     tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons name="home-outline" color={color} size={45} />

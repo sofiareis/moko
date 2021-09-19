@@ -75,6 +75,7 @@ function HomeScreen({ navigation }) {
     });
   }
 
+
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
 
@@ -107,25 +108,25 @@ function HomeScreen({ navigation }) {
             )}
             />
     </View>
-
         <FlatList
           data={listItems}
           extraData={listItems}
           keyExtractor={item => item.description}
           renderItem={({item}) => (
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('StoreFront', { paramKey: item.iD })}>
                 <View style = {styles.vendorRectangle}>
                     <Text style = {styles.vendorName}>{item.name}</Text>
-                    <Text style = {styles.vendorName}>{item.description}</Text>
+                    <View style = {{flexDirection: 'row', marginTop: 10}}>
+                        <Image style = {styles.image} source={require('../images/peppers.png')} />
+                        <Text style = {styles.vendorDescription}>{item.description}</Text>
+                    </View>
                 </View>
               </TouchableOpacity>
           )}
         />
-
   </View>
   );
 }
-
 
 const styles = StyleSheet.create({
     name: {
@@ -195,7 +196,6 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         paddingBottom: 8,
         paddingTop: 8
-
     },
     container: {
         flex: 1,
@@ -207,7 +207,17 @@ const styles = StyleSheet.create({
          height: 44,
        },
     vendorName: {
-        fontSize: 18
+        marginTop: 10,
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    vendorDescription: {
+        fontSize: 18,
+        padding: 10
+    }, 
+    image: {
+        width: 100,
+        height: 70, 
     }
 
 });
