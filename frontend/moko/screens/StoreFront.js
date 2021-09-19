@@ -77,9 +77,7 @@ function StoreFront({ navigation }) {
         <Text style={styles.name}>StoreName</Text>
       
         <Text style={styles.description}>A description of the store</Text>
-        <Text style={styles.description}>
-          Values passed from First page: {route.params.paramKey}
-        </Text>
+       
         <FlatList
           data={storeItems}
           extraData={storeItems}
