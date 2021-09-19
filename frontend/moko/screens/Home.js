@@ -19,13 +19,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 function HomeScreen({ navigation }) {
-
   const { height } = Dimensions.get('window');
   const [search, setSearch] = useState('');
   const [stores, setStores] = useState([]);
   const [listItems, setListItems] = useState([]);
   const [radius, setRadius] = useState(5);
   const isFocused = useIsFocused();
+  const [colorChange, setColorChange] = useState([
+      false, false, false, false, false, false, false, false, false, false
+  ]);
 
   const [tags, setTags] = useState([]);
   const [tagItems, setTagItems] = useState([]);
@@ -35,7 +37,7 @@ function HomeScreen({ navigation }) {
     fetTags();
   }, [isFocused]);
 
-
+  
   function fetchStores() {
       fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores', {
           method: 'GET',
@@ -76,7 +78,12 @@ function HomeScreen({ navigation }) {
     });
   }
 
-
+  function changeColor(index) {
+    var temp = [...colorChange];
+    temp[index] = !temp[index];
+    setColorChange(temp);
+  }
+  
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
 
@@ -101,10 +108,10 @@ function HomeScreen({ navigation }) {
             extraData={tagItems}
             keyExtractor={item => item.tagID}
             renderItem={({item}) => (
-                <TouchableOpacity>
-                    <View style = {styles.tagRectangle}>
-                        <Text style = {styles.tagName}>{item.name}</Text>
-                    </View>
+                <TouchableOpacity style = {colorChange[item.tagID - 1] ? styles.selectedTagRectangle : styles.tagRectangle} 
+                                    onPress={()=> changeColor(item.tagID - 1)}
+                >
+                    <Text style = {colorChange[item.tagID - 1] ? styles.selectedTagName : styles.tagName }>{item.name}</Text>
                 </TouchableOpacity>
             )}
             />
@@ -114,7 +121,7 @@ function HomeScreen({ navigation }) {
           extraData={listItems}
           keyExtractor={item => item.description}
           renderItem={({item}) => (
-              <TouchableOpacity onPress={() => navigation.navigate('StoreFront', { storeName: item.name, desc: item.description, storeID: item.ID })}>
+              <TouchableOpacity onPress={() => navigation.navigate('StoreFront', { storeName: item.name, desc: item.description, storeID: item.storeID })}>
                 <View style = {styles.vendorRectangle}>
                     <Text style = {styles.vendorName}>{item.name}</Text>
                     <View style = {{flexDirection: 'row', marginTop: 10}}>
@@ -171,11 +178,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: 10
     },
+    selectedTagRectangle:{
+        height: 45,
+        paddingHorizontal: 12,
+        borderRadius: 10,
+        backgroundColor: '#4C6D41',
+        borderWidth: 1.5,
+        marginTop: 10,
+        alignItems: 'center',
+        marginHorizontal: 10
+    },
     tagName: {
        fontSize:20,
        alignSelf: 'center',
        paddingTop: 8,
        color: '#4C6D41'
+    },
+    selectedTagName: {
+        fontSize:20,
+        alignSelf: 'center',
+        paddingTop: 8,
+        color: '#FFFFFF'
     },
     vendorRectangle: {
         height: 122,

@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     height: 215,
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 15
+    marginTop: 30
   },
   mainContentBox: {
     width: 110,
