@@ -6,7 +6,6 @@ const Store = require('./../modules/storeModule.js');
 router.post('/', createStore);
 router.get('/', getAllStores);
 router.get('/:userID', getStoreByUserId);
-router.get('/items/:storeID', findItemsByStoreId);
 router.get('/radius', getStoresInRadius);
 
 let cache = {};
@@ -50,16 +49,6 @@ function getStoreByUserId(req, res, next) {
     if (err)
       res.status(404).send({
         message: "User has no store"
-      });
-    else { res.send(data); }
-  });
-}
-
-function findItemsByStoreId(req, res, next) {
-  Store.findItemsByStoreId(req.params.storeID, (err, data) => {
-    if (err)
-      res.status(404).send({
-        message: "Store not found"
       });
     else { res.send(data); }
   });
