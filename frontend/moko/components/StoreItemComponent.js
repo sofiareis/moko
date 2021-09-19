@@ -18,6 +18,7 @@ import Feather from 'react-native-vector-icons/Feather';
 function StoreItemComponent(props) {
   let navigation = props.navigation;
   let storeItem = props.storeItem;
+  let storeItemName = props.storeItemName;
   let edit = props.edit;
   let location = props.location;
   const [quantity, setQuantity] = useState(storeItem.stockQty);
@@ -39,7 +40,7 @@ function StoreItemComponent(props) {
       </View>
 
       {edit ?
-          <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate(location)}>
+          <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate(location, { storeItemName })}>
             <Feather name="edit-2" color={'#FFFFFF'} size={25} />
           </TouchableOpacity>
           :

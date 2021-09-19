@@ -118,7 +118,8 @@ function Store({ navigation }) {
           numColumns={2}
           keyExtractor={item => item.storeItemID}
           renderItem={({ item }) => (
-            <StoreItemComponent storeItem={item} edit={true} location='StoreItem' navigation={navigation} />
+            <StoreItemComponent storeItem={item} storeItemName={item.name}  edit={true} location='StoreItem' navigation={navigation} />
+
           )}
         >
         </FlatList>

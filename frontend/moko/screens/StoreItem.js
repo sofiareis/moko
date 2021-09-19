@@ -14,16 +14,18 @@ import {
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; 
 
-function StoreItem({ navigation }) {
+function StoreItem({ navigation, route }) {
   const { height } = Dimensions.get('window');
   const [qty, onChangeQty] = React.useState("X");
   const [price, onChangePrice] = React.useState("X.XX");
   const [text, onChangeText] = React.useState("add a description");
 
+  const {storeItemName} = route.params;
+
     return (
       <View style = {{backgroundColor: '#FFFFFF', height: height}}>
         <View style = {{flexDirection: 'row'}}> 
-            <Text style={styles.name}>StoreItem Name</Text>     
+            <Text style={styles.name}>{storeItemName}</Text>     
         </View> 
         <View style = {{flexDirection: 'column'}}>
             <Image style = {styles.image} source={require('../images/peppers.png')}/> 
