@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'flex-start',
         marginTop: -2,
-        alignContent: 'center',
+        justifyContent: 'center'
     },
     scrowl: {
         //flexDirection: 'row',
@@ -323,6 +323,7 @@ const styles = StyleSheet.create({
     image: {
         width: 100,
         height: 80,
+        marginTop: 25
         //alignSelf: 'center',
         //alignItems: 'center',
         //alignContent: 'center',
