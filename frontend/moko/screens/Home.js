@@ -209,7 +209,9 @@ const styles = StyleSheet.create({
         borderRightColor: '#FFFFFF',
         borderWidth: 2,
         alignSelf: 'center',
-        marginTop: 10
+        alignItems: 'center',
+        marginTop: 10,
+        alignContent: 'center',
     },
     scrowl: {
         //flexDirection: 'row',
@@ -237,11 +239,18 @@ const styles = StyleSheet.create({
     },
     vendorDescription: {
         fontSize: 18,
-        padding: 10
+        //padding: 10,
+        alignContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginRight: 10
     },
     image: {
         width: 100,
         height: 70,
+        alignSelf: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
     }
 
 });
