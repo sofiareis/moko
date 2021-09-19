@@ -40,7 +40,11 @@ function Cart({ navigation }) {
       .then(response => response.json())
       .then(responseJson => {
         console.log(responseJson);
-        setCartItems(responseJson);
+        setCartItems(() => {
+          let map = {};
+          responseJson.forEach(item => map.push(item));
+          return map;
+        });
         setCartQuantities(() => {
           let map = {};
           responseJson.forEach(item => { map[item.storeItemID] = 0; });
@@ -48,28 +52,13 @@ function Cart({ navigation }) {
         });
       })
       .then(() => {
-        console.log(cartItems);
-        setCartItems(() => {
-          let items = [];
-          [...cartItems].map(async item => {
-            await fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000//store_items/${item.storeItemID}`, {
-              method: 'GET'
-            }).then(response => response.json())
-            .then((res) => {
-              items.push({
-                storeItemID: item.storeItemID,
-                quantity: item.quantity,
-                description: res.description,
-                price: res.price
-              });
-            });
-          });
-
-          return items;
+        let sum = 0;
+        cartItems.forEach(item => {
+          sum += item.price * item.quantity;
         });
+        setTotal(sum);
       })
       .catch(error => console.error(error))
-      .finally(() => console.log(cartItems));
     }
   }
 
@@ -98,8 +87,10 @@ function Cart({ navigation }) {
     setTotal(0);
   }
 
-  function goBack() {
+  function goBackToBlankCart() {
       setModalOpen(false);
+      removeAllItems();
+
       navigation.navigate('Cart');
   }
 
@@ -142,7 +133,7 @@ function Cart({ navigation }) {
 
               <View style = {{flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
                   <TouchableOpacity style={styles.btn2} onPress={() => setModalOpen(true)}>
-                      <Text style={styles.btnText}>Checkout: {total}</Text>
+                      <Text style={styles.btnText}>Checkout: ${total.toFixed(2)}</Text>
                   </TouchableOpacity>
               </View>
           </View>
@@ -161,8 +152,8 @@ function Cart({ navigation }) {
                   </View>
                   <Text style = {styles.orderText}>A text message will be sent to the vender notifying them of your order.
                       Please confirm your pickup time and method of payment directly with the seller.</Text>
-                  <TouchableOpacity style={styles.btn3} onPress={() => goBack()}>
-                      <Text style={styles.btnText}>Place Order</Text>
+                    <TouchableOpacity style={styles.btn3} onPress={() => goBackToBlankCart()}>
+                      <Text style={styles.btnText}>Place Order: ${total.toFixed(2)}</Text>
                   </TouchableOpacity>
               </View>
           </Modal>

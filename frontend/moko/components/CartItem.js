@@ -19,7 +19,7 @@ export default function CartItem(props) {
    let cartItem = props.cartItem;
    let checkout = props.checkout;
    console.log(cartItem);
-   const [qty, setQty] = useState(cartItem.qty);
+   const [qty, setQty] = useState(cartItem.quantity);
 
     const incrementVal = () => {
       props.inc(cartItem);
@@ -69,24 +69,25 @@ export default function CartItem(props) {
 const styles = StyleSheet.create({
     item: {
         marginLeft: 20,
-        marginTop: 30,
+        marginTop: 20,
         flexDirection: 'row',
         borderWidth: 2,
-        height: 100,
+        paddingBottom: 15,
         borderLeftColor: '#FFFFFF',
         borderRightColor: '#FFFFFF',
         borderTopColor: '#FFFFFF',
-        borderBottomColor: '#E0E0E0'
+        borderBottomColor: '#E0E0E0',
+        justifyContent: 'center'
     },
     itemName: {
         fontSize: 20,
         fontWeight: 'bold'
       },
     itemDescript: {
-        fontSize: 16
+        fontSize: 15
     },
     itemPrice: {
-        fontSize: 20,
+        fontSize: 18,
         color: '#4C6D41',
         fontWeight: 'bold'
     },
