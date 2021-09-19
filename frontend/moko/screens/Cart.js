@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -22,41 +22,74 @@ const { height } = Dimensions.get('window');
 function Cart({ navigation }) {
   var cartFull = true;
   const [modalOpen, setModalOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([
-    {
-        name: "Fruit",
-        description: "A very fresh apple",
-        price: 1.99,
-        qty: 0
-    },
-    {
-        name: "Cucumber",
-        description: "A very fresh cucumber",
-        price: 3.99,
-        qty: 0
-    },
-    {
-        name: "Broccoli",
-        description: "A very fresh broccoli",
-        price: 3.99,
-        qty: 0
-    },
-    {
-        name: "Celery",
-        description: "A very fresh celery",
-        price: 3.99,
-        qty: 0
-    },
-    {
-        name: "Juice",
-        description: "squeezed lemon",
-        price: 2.99,
-        qty: 0
+  const [total, setTotal] = useState(0);
+  //const isFocused = useIsFocused();
+
+  const [cartQuantities, setCartQuantities] = useState({});
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  function getCart() {
+    if (cartItems.length == 0) {
+      fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/cart?userID=1`, {
+        method: 'GET'
+      })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson);
+        setCartItems(responseJson);
+        setCartQuantities(() => {
+          let map = {};
+          cartItems.forEach(item => { map[item.storeItemID] = 0; });
+          return map;
+        });
+      })
+      .then(() => {
+        setCartItems([...responseJson, {
+            id: 1234556,
+            name: "Fruit",
+            description: "A very fresh apple",
+            price: 1.99,
+            qty: 0
+        },
+        {
+            id: 23456778,
+            name: "Cucumber",
+            description: "A very fresh cucumber",
+            price: 3.99,
+            qty: 0
+        }]);
+      })
+      .catch(error => console.error(error));
     }
-  ]);
+  }
+
+  const incrementVal = (cartItem) => {
+    let temp = {...cartQuantities};
+    temp[cartItem.storeItemID]++;
+    setCartQuantities(temp);
+    setTotal(prevTotal => prevTotal + cartItem.price);
+  };
+
+  const decrementVal = (cartItem) => {
+    let temp = {...cartQuantities};
+    console.log("temp is");
+    console.log(temp);
+    console.log(cartItem.storeItemID);
+    if (temp[cartItem.storeItemID] > 0) {
+      console.log(temp[cartItem.storeItemID]);
+      temp[cartItem.storeItemID]--;
+      setTotal(prevTotal => prevTotal - cartItem.price);
+    }
+    setCartQuantities(temp);
+  };
 
   function removeAllItems() {
     setCartItems([]);
+    setTotal(0);
   }
 
   function goBack() {
@@ -94,18 +127,16 @@ function Cart({ navigation }) {
           <View style = {styles.listview}>
               <FlatList
                   data={cartItems}
-                  renderItem={({ item }) => (<CartItem cartItem={item} />)}
+                  extraData={cartItems}
+                  renderItem={({ item }) => (<CartItem cartItem={item} inc={incrementVal} dec={decrementVal} />)}
               />
             <TouchableOpacity style={{width: 400, height: 80, justifyContent: 'center', paddingLeft: 150}} onPress={() => removeAllItems()}  >
                   <Text style={{fontSize: 20, color:'#DC8433'}}>Remove All Items</Text>
               </TouchableOpacity>
 
               <View style = {{flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
-                  <View style={styles.total} >
-                      <Text style={styles.totalText}>$X.XX</Text>
-                  </View>
                   <TouchableOpacity style={styles.btn2} onPress={() => setModalOpen(true)}>
-                      <Text style={styles.btnText}>Checkout</Text>
+                      <Text style={styles.btnText}>Checkout: {total}</Text>
                   </TouchableOpacity>
               </View>
           </View>
@@ -219,7 +250,7 @@ const styles = StyleSheet.create({
         //alignItems:"center",
         alignContent: 'center',
         backgroundColor:"#4C6D41",
-        width: "50%",
+        width: "60%",
         borderRadius:15,
         //alignSelf: 'center',
         marginBottom: 90,
