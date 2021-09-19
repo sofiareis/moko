@@ -132,7 +132,7 @@ function HomeScreen({ navigation }) {
   }
 
   return (
-    <View style = {{backgroundColor: '#FFFFFF', height: height}}>
+    <View style = {{backgroundColor: '#FFFFFF', height: height, alignItems: 'center'}}>
 
     <View style = {{flexDirection: 'row'}}>
         <Image style = {styles.name} source={require('../images/Logo_Final.png')} />
@@ -179,9 +179,9 @@ function HomeScreen({ navigation }) {
           renderItem={({item}) => (
               <TouchableOpacity onPress={() => navigation.navigate('StoreFront', { storeName: item.name, desc: item.description, storeID: item.storeID })}>
                 <View style = {styles.vendorRectangle}>
-                    <Text style = {styles.vendorName}>{item.name}</Text>
-                    <View style = {{flexDirection: 'row', marginTop: 10}}>
-                        <Image style = {styles.image} source={require('../images/peppers.png')} />
+                    <Image style = {styles.image} source={require('../images/peppers.png')} />
+                    <View style = {{flexDirection: 'column', marginTop: 10, marginLeft: 8, alignItems: 'flex-start', width: 200}}>
+                        <Text style = {styles.vendorName}>{item.name}</Text>
                         <Text style = {styles.vendorDescription}>{item.description}</Text>
                     </View>
                 </View>
@@ -194,22 +194,19 @@ function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     name: {
-        marginTop: 35,
-        marginLeft: 40,
-        marginHorizontal: 10,
-        fontFamily: 'Inter-Light',
-        fontSize: 40
+      marginTop: 35,
+      marginRight: 20
     },
     searchBar: {
-        borderRadius: 10,
-        backgroundColor: '#F1EFEF',
-        width: "90%",
-        height: 50,
-        marginTop: 20,
-        marginLeft: 25,
-        fontSize: 20,
-        fontFamily: 'Inter-Light',
-        paddingLeft: 30,
+      borderRadius: 10,
+      backgroundColor: '#F1EFEF',
+      width: "90%",
+      height: 50,
+      marginTop: 20,
+      fontSize: 20,
+      fontFamily: 'Inter-Light',
+      paddingLeft: 30,
+      marginLeft: -20,
     },
     radiusBox: {
       width: 40,
@@ -229,7 +226,7 @@ const styles = StyleSheet.create({
     },
     locationIcon: {
         marginTop: 40,
-        marginLeft: 15
+        marginLeft: 35
     },
     locationText: {
         marginTop: 50,
@@ -252,6 +249,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         borderRadius: 10,
         backgroundColor: '#4C6D41',
+        borderColor: '#4C6D41',
         borderWidth: 1.5,
         marginTop: 10,
         alignItems: 'center',
@@ -271,26 +269,29 @@ const styles = StyleSheet.create({
     },
     vendorRectangle: {
         height: 122,
-        width: '90%',
+        width: 350,
+        flexDirection: 'row',
         borderTopColor: '#87B676',
         borderBottomColor: '#87B676',
         borderLeftColor: '#FFFFFF',
         borderRightColor: '#FFFFFF',
-        borderWidth: 2,
+        borderWidth: 1,
         alignSelf: 'center',
-        alignItems: 'center',
-        marginTop: 10,
+        alignItems: 'flex-start',
+        marginTop: -2,
         alignContent: 'center',
     },
     scrowl: {
         //flexDirection: 'row',
+        width: '90%',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',
         paddingBottom: 8,
-        paddingTop: 8
+        paddingTop: 8,
+        marginLeft: -15
     },
     container: {
         flex: 1,
@@ -308,11 +309,7 @@ const styles = StyleSheet.create({
     },
     vendorDescription: {
         fontSize: 18,
-        //padding: 10,
-        alignContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        marginRight: 10
+        marginTop: 10
     },
     image: {
         width: 100,

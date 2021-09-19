@@ -21,7 +21,7 @@ const height = Dimensions.get('window').height;
 
 function SignUpScreen({ navigation }) {
   //const { height } = Dimensions.get('window');
- 
+
   const [postal, setPostal] = useState('');
   const [province, setProvince] = useState('');
   const [street, setStreet] = useState('');
@@ -31,20 +31,20 @@ function SignUpScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [isSeller, setSeller] = useState('');
 
-  
-  
+
+
   return (
     <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={false}
     >
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
-   
+
     <Text style={styles.name}>MOKO</Text>
     <Text style={styles.info}>Please, write down your information:</Text>
-    
-    <ScrollView > 
-       
+
+    <ScrollView >
+
     <View style={styles.inputView}>
     <Ionicons name="person-outline" color='#000' size={25} style={{marginLeft: 10, marginTop: 10}}/>
     <TextInput
@@ -107,7 +107,7 @@ function SignUpScreen({ navigation }) {
     </View>
 
     <View style={styles.inputView}>
-      
+
     <Ionicons name="call" color='#000' size={25} style={{marginLeft: 10, marginTop: 10}}/>
     <TextInput
       style={styles.TextInput}
@@ -117,7 +117,7 @@ function SignUpScreen({ navigation }) {
     />
     </View>
 
-    <View style={styles.inputView}> 
+    <View style={styles.inputView}>
         <TextInput
             style={styles.TextInput}
             placeholder="Are you a seller?"
@@ -130,7 +130,7 @@ function SignUpScreen({ navigation }) {
       <Text style={styles.signinText}>SIGN IN</Text>
     </TouchableOpacity>
   </View>
- 
+
   </KeyboardAwareScrollView>
   );
 }
@@ -195,16 +195,11 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
   signinText: {
-    height: 50,
-    flex: 1,
     padding: 5,
     alignSelf: 'center',
-    alignItems: "center",
-    justifyContent: 'center',
     color: 'white',
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: 'Inter-Light',
-    
   },
 
 });
