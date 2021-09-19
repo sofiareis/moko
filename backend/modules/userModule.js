@@ -75,7 +75,7 @@ User.getAll = (result) => {
 };
 
 User.getCartItems = (userID, result) => {
-  sql.query('SELECT * FROM CART_ITEMS WHERE userID=\"' + userID + '\"', (err, res) => {
+  sql.query('SELECT * FROM CART_ITEM WHERE userID=\"' + userID + '\"', (err, res) => {
     if (err) {
         console.log("error ", err);
         result(err, null);

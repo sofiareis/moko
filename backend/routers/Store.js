@@ -35,7 +35,7 @@ function createStore(req, res, next) {
 }
 
 function getAllStores(req, res, next) {
-  Store.getAll(req.params.userID, (err, data) => {
+  Store.getAll((err, data) => {
     if (err)
       res.status(500).send({
         message: err.message
@@ -45,7 +45,7 @@ function getAllStores(req, res, next) {
 }
 
 function getStoreByUserId(req, res, next) {
-  Store.findById((err, data) => {
+  Store.findById(req.params.userID, (err, data) => {
     if (err)
       res.status(404).send({
         message: "User has no store"
