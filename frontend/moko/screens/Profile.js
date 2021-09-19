@@ -10,26 +10,115 @@ import {
   Image,
   TextInput
 } from 'react-native';
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 function Profile({ navigation }) {
   const { height } = Dimensions.get('window');
   
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
-        <Text style={styles.name}>Profile</Text>   
+        <Text style={styles.name}>Profile</Text>
+        
+        <View style = {{flexDirection: 'column', marginLeft: 20}}>
+          <Text style = {styles.headerText}>Account</Text>
+
+          <TouchableOpacity style = {styles.profileOption}>
+              <MaterialCommunityIcons name="account" color='#575757' size={40} style= {{width: 100}}/>
+              <Text style = {styles.optionsText}>Edit Profile</Text>
+              <MaterialCommunityIcons name="chevron-right" color='#575757' size={35}/>
+          </TouchableOpacity> 
+
+          <TouchableOpacity style = {styles.profileOption}>
+              <MaterialCommunityIcons name="key" color='#575757' size={40} style= {{width: 100}}/>
+              <Text style = {styles.optionsText}>ChangePassword</Text>
+              <MaterialCommunityIcons name="chevron-right" color='#575757' size={35}/>
+          </TouchableOpacity> 
+        </View>   
+
+        <View style = {{flexDirection: 'column', marginLeft: 20}}>
+          <Text style = {styles.headerText}>General</Text>
+
+          <TouchableOpacity style = {styles.profileOption}>
+              <MaterialCommunityIcons name="basket" color='#575757' size={40} style= {{width: 100}}/>
+              <Text style = {styles.optionsText}>Orders</Text>
+              <MaterialCommunityIcons name="chevron-right" color='#575757' size={35}/>
+          </TouchableOpacity> 
+
+          <TouchableOpacity style = {styles.profileOption}>
+              <MaterialCommunityIcons name="heart" color='#575757' size={40} style= {{width: 100}}/>
+              <Text style = {styles.optionsText}>Favorites</Text>
+              <MaterialCommunityIcons name="chevron-right" color='#575757' size={35}/>
+          </TouchableOpacity> 
+
+          <TouchableOpacity style = {styles.profileOption}>
+              <MaterialCommunityIcons name="map-marker" color='#575757' size={40} style= {{width: 100}}/>
+              <Text style = {styles.optionsText}>My Addresses</Text>
+              <MaterialCommunityIcons name="chevron-right" color='#575757' size={35}/>
+          </TouchableOpacity> 
+        </View> 
+
+        <View style = {{flexDirection: 'column', marginLeft: 20}}>
+          <Text style = {styles.headerText}>My Store</Text>
+
+          <TouchableOpacity style = {styles.profileOption}>
+              <MaterialCommunityIcons name="clipboard-check" color='#575757' size={40} style= {{width: 100}}/>
+              <Text style = {styles.optionsText}>Manage Sales</Text>
+              <MaterialCommunityIcons name="chevron-right" color='#575757' size={35}/>
+          </TouchableOpacity> 
+
+          <TouchableOpacity style = {styles.profileOption}>
+              <MaterialCommunityIcons name="cog" color='#575757' size={40} style= {{width: 100}}/>
+              <Text style = {styles.optionsText}>Store Settings</Text>
+              <MaterialCommunityIcons name="chevron-right" color='#575757' size={35}/>
+          </TouchableOpacity> 
+        </View> 
+
+        <TouchableOpacity style = {styles.logout} onPress={() => navigation.navigate('Login')}> 
+          <MaterialCommunityIcons name="logout-variant" color='#575757' size={35} style= {{marginLeft: 10}}/>
+          <Text style = {styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
     name: {
-        marginTop: 20,
-        marginLeft: 40,
-        marginHorizontal: 10,
-        fontFamily: 'Inter-Regular',
-        fontSize: 35
-      }
+      marginTop: 20,
+      marginLeft: 40,
+      marginHorizontal: 10,
+      fontFamily: 'Inter-Regular',
+      fontSize: 30,
+      fontWeight: 'bold'
+      }, 
+    headerText:{
+      fontSize: 20, 
+      fontWeight: 'bold',
+      color: '#4C6D41', 
+      marginTop: 30, 
+    },
+    profileOption: {
+      flexDirection: 'row', 
+      marginLeft: 30, 
+      height: 40, 
+      marginTop: 20
+    }, 
+    optionsText: {
+      fontSize: 20, 
+      width: 250, 
+      marginTop: 5
+    },
+    logout: {
+      flexDirection: 'row',
+      alignItems: 'center', 
+      marginTop: 50,
+      justifyContent: 'space-around'
+    }, 
+    logoutText:{
+      fontSize: 20,
+      marginLeft: -350, 
+      marginTop: -5
+    }
 });
 
 export default Profile;

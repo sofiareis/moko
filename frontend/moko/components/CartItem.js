@@ -17,6 +17,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 //itemName, description, price, imageURL, qty
 export default function CartItem(props) {
    let cartItem = props.cartItem;
+   let checkout = props.checkout;
    console.log(cartItem);
    const [qty, setQty] = useState(cartItem.qty);
 
@@ -40,7 +41,12 @@ export default function CartItem(props) {
                     <Text style = {styles.itemPrice}>{cartItem.price}</Text>
                 </View>
 
-                <View style = {{flexDirection: 'row', marginLeft: -30}}>
+                {checkout ?
+                  <View style = {{width: 38, height: 40, backgroundColor: '#87B676', borderRadius: 8, alignItems: 'center', justifyContent: 'center'}}>
+                      <Text style ={{fontSize: 25, color: 'white'}}>{qty}</Text>
+                  </View>
+                  :
+                  <View style = {{flexDirection: 'row', marginLeft: -20}}>
                     <TouchableOpacity style={styles.button1} onPress={() => incrementVal()}  >
                         <MaterialCommunityIcons name="plus" color={'#4C6D41'} size={25} style={{marginLeft: -7}}/>
                     </TouchableOpacity>
@@ -49,11 +55,11 @@ export default function CartItem(props) {
                         <MaterialCommunityIcons name="minus" color={'#4C6D41'} size={25} style={{marginLeft: 7}}/>
                     </TouchableOpacity>
 
-                    <View style = {{width: 38, height: 40, backgroundColor: '#87B676', marginLeft: -68}}>
-                        <Text style = {{fontSize: 25, color: 'white', marginTop: 2, alignSelf: 'center'}}>{qty}</Text>
+                    <View style = {{width: 37, height: 35, backgroundColor: '#87B676', marginLeft: -66}}>
+                        <Text style = {{fontSize: 25, color: 'white', alignSelf: 'center'}}>{qty}</Text>
                     </View>
-
-                </View>
+                  </View>
+                 }
             </View>
     );
 };
@@ -86,8 +92,8 @@ const styles = StyleSheet.create({
         width: 80
     },
     button1: {
-        height: 40,
-        width: 40,
+        height: 35,
+        width: 38,
         borderWidth: 1,
         borderColor: '#87B676',
         borderRadius: 10,
@@ -95,8 +101,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     button2: {
-        height: 40,
-        width: 40,
+        height: 35,
+        width: 38,
         borderWidth: 1,
         borderColor: '#87B676',
         borderRadius: 10,
