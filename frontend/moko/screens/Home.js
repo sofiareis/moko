@@ -131,11 +131,20 @@ function HomeScreen({ navigation }) {
     setColorChange(temp);
   }
 
+  function pickImage(name){
+      if (name == 'Sweet Stand'){
+        return require('../images/cake.jpg');
+      }else{
+          return require('../images/veggie.jpg');
+      }
+  }
+
   return (
     <View style = {{backgroundColor: '#FFFFFF', height: height}}>
 
     <View style = {{flexDirection: 'row'}}>
-        <Image style = {styles.name} source={require('../images/Logo_Final.png')} />
+        
+        <Image style = {styles.name} source={require('../images/Logo_Final.png')}/>
         <MaterialCommunityIcons name="map-marker" color= '#575757' size= {32} style={styles.locationIcon}/>
         <Text style ={styles.locationText}>Radius:</Text>
         <TextInput
@@ -180,8 +189,8 @@ function HomeScreen({ navigation }) {
               <TouchableOpacity onPress={() => navigation.navigate('StoreFront', { storeName: item.name, desc: item.description, storeID: item.storeID })}>
                 <View style = {styles.vendorRectangle}>
                     <Text style = {styles.vendorName}>{item.name}</Text>
-                    <View style = {{flexDirection: 'row', marginTop: 10}}>
-                        <Image style = {styles.image} source={require('../images/peppers.png')} />
+                    <View style = {{flexDirection: 'row'}}>
+                        <Image style = {styles.image} source={pickImage(item.name)} />
                         <Text style = {styles.vendorDescription}>{item.description}</Text>
                     </View>
                 </View>
@@ -316,10 +325,11 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 100,
-        height: 70,
-        alignSelf: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
+        height: 80,
+        //alignSelf: 'center',
+        //alignItems: 'center',
+        //alignContent: 'center',
+        //marginBottom: 30
     }
 
 });
