@@ -56,8 +56,8 @@ function Store({ navigation }) {
     {
       storeItemID: 3,
       storeID: 1,
-      name: "Tomato",
-      description: "A very fresh tomato",
+      name: "Eggs",
+      description: "Organic Eggs",
       stockQty: 10,
       price: 1.99,
       imageUrl: "",
@@ -66,8 +66,8 @@ function Store({ navigation }) {
     {
       storeItemID: 4,
       storeID: 1,
-      name: "Tomato",
-      description: "A very fresh tomato",
+      name: "Coffee",
+      description: "Freshly roasted coffee",
       stockQty: 10,
       price: 1.99,
       imageUrl: "",
@@ -76,8 +76,8 @@ function Store({ navigation }) {
     {
       storeItemID: 5,
       storeID: 1,
-      name: "Tomato",
-      description: "A very fresh tomato",
+      name: "Cake",
+      description: "Sweet chocolate cake",
       stockQty: 10,
       price: 1.99,
       imageUrl: "",
@@ -112,13 +112,13 @@ function Store({ navigation }) {
         <TouchableOpacity style={styles.dotBtn} onPress={() => navigation.navigate('UserStack')}>
             <Text style={styles.dotBtnText}>+ Add Product</Text>
         </TouchableOpacity>
-        <FlatList style={{marginBottom: 100}}
+        <FlatList
           data={storeItems}
           extraData={storeItems}
           numColumns={2}
           keyExtractor={item => item.storeItemID}
           renderItem={({ item }) => (
-            <StoreItemComponent storeItem={item} edit={true} location='StoreItem' navigation={navigation} />
+            <StoreItemComponent storeItem={item} storeItemName={item.name} edit={true} location='StoreItem' navigation={navigation} />
           )}
         >
         </FlatList>
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
         height: 250
     },
     text1: {
-        marginTop: 40,
+        marginTop: 20,
         fontSize: 30,
         fontFamily: 'Inter-Bold',
         alignSelf: 'center'
@@ -213,7 +213,6 @@ const styles = StyleSheet.create({
       tag: {
         marginTop: 20,
         fontSize: 25,
-
         color: '#4C6D41',
         fontWeight: 'bold'
       },
