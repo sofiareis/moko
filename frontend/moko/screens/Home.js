@@ -98,12 +98,9 @@ function HomeScreen({ navigation }) {
   }
 
   function updateRadiusSearch(radius) {
-    fetch('http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores/radius', {
-        method: 'GET',
-        body: JSON.stringify({
-          address: user.address,
-          radius: radius
-        })
+    let radiusUrl = encodeURIComponent(user.address);
+    fetch(`http://ec2-13-57-28-56.us-west-1.compute.amazonaws.com:3000/stores/${radius}/${radiusUrl}`, {
+        method: 'GET'
     })
     .then(response => response.json())
     .then(responseJson => {
@@ -118,7 +115,8 @@ function HomeScreen({ navigation }) {
           item.name.toLowerCase().includes(search.toLowerCase()))
           );
       });
-    });
+    })
+    .catch(error => console.error(error));
   }
 
   function changeColor(index) {
