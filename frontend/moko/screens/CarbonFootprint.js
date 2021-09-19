@@ -46,7 +46,7 @@ function Footprint({ navigation }) {
           </View>
 
           <View style={{marginBottom: 40}}>
-          <Text style={styles.action}>The impact of imported foods</Text>
+          <Text style={styles.action}>THE IMPACT OF IMPORTED FOODS</Text>
           <Text style={styles.info}>Checkout how the Carbon Dioxide emissions diverge between local and imported foods</Text>
             <HorizontalBarGraph
             data={[14.9, 840, 23, 974, 43, 409]}
@@ -86,8 +86,6 @@ const config = {
   }
 };
 
-
-
 const styles = StyleSheet.create({
     name: {
         marginTop: 20,
@@ -99,12 +97,13 @@ const styles = StyleSheet.create({
       },
       action: {
         marginTop: 40,
-        marginLeft: 40,
+        //marginLeft: 40,
         marginHorizontal: 10,
         fontFamily: 'Inter-Regular',
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 20
+        marginBottom: 20,
+        alignSelf: 'center'
       },
       chart: {
         marginBottom: 30,
@@ -134,6 +133,7 @@ const styles = StyleSheet.create({
         //alignSelf: 'center',
         //alignContent: 'center',
       },
+
 });
 
 export default Footprint;
