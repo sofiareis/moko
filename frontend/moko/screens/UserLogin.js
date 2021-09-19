@@ -1,4 +1,4 @@
-  
+
 import React, { useState } from 'react';
 import {
   SafeAreaView,
@@ -28,13 +28,13 @@ function LoginScreen({ navigation }) {
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={false}
     >
-    <View style = {{backgroundColor: '#FFFFFF', height: height}}>
-     
+    <View style = {{backgroundColor: '#FFFFFF', height: height, alignItems: 'center', justifyContent: 'flex-start'}}>
+
     <View style = {{flexDirection: 'row', alignSelf: 'center', }}>
           <Image style = {styles.icons} source={require('../images/Logo_Final.png')} />
     </View>
-   
-    <Text style={styles.name}>A sustainable and delicious option</Text>
+
+    <Text style={styles.name}>a sustainable and delicious option</Text>
 
     <View style={styles.inputView}>
     <Ionicons name="person-outline" color='#000' size={20} style={{marginLeft: 10, marginTop: 10}}/>
@@ -71,19 +71,19 @@ function LoginScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   icons: {
-    marginTop: 120,
     marginHorizontal: 10,
     height: 100,
     width: 330,
-    marginBottom: 30
+    marginTop: 100
   },
   name: {
-    marginTop: 20,
+    marginTop: 15,
     marginHorizontal: 10,
     alignSelf: 'center',
     fontFamily: 'Inter-Light',
     fontSize: 20,
     marginBottom: 70,
+    fontWeight: 'bold'
   },
   inputView: {
     backgroundColor: "#fff",
@@ -100,42 +100,33 @@ const styles = StyleSheet.create({
     height: 48,
     flex: 1,
     color: 'black',
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: "Inter-Light",
     marginLeft: 10,
   },
   loginBtn:{
     height: 45,
-    alignItems:"center",
-    justifyContent:"center",
-    marginTop:15,
-    backgroundColor:"#87B676",
     width: "70%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor:"#87B676",
     borderRadius:15,
-    alignSelf: 'center',
     marginBottom: 10,
+    marginTop: 20
   },
   loginText: {
-    height: 50,
-    flex: 1,
-    padding: 5,
-    alignSelf: 'center',
-    alignItems: "center",
-    justifyContent: 'center',
+    textAlign: 'center',
     color: 'white',
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: 'Inter-Light',
-    
   },
   signUpBtn:{
     height: 45,
-    alignItems:"center",
-    justifyContent:"center",
-    marginTop:15,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor:"#87B676",
     width: "70%",
     borderRadius:15,
-    alignSelf: 'center',
     marginBottom: 10,
   }
 });
