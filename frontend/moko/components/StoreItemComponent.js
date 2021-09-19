@@ -19,9 +19,11 @@ function StoreItemComponent(props) {
   let navigation = props.navigation;
   let storeItem = props.storeItem;
   let storeItemName = props.storeItemName;
+  let storeItemImage = props.itemImage;
   let edit = props.edit;
   let location = props.location;
   const [quantity, setQuantity] = useState(storeItem.stockQty);
+
 
   function incrementVal() {
     setQuantity(prevQty => prevQty + 1);
@@ -36,11 +38,12 @@ function StoreItemComponent(props) {
   return(
     <View style={styles.component}>
        <View style={styles.mainContentBox}>
-        <Image style={styles.itemImage} source={require('../images/Logo.png')} />
+        <Image style={styles.itemImage} source={storeItemImage} />
+ 
       </View>
 
       {edit ?
-          <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate(location, { storeItemName })}>
+          <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate(location, { storeItemName, storeItemImage })}>
             <Feather name="edit-2" color={'#FFFFFF'} size={25} />
           </TouchableOpacity>
           :
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
     height: 215,
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 15
+    marginTop: 30
   },
   mainContentBox: {
     width: 110,

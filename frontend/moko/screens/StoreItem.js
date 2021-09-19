@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 function StoreItem({ navigation, route }) {
   const { height } = Dimensions.get('window');
@@ -21,14 +23,19 @@ function StoreItem({ navigation, route }) {
   const [text, onChangeText] = React.useState("add a description");
 
   const {storeItemName} = route.params;
+  const {storeItemImage} = route.params;
 
     return (
+        <KeyboardAwareScrollView
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={false}
+    >
       <View style = {{backgroundColor: '#FFFFFF', height: height}}>
         <View style = {{flexDirection: 'row'}}> 
             <Text style={styles.name}>{storeItemName}</Text>     
         </View> 
         <View style = {{flexDirection: 'column'}}>
-            <Image style = {styles.image} source={require('../images/peppers.png')}/> 
+            <Image style = {styles.image} source={storeItemImage}/> 
            
             <View style = {{flexDirection: 'row', justifyContent: 'flex-start', marginLeft: 30}}> 
                 <Text style = {styles.text1}>Qty:</Text>
@@ -71,6 +78,7 @@ function StoreItem({ navigation, route }) {
            
         </View>
       </View>
+      </KeyboardAwareScrollView>
     );
 }
 
