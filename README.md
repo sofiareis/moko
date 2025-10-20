@@ -1,5 +1,5 @@
 # Moko 
-A mobile app that aims to promote sustainable development by encouraging eating local and fresh produce.
+A mobile app that aims to promote sustainable development by connecting producers directly to consumers.
 
 Submitted to Pinnacle Hackathon 2021
 
